@@ -19,12 +19,8 @@ export class AdministradorService {
     return this.http.get<Administrador>(`${environment.url_ms_funeraria}/administradores/${id}`);
   }
 
-  create(administrador:Administrador): Observable<Administrador>{
-    return this.http.post<Administrador>(`${environment.url_ms_funeraria}/administradores`, administrador);
-  }
-
-  read(id:number): Observable<Administrador>{
-    return this.http.get<Administrador>(`${environment.url_ms_funeraria}/administradores/${id}`);
+  create(newAdministrador:Administrador): Observable<Administrador>{
+    return this.http.post<Administrador>(`${environment.url_ms_funeraria}/administradores`, newAdministrador);
   }
 
   update(administrador:Administrador): Observable<Administrador>{

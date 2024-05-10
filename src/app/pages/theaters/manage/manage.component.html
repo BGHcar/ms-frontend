@@ -58,10 +58,12 @@
 
                 </div>
                 <div class="col-8">
-                  <button *ngIf="mode == 2" type="button" click="create()" class="btn btn-primary btn-block"
-                    type="button">Crear</button>
-                  <button *ngIf="mode == 3" type="button" click="update()" class="btn btn-primary btn-block"
-                    (click)="update()">actualizar</button>
+                  <button *ngIf="mode == 2" type="button" (click)="create()" class="btn btn-primary btn-block">
+                    Crear
+                  </button>
+                  <button *ngIf="mode == 3" type="button" (click)="update()" class="btn btn-primary btn-block">
+                    actualizar
+                  </button>
                 </div>
               </div>
             </form>

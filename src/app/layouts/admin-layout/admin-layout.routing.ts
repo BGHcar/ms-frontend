@@ -35,5 +35,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'login2',
         loadChildren : () => import('src/app/pages/login2/login2.module').then(m => m.Login2Module)
-    }
+    },
+    {
+        path : 'administradores',
+        loadChildren : () => import('src/app/pages/administradores/administradores.module').then(m => m.AdministradoresModule)
+    },
 ];

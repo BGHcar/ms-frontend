@@ -1,0 +1,87 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 2">Crear</h1>
+                    <h1 *ngIf="mode == 3">actualizar</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row" *ngIf="mode==3 || mode==1">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="administrador.id" formControlName="id" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Nombre:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="administrador.name" [disabled]="mode==1"
+                                        formControlName="name">
+                                    <div
+                                        *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.name.errors.maxlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Email:
+                                </div>
+                                <div class="col-8">
+                                    <input type="email" class="form-control" [(ngModel)]="administrador.email" [disabled]="mode==1"
+                                        formControlName="email">
+                                    <div
+                                        *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.email" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Edad:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="administrador.age" [disabled]="mode==1"
+                                        formControlName="age">
+                                    <div
+                                        *ngIf="getTheFormGroup.age.errors && (getTheFormGroup.age.dirty || getTheFormGroup.age.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.age.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.age.errors.min" class="msnError">Valor minimo 1</strong>
+                                        <strong *ngIf="getTheFormGroup.age.errors.max" class="msnError">Valor maximo 100</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" type="button" (click)="create()" class="btn btn-primary btn-block">
+                                        Crear
+                                    </button>
+                                    <button *ngIf="mode==3" type="button" (click)="update()" class="btn btn-primary btn-block">
+                                        actualizar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
