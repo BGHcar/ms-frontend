@@ -4,6 +4,8 @@ export class Conductor {
     apellido:string;
     cedula:string;
     telefono:string;
-    usuario_id?:number;
+    email:string;
+    password?:string;
+    user_id?:string;
     
 }

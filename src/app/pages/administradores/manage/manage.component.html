@@ -68,6 +68,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
+                                   Password:
+                                </div>
+                                <div class="col-8">
+                                    <input type="password" class="form-control" [(ngModel)]="administrador.password" [disabled]="mode==1"
+                                        formControlName="password">
+                                    <div
+                                        *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.password.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.maxlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
                                 </div>
                                 <div class="col-8">
                                     <button *ngIf="mode==2" type="button" (click)="create()" class="btn btn-primary btn-block">

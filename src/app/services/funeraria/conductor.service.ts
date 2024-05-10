@@ -34,4 +34,8 @@ export class ConductorService {
   delete(id:number):Observable<Conductor>{
     return this.http.delete<Conductor>(`${environment.url_ms_funeraria}/conductores/${id}`);
   }
+
+  security(name:string, email:string, password:string):Observable<Conductor>{
+    return this.http.post<Conductor>(`${environment.url_ms_security}/users/public`, {name, email, password});
+  }
 }

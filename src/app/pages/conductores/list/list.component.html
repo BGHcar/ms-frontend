@@ -7,7 +7,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Administradores
+                    <h3 class="mb-0">Conductores
                         <!-- Boton de crear al lado derecho -->
                         <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
                     </h3>
@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let actual of administradores">
+                            <tr *ngFor="let actual of conductores">
                                 <td>{{actual.id}}</td>
                                 <td>{{actual.name}}</td>
                                 <td>{{actual.email}}</td>
@@ -33,10 +33,8 @@
                                 <td>{{actual.user_id}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
-                                    <button type="button" class="btn btn-primary"
-                                        (click)="update(actual.id)">Editar</button>
-                                    <button type="button" class="btn btn-danger"
-                                        (click)="delete(actual.id)">Eliminar</button>
+                                    <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -45,4 +43,3 @@
             </div>
         </div>
     </div>
-</div>

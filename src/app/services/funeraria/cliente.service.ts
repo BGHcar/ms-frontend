@@ -34,4 +34,8 @@ export class ClienteService {
   delete(id:number):Observable<Cliente>{
     return this.http.delete<Cliente>(`${environment.url_ms_funeraria}/clientes/${id}`);
   }
+
+  security(name:string, email:string, password:string):Observable<Cliente>{
+    return this.http.post<Cliente>(`${environment.url_ms_security}/users/public`, {name, email, password});
+  }
 }

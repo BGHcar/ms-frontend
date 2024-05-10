@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Administrador } from 'src/app/models/funeraria/administrador.model';
-import { AdministradorService } from 'src/app/services/funeraria/administrador.service';
+import { Conductor } from 'src/app/models/funeraria/conductor.model';
+import { ConductorService } from 'src/app/services/funeraria/conductor.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,19 +14,19 @@ export class ManageComponent implements OnInit {
 
   mode: number;
 
-  administrador: Administrador;
+  conductor: Conductor;
   theFormGroup: FormGroup;
   trySend: boolean;
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private service: AdministradorService,
-    private router: Router,
-    private theFormBuilder: FormBuilder
+    private service: ConductorService,
+    private theFormBuilder: FormBuilder,
+    private router: Router
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.administrador = { id: 0, name: '', email: '', age: 0, password: '', user_id: ''}
+    this.conductor = { id: 0, nombre: '', apellido: '', cedula: '', telefono: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -45,30 +45,32 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.administrador.id = this.activateRoute.snapshot.params.id;
-      this.getAdministrador(this.administrador.id);
+      this.conductor.id = this.activateRoute.snapshot.params.id;
+      this.getConductor(this.conductor.id);
     }
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      apellido: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      cedula: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
+      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
-      age: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       user_id: ['']
-    })
+    });
+  }
+
+  getConductor(id: number) {
+    this.service.view(id).subscribe(data => {
+      this.conductor = data;
+    });
   }
 
   get getTheFormGroup() {
-    return this.theFormGroup.controls
-  }
-
-  getAdministrador(id: number) {
-    this.service.view(id).subscribe(data => {
-      this.administrador = data
-    });
+    return this.theFormGroup.controls;
   }
 
   create() {
@@ -76,15 +78,15 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire('Error', 'Por favor llene los campos requeridos', 'error');
     } else {
-      this.service.security(this.administrador.name, this.administrador.email, this.administrador.password).subscribe(data => {
-        this.administrador.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.service.create(this.administrador).subscribe(data => {
+      this.service.security(this.conductor.nombre, this.conductor.email, this.conductor.password).subscribe(data => {
+        this.conductor.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.service.create(this.conductor).subscribe(data => {
           Swal.fire(
-            'Creado!',
-            'El administrador ha sido creado correctamente',
+            'Creado',
+            'El conductor ha sido creado correctamente',
             'success'
           )
-          this.router.navigate(['administradores/list']);
+          this.router.navigate(['conductores/list']);
         });
       });
     }
@@ -96,15 +98,15 @@ export class ManageComponent implements OnInit {
       Swal.fire('Error', 'Por favor llene los campos requeridos', 'error');
     } else {
       this.activateRoute.snapshot.params.id;
-      this.administrador.id = this.activateRoute.snapshot.params.id;
-      this.getAdministrador(this.administrador.id);
-      this.service.update(this.administrador).subscribe(data => {
+      this.conductor.id = this.activateRoute.snapshot.params.id;
+      this.getConductor(this.conductor.id);
+      this.service.update(this.conductor).subscribe(data => {
         Swal.fire(
           'Actualizado!',
-          'El administrador ha sido actualizado correctamente',
+          'El conductor ha sido actualizado correctamente',
           'success'
-        )
-        this.router.navigate(['administradores/list']);
+        );
+        this.router.navigate(['conductores/list']);
       });
     }
   }
