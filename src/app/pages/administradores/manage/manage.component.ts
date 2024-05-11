@@ -78,6 +78,7 @@ export class ManageComponent implements OnInit {
     } else {
       this.service.security(this.administrador.name, this.administrador.email, this.administrador.password).subscribe(data => {
         this.administrador.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.administrador.password = JSON.parse(JSON.stringify(data)).password;
         this.service.create(this.administrador).subscribe(data => {
           Swal.fire(
             'Creado!',

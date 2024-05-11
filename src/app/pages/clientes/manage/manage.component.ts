@@ -74,30 +74,40 @@ export class ManageComponent implements OnInit {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       return;
+    } else {
+      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.cliente.password = JSON.parse(JSON.stringify(data)).password;
+        this.service.create(this.cliente).subscribe(data => {
+
+          Swal.fire(
+            'Creado',
+            'El cliente ha sido creado',
+            'success'
+          );
+          this.router.navigate(['clientes/list']);
+        });
+      });
     }
-    this.service.create(this.cliente).subscribe(data => {
-      Swal.fire(
-        'Creado',
-        'El cliente ha sido creado',
-        'success'
-      );
-      this.router.navigate(['clientes/list']);
-    });
   }
+
 
   update() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       return;
+    } else {
+      this.activateRoute.snapshot.params.id;
+      this.cliente.id = this.activateRoute.snapshot.params.id;
+      this.getCliente(this.cliente.id);
+      this.service.update(this.cliente).subscribe(data => {
+        Swal.fire(
+          'Actualizado',
+          'El cliente ha sido actualizado',
+          'success'
+        );
+        this.router.navigate(['clientes/list']);
+      });
     }
-    this.service.update(this.cliente).subscribe(data => {
-      Swal.fire(
-        'Actualizado',
-        'El cliente ha sido actualizado',
-        'success'
-      );
-      this.router.navigate(['clientes/list']);
-    });
   }
-
 }
