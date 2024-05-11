@@ -18,8 +18,8 @@
                             <tr>
                                 <th scope="col-1">ID</th>
                                 <th scope="col-2">Nombre</th>
-                                <th scope="col-3">Email</th>
-                                <th scope="col-4">Edad</th>
+                                <th scope="col-3">Apellido</th>
+                                <th scope="col-4">Cedula</th>
                                 <th scope="col-5">Usuario_id</th>
                                 <th scope="col-6">Opciones</th>
                             </tr>
@@ -27,9 +27,9 @@
                         <tbody>
                             <tr *ngFor="let actual of conductores">
                                 <td>{{actual.id}}</td>
-                                <td>{{actual.name}}</td>
-                                <td>{{actual.email}}</td>
-                                <td>{{actual.age}}</td>
+                                <td>{{actual.nombre}}</td>
+                                <td>{{actual.apellido}}</td>
+                                <td>{{actual.cedula}}</td>
                                 <td>{{actual.user_id}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
