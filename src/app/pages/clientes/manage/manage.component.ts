@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', telefono: '', email: '', password: '', user_id: '' }
+    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0 , telefono: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -55,6 +55,7 @@ export class ManageComponent implements OnInit {
       cedula: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
+      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       user_id: ['']
     });
@@ -77,7 +78,6 @@ export class ManageComponent implements OnInit {
     } else {
       this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
         this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.cliente.password = JSON.parse(JSON.stringify(data)).password;
         this.service.create(this.cliente).subscribe(data => {
 
           Swal.fire(

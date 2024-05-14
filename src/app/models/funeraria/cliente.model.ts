@@ -7,6 +7,7 @@ export class Cliente {
     apellido: string
     cedula: string
     telefono: string
+    edad: number
     email: string
     password?: string
     user_id?: string

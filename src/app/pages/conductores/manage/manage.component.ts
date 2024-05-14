@@ -80,7 +80,6 @@ export class ManageComponent implements OnInit {
     } else {
       this.service.security(this.conductor.nombre, this.conductor.email, this.conductor.password).subscribe(data => {
         this.conductor.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.conductor.password = JSON.parse(JSON.stringify(data)).password;
         this.service.create(this.conductor).subscribe(data => {
           Swal.fire(
             'Creado',
