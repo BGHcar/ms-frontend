@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -21,6 +22,10 @@ export class BeneficiarioService {
 
   create(beneficiario:Beneficiario):Observable<Beneficiario>{
     return this.http.post<Beneficiario>(`${environment.url_ms_funeraria}/beneficiarios`, beneficiario);
+  }
+  
+  createCliente(cliente: Cliente): Observable<Cliente>{
+    return this.http.post<Cliente>("http://localhost:4200/#/clientes/create", cliente);
   }
 
   read(id:number):Observable<Beneficiario>{

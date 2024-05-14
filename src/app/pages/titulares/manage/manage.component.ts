@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cliente } from 'src/app/models/funeraria/cliente.model';
-import { ClienteService } from 'src/app/services/funeraria/cliente.service';
+import { Titular } from 'src/app/models/funeraria/titular.model';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
 
 @Component({
   selector: 'app-manage',
@@ -15,18 +16,20 @@ export class ManageComponent implements OnInit {
   mode: number;
 
   cliente: Cliente;
+  titular: Titular;
   theFormGroup: FormGroup;
   trySend: boolean;
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private service: ClienteService,
+    private service: TitularService,
     private theFormBuilder: FormBuilder,
     private router: Router
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0 , telefono: '', email: '', password: '', user_id: '' }
+    this.titular = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: 0 }
+    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -42,8 +45,8 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {
-      this.cliente.id = this.activateRoute.snapshot.params.id;
-      this.getCliente(this.cliente.id);
+      this.titular.id = this.activateRoute.snapshot.params.id;
+      this.getTitular(this.titular.id);
     }
   }
 
@@ -55,9 +58,9 @@ export class ManageComponent implements OnInit {
       cedula: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
       telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
-      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
+      edad: [0, [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      user_id: ['']
+      user_id: [0]
     });
   }
 
@@ -65,9 +68,9 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
 
-  getCliente(id: number) {
+  getTitular(id: number) {
     this.service.view(id).subscribe(data => {
-      this.cliente = data;
+      this.titular = data;
     });
   }
 
@@ -76,19 +79,27 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       return;
     } else {
-      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
-        console.log(data);
-        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.service.create(this.cliente).subscribe(data => {
+        // cliente va a ser igual a titular
+        this.cliente.apellido = this.titular.apellido;
+        this.cliente.cedula = this.titular.cedula;
+        this.cliente.edad = this.titular.edad;
+        this.cliente.email = this.titular.email;
+        this.cliente.nombre = this.titular.nombre;
+        this.cliente.password = this.titular.password;
+        this.cliente.telefono = this.titular.telefono;
 
-          Swal.fire(
-            'Creado',
-            'El cliente ha sido creado',
-            'success'
-          );
-          this.router.navigate(['clientes/list']);
+        this.service.createCliente(this.cliente).subscribe(data => {
+          console.log(data);
+          this.titular.user_id = data.id;
+          this.service.create(this.titular).subscribe(data => {
+            Swal.fire(
+              'Creado!',
+              'El titular ha sido creado.',
+              'success'
+            );
+            this.router.navigate(['titulares/list']);
+          });
         });
-      });
     }
   }
 
@@ -97,18 +108,14 @@ export class ManageComponent implements OnInit {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       return;
-    } else {
-      this.activateRoute.snapshot.params.id;
-      this.cliente.id = this.activateRoute.snapshot.params.id;
-      this.getCliente(this.cliente.id);
-      this.service.update(this.cliente).subscribe(data => {
-        Swal.fire(
-          'Actualizado',
-          'El cliente ha sido actualizado',
-          'success'
-        );
-        this.router.navigate(['clientes/list']);
-      });
     }
+    this.service.update(this.titular).subscribe(data => {
+      Swal.fire(
+        'Actualizado!',
+        'El titular ha sido actualizado.',
+        'success'
+      );
+      this.router.navigate(['titulares/list']);
+    });
   }
 }

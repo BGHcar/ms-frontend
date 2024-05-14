@@ -19,7 +19,7 @@
                                     Id:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.id" formControlName="id" disabled>
+                                    <input type="text" class="form-control" [(ngModel)]="titular.id" formControlName="id" disabled>
                                 </div>
                             </div>
                             <div class="row">
@@ -27,7 +27,7 @@
                                     Nombre:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.nombre" [disabled]="mode == 1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.nombre" [disabled]="mode == 1"
                                         formControlName="nombre">
                                     <div
                                         *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
@@ -42,7 +42,7 @@
                                     Apellido:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.apellido" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.apellido" [disabled]="mode==1"
                                         formControlName="apellido">
                                     <div
                                         *ngIf="getTheFormGroup.apellido.errors && (getTheFormGroup.apellido.dirty || getTheFormGroup.apellido.touched || trySend)">
@@ -57,7 +57,7 @@
                                     Cedula:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.cedula" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.cedula" [disabled]="mode==1"
                                         formControlName="cedula">
                                     <div
                                         *ngIf="getTheFormGroup.cedula.errors && (getTheFormGroup.cedula.dirty || getTheFormGroup.cedula.touched || trySend)">
@@ -72,7 +72,7 @@
                                     Telefono:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.telefono" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.telefono" [disabled]="mode==1"
                                         formControlName="telefono">
                                     <div
                                         *ngIf="getTheFormGroup.telefono.errors && (getTheFormGroup.telefono.dirty || getTheFormGroup.telefono.touched || trySend)">
@@ -87,13 +87,13 @@
                                     Edad:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="cliente.edad" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.edad" [disabled]="mode==1"
                                         formControlName="edad">
                                     <div
                                         *ngIf="getTheFormGroup.edad.errors && (getTheFormGroup.edad.dirty || getTheFormGroup.edad.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.edad.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.min" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.max" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.maxlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -102,26 +102,28 @@
                                     Email:
                                 </div>
                                 <div class="col-8">
-                                    <input type="email" class="form-control" [(ngModel)]="cliente.email" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.email" [disabled]="mode==1"
                                         formControlName="email">
                                     <div
                                         *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.email.errors.email" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.maxlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="mode != 1">
+                            <div class="row">
                                 <div class="col-4">
                                     Password:
                                 </div>
                                 <div class="col-8">
-                                    <input type="password" class="form-control" [(ngModel)]="cliente.password" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="titular.password" [disabled]="mode==1"
                                         formControlName="password">
                                     <div
                                         *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.password.errors.required" class="msnError">Requerido</strong>
                                         <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.maxlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -129,8 +131,8 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-8">
-                                    <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                                    <button *ngIf="mode==3" type="button" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                                    <button type="button" class="btn btn-primary btn-block" (click)="create()" *ngIf="mode==2">Crear</button>
+                                    <button type="button" class="btn btn-primary btn-block" (click)="update()" *ngIf="mode==3">Actualizar</button>
                                 </div>
                             </div>
                         </form>

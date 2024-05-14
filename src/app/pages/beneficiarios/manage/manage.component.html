@@ -1,0 +1,183 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 2">Crear</h1>
+                    <h1 *ngIf="mode == 3">actualizar</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row" *ngIf="mode==3 || mode==1">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.id"
+                                        formControlName="id" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Nombre:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.nombre"
+                                        [disabled]="mode == 1" formControlName="nombre">
+                                    <div
+                                        *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Apellido:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.apellido"
+                                        [disabled]="mode==1" formControlName="apellido">
+                                    <div
+                                        *ngIf="getTheFormGroup.apellido.errors && (getTheFormGroup.apellido.dirty || getTheFormGroup.apellido.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Cedula:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.cedula"
+                                        [disabled]="mode==1" formControlName="cedula">
+                                    <div
+                                        *ngIf="getTheFormGroup.cedula.errors && (getTheFormGroup.cedula.dirty || getTheFormGroup.cedula.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Telefono:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.telefono"
+                                        [disabled]="mode==1" formControlName="telefono">
+                                    <div
+                                        *ngIf="getTheFormGroup.telefono.errors && (getTheFormGroup.telefono.dirty || getTheFormGroup.telefono.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Edad:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.edad"
+                                        [disabled]="mode==1" formControlName="edad">
+                                    <div
+                                        *ngIf="getTheFormGroup.edad.errors && (getTheFormGroup.edad.dirty || getTheFormGroup.edad.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.edad.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Email:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.email"
+                                        [disabled]="mode==1" formControlName="email">
+                                    <div
+                                        *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.email.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Password:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.password"
+                                        [disabled]="mode==1" formControlName="password">
+                                    <div
+                                        *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.password.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Titular_id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.titular_id"
+                                        [disabled]="mode==1
+                                        " formControlName="titular_id">
+                                    <div *ngIf="getTheFormGroup.titular_id.errors && (getTheFormGroup.titular_id.dirty || getTheFormGroup.titular_id.touched || trySend)">
+                                        <strong *ngIf=" getTheFormGroup.titular_id.errors.required" 
+                                        class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8">
+                                    <button type="button" class="btn btn-primary btn-block" (click)="create()"
+                                        *ngIf="mode==2">Crear</button>
+                                    <button type="button" class="btn btn-primary btn-block" (click)="update()"
+                                        *ngIf="mode==3">Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

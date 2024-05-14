@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
+import { BeneficiarioService } from 'src/app/services/funeraria/beneficiario.service';
 import { Router } from '@angular/router';
-import { Administrador } from 'src/app/models/funeraria/administrador.model';
-import { AdministradorService } from 'src/app/services/funeraria/administrador.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,12 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  administradores: Administrador[];
-  theAdministrador: Administrador;
+  beneficiarios: Beneficiario[];
+  theBeneficiario: Beneficiario;
 
-
-  constructor(private service: AdministradorService, private router: Router) {
-    this.administradores = [];
+  constructor(
+    private service: BeneficiarioService,
+    private router: Router
+  ) {
+    this.beneficiarios = [];
   }
 
   ngOnInit(): void {
@@ -25,28 +27,28 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.list().subscribe(data => {
-      this.administradores = data["data"];
-      console.log(JSON.stringify(this.administradores));
+      this.beneficiarios = data["data"];
+      console.log(JSON.stringify(this.beneficiarios));
     });
   }
 
   view(id: number) {
     console.log("id: " + id);
-    this.router.navigate(['administradores/view/' + id]);
+    this.router.navigate(['beneficiarios/view/' + id]);
   }
 
   update(id: number) {
-    this.router.navigate(['administradores/update/' + id]);
+    this.router.navigate(['beneficiarios/update/' + id]);
   }
 
   create() {
-    this.router.navigate(['administradores/create']);
+    this.router.navigate(['beneficiarios/create']);
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Eliminar Administrador',
-      text: "Está seguro que quiere eliminar el administrador?",
+      title: 'Eliminar Beneficiario',
+      text: "Está seguro que quiere eliminar el beneficiario?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -59,12 +61,13 @@ export class ListComponent implements OnInit {
           subscribe(data => {
             Swal.fire(
               'Eliminado!',
-              'El administrador ha sido eliminada correctamente',
+              'El beneficiario ha sido eliminado.',
               'success'
-            )
+            );
             this.ngOnInit();
           });
       }
-    })
+    });
   }
+
 }

@@ -1,9 +1,14 @@
+import { Beneficiario } from "./beneficiario.model";
+
 export class Titular {
     id?:number;
     nombre:string;
     apellido:string;
     cedula:string;
     telefono:string;
-    cliente_id?:number;
-    usuario_id?:number;
+    edad:number;
+    email:string;
+    password?:string;
+    user_id?:number;
+    beneficiarios?:Beneficiario[];
 }
