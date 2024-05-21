@@ -7,6 +7,7 @@ export class Beneficiario {
     telefono: string;
     edad: number;
     email: string;
+    esta_vivo: boolean;
     password?: string;
     titular_id?: number;
     user_id?: number;

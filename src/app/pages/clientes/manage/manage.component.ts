@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
 import { Cliente } from 'src/app/models/funeraria/cliente.model';
+import { Titular } from 'src/app/models/funeraria/titular.model';
 import { ClienteService } from 'src/app/services/funeraria/cliente.service';
 import Swal from 'sweetalert2';
 
@@ -15,6 +17,8 @@ export class ManageComponent implements OnInit {
   mode: number;
 
   cliente: Cliente;
+  beneficiario: Beneficiario;
+  titular: Titular;
   theFormGroup: FormGroup;
   trySend: boolean;
 
@@ -26,7 +30,8 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0 , telefono: '', email: '', password: '', user_id: '' }
+    this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
+
   }
 
   ngOnInit(): void {
@@ -51,11 +56,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      apellido: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      cedula: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
-      telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
-      edad: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       user_id: ['']
     });
@@ -87,6 +88,41 @@ export class ManageComponent implements OnInit {
             'success'
           );
           this.router.navigate(['clientes/list']);
+        });
+      });
+    }
+  }
+
+  createTitular() {
+    this.trySend = true;
+    if (this.theFormGroup.invalid) {
+      return;
+    } else {
+      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.service.create(this.cliente).subscribe(data => {
+          this.titular.user_id = data.id;
+          this.titular.nombre = this.cliente.nombre;
+          this.titular.email = this.cliente.email;
+          this.titular.password = this.cliente.password;
+        });
+      });
+    }
+  }
+
+  createBeneficiario() {
+    this.trySend = true;
+    if (this.theFormGroup.invalid) {
+      return;
+    } else {
+      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.service.create(this.cliente).subscribe(data => {
+          this.beneficiario.user_id = data.id;
+          this.beneficiario.nombre = this.cliente.nombre;
+          this.beneficiario.email = this.cliente.email;
+          this.beneficiario.password = this.cliente.password;
+          this.beneficiario.titular_id = this.titular.id;
         });
       });
     }

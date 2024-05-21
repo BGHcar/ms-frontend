@@ -39,66 +39,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Apellido:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.apellido" [disabled]="mode==1"
-                                        formControlName="apellido">
-                                    <div
-                                        *ngIf="getTheFormGroup.apellido.errors && (getTheFormGroup.apellido.dirty || getTheFormGroup.apellido.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.maxlength" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Cedula:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.cedula" [disabled]="mode==1"
-                                        formControlName="cedula">
-                                    <div
-                                        *ngIf="getTheFormGroup.cedula.errors && (getTheFormGroup.cedula.dirty || getTheFormGroup.cedula.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.maxlength" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Telefono:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.telefono" [disabled]="mode==1"
-                                        formControlName="telefono">
-                                    <div
-                                        *ngIf="getTheFormGroup.telefono.errors && (getTheFormGroup.telefono.dirty || getTheFormGroup.telefono.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.maxlength" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Edad:
-                                </div>
-                                <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="cliente.edad" [disabled]="mode==1"
-                                        formControlName="edad">
-                                    <div
-                                        *ngIf="getTheFormGroup.edad.errors && (getTheFormGroup.edad.dirty || getTheFormGroup.edad.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.edad.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.min" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.max" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
                                     Email:
                                 </div>
                                 <div class="col-8">
