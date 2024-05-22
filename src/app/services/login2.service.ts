@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 interface SecondFactorRequest {
   id: string;
   token: string;
+  bearer: string;
 }
 
 @Injectable({

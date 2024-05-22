@@ -38,7 +38,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
 
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       token: ['', [Validators.minLength(6), Validators.maxLength(6)]]
     })
   }
@@ -72,7 +72,7 @@ export class ManageComponent implements OnInit {
           token: this.theFormGroup.value.token
         };
 
-        this.service.secondAut(requestBody).subscribe(data => {
+        this.service.secondAut(requestBody.token).subscribe(data => {
           this.showTokenInput = false;
           Swal.fire("Exito", "Usuario autenticado", "success");
           localStorage.setItem('token', JSON.parse(JSON.stringify(data)).token);

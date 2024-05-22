@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0 , telefono: '', email: '', password: '', user_id: '' }
+    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -88,6 +88,30 @@ export class ManageComponent implements OnInit {
           );
           this.router.navigate(['clientes/list']);
         });
+      });
+    }
+  }
+
+  createTitular() {
+    this.trySend = true;
+    if (this.theFormGroup.invalid) {
+      return;
+    } else {
+      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+        console.log(data);
+        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+        this.service.create(this.cliente).subscribe(data => {
+          this.service.createTitular(this.cliente).subscribe(data => {
+
+            Swal.fire(
+              'Creado',
+              'El cliente ha sido creado',
+              'success'
+            );
+            this.router.navigate(['clientes/list']);
+          });
+        }
+        );
       });
     }
   }
