@@ -5,31 +5,32 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'user-profile', canActivate:[AuthGuard],   component: UserProfileComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     {
-        path : 'theaters',
+        path : 'theaters', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/theaters/theaters.module').then(m => m.TheatersModule)
     },
     {
-        path : 'movies',
+        path : 'movies', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/movies/movies.module').then(m => m.MoviesModule)
     },
     {
-        path : 'projectors',
+        path : 'projectors', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/projectors/projectors.module').then(m => m.ProjectorsModule)
     },
     {
-        path : 'screenings',
+        path : 'screenings', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/screenings/screenings.module').then(m => m.ScreeningsModule)
     },
     {
-        path : 'seats',
+        path : 'seats', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/seats/seats.module').then(m => m.SeatsModule)
     },
     {
@@ -37,35 +38,35 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren : () => import('src/app/pages/login2/login2.module').then(m => m.Login2Module)
     },
     {
-        path : 'administradores',
+        path : 'administradores', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/administradores/administradores.module').then(m => m.AdministradoresModule)
     },
     {
-        path : 'clientes',
+        path : 'clientes', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/clientes/clientes.module').then(m => m.ClientesModule)
     },
     {
-        path : 'conductores',
+        path : 'conductores', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/conductores/conductores.module').then(m => m.ConductoresModule)
     },
     {
-        path : 'titulares',
+        path : 'titulares', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/titulares/titulares.module').then(m => m.TitularesModule)
     },
     {
-        path : 'beneficiarios',
+        path : 'beneficiarios', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/beneficiarios/beneficiarios.module').then(m => m.BeneficiariosModule)
     },
     {
-        path : 'planes',
+        path : 'planes', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/planes/planes.module').then(m => m.PlanesModule)
     },
     {
-        path : 'suscripciones',
+        path : 'suscripciones', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/suscripciones/suscripciones.module').then(m => m.SuscripcionesModule)
     },
     {
-        path : 'pagos',
+        path : 'pagos', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/pagos/pagos.module').then(m => m.PagosModule)
     }
 ];

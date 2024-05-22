@@ -1,3 +1,5 @@
+import { Servicio } from "./servicio.model";
+
 export class Plan {
     id?: number;
     nombre: string;
@@ -7,5 +9,5 @@ export class Plan {
     descuento: number;
     precio_final: number;
     estado: boolean;
-    
+    servicios?: Servicio[];
 }

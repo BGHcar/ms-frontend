@@ -31,7 +31,6 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -46,6 +45,8 @@ export class ManageComponent implements OnInit {
       this.plan.id = this.activateRoute.snapshot.params.id;
       this.getPlan(this.plan.id);
     }
+    
+    this.configFormGroup();
   }
 
   configFormGroup() {
@@ -66,9 +67,7 @@ export class ManageComponent implements OnInit {
   }
 
   getPlan(id: number) {
-    console.log("id: " + id);
     this.service.view(id).subscribe(data => {
-      console.log(data);
       this.plan = data 
     });
   }

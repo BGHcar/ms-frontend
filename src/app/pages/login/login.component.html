@@ -38,7 +38,7 @@
             <small>Or sign in with credentials</small>
           </div>
           <form role="form">
-            <div class="form-group mb-3">
+            <div class="form-group mb-3" *ngIf="mode==0">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
@@ -46,7 +46,7 @@
                 <input class="form-control" placeholder="Email" type="email" [(ngModel)]="theUser.email">
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="mode==0">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
@@ -54,14 +54,24 @@
                 <input class="form-control" placeholder="Password" type="password" [(ngModel)]="theUser.password">
               </div>
             </div>
-            <div class="custom-control custom-control-alternative custom-checkbox">
+            <div class="form-group" *ngIf="mode===1">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" placeholder="Token" type="text" [(ngModel)]="token">
+              </div>
+            </div>
+            <div class="custom-control custom-control-alternative custom-checkbox" *ngIf="mode==0">
               <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
               <label class="custom-control-label" for=" customCheckLogin">
                 <span class="text-muted">Remember me</span>
               </label>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-primary my-4" (click)="login()">Sign in</button>
+              <button type="button" class="btn btn-primary my-4" *ngIf="mode == 0" (click)="login()">Sign in</button>
+              
+              <button type="button" class="btn btn-primary my-4" *ngIf="mode == 1" (click)="secondAuth()">Validate</button>
             </div>
           </form>
         </div>

@@ -10,7 +10,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SecurityService {
   theUser = new BehaviorSubject<User>(new User);
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.verifyActualSession();
+  }
 
   /**
   * Realiza la petición al backend con el correo y la contraseña
@@ -19,7 +21,11 @@ export class SecurityService {
   * @returns Respuesta HTTP la cual indica si el usuario tiene permiso de acceso
   */
   login(user: User): Observable<any> {
-    return this.http.post<User>(`${environment.url_ms_security}/public/security/login`, user);
+    return this.http.post<any>(`${environment.url_ms_security}/public/security/login`, user);
+  }
+
+  secondAuth(id:string,token: string): Observable<any> {
+    return this.http.put<any>(`${environment.url_ms_security}/public/security/secondauth`, { id, token });
   }
   /*
   Guardar la información de usuario en el local storage
