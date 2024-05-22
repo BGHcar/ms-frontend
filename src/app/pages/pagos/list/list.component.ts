@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
     private router: Router
   ) {
     this.pagos = [];
-   }
+  }
 
   ngOnInit(): void {
     this.list();

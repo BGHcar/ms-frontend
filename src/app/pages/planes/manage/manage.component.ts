@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.plan = { id: 0, nombre: '', precio: 0, max_beneficiarios: 0, duracion: 0, estado: true, precio_final: 0, descuento: 0 }
+    this.plan = { id: 0, nombre: '', precio: 0, max_beneficiarios: 0, duracion: 0, estado: true, precio_final: 0, descuento: 0, servicios: []}
   }
 
   ngOnInit(): void {
@@ -43,6 +43,8 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id) {
       this.plan.id = this.activateRoute.snapshot.params.id;
+      console.log("plan id: " + this.plan.id);
+      console.log("plan :" + this.getPlan(this.plan.id));
       this.getPlan(this.plan.id);
     }
     
@@ -57,7 +59,9 @@ export class ManageComponent implements OnInit {
       duracion: [0, [Validators.required, Validators.min(1)]],
       estado: [true, []],
       precio_final: [0, [Validators.required, Validators.min(1)]],
-      descuento: [0, [Validators.required, Validators.min(1)]]
+      descuento: [0, [Validators.required, Validators.min(1)]],
+      servicios: [[], []],
+      clientes: [[], []]
 
     })
   }
@@ -67,7 +71,9 @@ export class ManageComponent implements OnInit {
   }
 
   getPlan(id: number) {
+    console.log(id);
     this.service.view(id).subscribe(data => {
+      console.log(data);
       this.plan = data 
     });
   }

@@ -32,8 +32,7 @@
                                     <div
                                         *ngIf="getTheFormGroup.monto.errors && (getTheFormGroup.monto.dirty || getTheFormGroup.monto.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.monto.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.monto.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.monto.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.monto.errors.min" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +59,7 @@
                                     <div
                                         *ngIf="getTheFormGroup.suscripcion_id.errors && (getTheFormGroup.suscripcion_id.dirty || getTheFormGroup.suscripcion_id.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.suscripcion_id.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.suscripcion_id.errors.min" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>

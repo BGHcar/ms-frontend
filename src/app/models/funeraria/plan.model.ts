@@ -1,4 +1,5 @@
 import { Servicio } from "./servicio.model";
+import { Cliente } from "./cliente.model";
 
 export class Plan {
     id?: number;
@@ -10,4 +11,5 @@ export class Plan {
     precio_final: number;
     estado: boolean;
     servicios?: Servicio[];
+    clientes?: Cliente[]
 }

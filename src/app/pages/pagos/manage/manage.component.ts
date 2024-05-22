@@ -22,14 +22,13 @@ export class ManageComponent implements OnInit {
     private service: PagoService,
     private theFormBuilder: FormBuilder,
     private router: Router
-  ){
+  ) {
     this.trySend = false;
     this.mode = 1;
     this.pago = { id: 0, monto: 0, fecha: "", suscripcion_id: 0 }
-   }
+  }
 
   ngOnInit(): void {
-    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -42,8 +41,12 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id) {
       this.pago.id = this.activateRoute.snapshot.params.id;
+      console.log("pago id: " + this.pago.id);
+      console.log("pago :" + this.getPago(this.pago.id));
       this.getPago(this.pago.id);
     }
+    
+    this.configFormGroup();
   }
 
   configFormGroup() {
@@ -60,15 +63,16 @@ export class ManageComponent implements OnInit {
 
   getPago(id: number) {
     this.service.view(id).subscribe(data => {
-      this.pago = data["data"]
+      this.pago = data
+      this.pago.fecha = this.pago.fecha.split('T')[0];
     });
   }
 
-  create(){
+  create() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
+    } else {
       this.service.create(this.pago).subscribe(data => {
         Swal.fire("Creado", "El pago ha sido creado correctamente", "success");
         this.router.navigate(['pagos/list']);
@@ -76,11 +80,11 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  update(){
+  update() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
-      Swal.fire("Error","Por favor llene todos los campos", "error");
-    }else{
+    if (this.theFormGroup.invalid) {
+      Swal.fire("Error", "Por favor llene todos los campos", "error");
+    } else {
       this.activateRoute.snapshot.params.id;
       this.pago.id = this.activateRoute.snapshot.params.id;
       this.getPago(this.pago.id)

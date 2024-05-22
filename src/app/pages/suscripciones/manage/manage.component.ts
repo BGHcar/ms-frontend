@@ -42,6 +42,8 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id) {
       this.suscripcion.id = this.activateRoute.snapshot.params.id;
+      console.log("suscripcion id: " + this.suscripcion.id);
+      console.log("suscripcion :" + this.getSuscripcion(this.suscripcion.id));
       this.getSuscripcion(this.suscripcion.id);
     }
   }

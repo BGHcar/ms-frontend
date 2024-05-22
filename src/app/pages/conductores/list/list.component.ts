@@ -14,10 +14,9 @@ export class ListComponent implements OnInit {
   conductores: Conductor[];
   theConductor: Conductor;
 
-  constructor(private service: ConductorService, private router: Router) 
-  {
+  constructor(private service: ConductorService, private router: Router) {
     this.conductores = [];
-   }
+  }
 
   ngOnInit(): void {
     this.list();
@@ -31,12 +30,12 @@ export class ListComponent implements OnInit {
   }
 
   view(id: number) {
-    console.log("id: "+id);
-    this.router.navigate(['conductores/view/'+id]);
+    console.log("id: " + id);
+    this.router.navigate(['conductores/view/' + id]);
   }
 
   update(id: number) {
-    this.router.navigate(['conductores/update/'+id]);
+    this.router.navigate(['conductores/update/' + id]);
   }
 
   create() {
