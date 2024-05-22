@@ -55,5 +55,17 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'beneficiarios',
         loadChildren : () => import('src/app/pages/beneficiarios/beneficiarios.module').then(m => m.BeneficiariosModule)
+    },
+    {
+        path : 'planes',
+        loadChildren : () => import('src/app/pages/planes/planes.module').then(m => m.PlanesModule)
+    },
+    {
+        path : 'suscripciones',
+        loadChildren : () => import('src/app/pages/suscripciones/suscripciones.module').then(m => m.SuscripcionesModule)
+    },
+    {
+        path : 'pagos',
+        loadChildren : () => import('src/app/pages/pagos/pagos.module').then(m => m.PagosModule)
     }
 ];

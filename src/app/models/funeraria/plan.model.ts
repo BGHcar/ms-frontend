@@ -7,4 +7,5 @@ export class Plan {
     descuento: number;
     precio_final: number;
     estado: boolean;
+    
 }

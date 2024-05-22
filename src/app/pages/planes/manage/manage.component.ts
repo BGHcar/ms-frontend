@@ -31,6 +31,21 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.configFormGroup();
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    if (currentUrl.includes('view')) {
+      this.mode = 1;
+    }
+    else if (currentUrl.includes('create')) {
+      this.mode = 2;
+    }
+    else if (currentUrl.includes('update')) {
+      this.mode = 3;
+    }
+    if (this.activateRoute.snapshot.params.id) {
+      this.plan.id = this.activateRoute.snapshot.params.id;
+      this.getPlan(this.plan.id);
+    }
   }
 
   configFormGroup() {
@@ -39,7 +54,7 @@ export class ManageComponent implements OnInit {
       precio: [0, [Validators.required, Validators.min(1)]],
       max_beneficiarios: [0, [Validators.required, Validators.min(1)]],
       duracion: [0, [Validators.required, Validators.min(1)]],
-      estado: [true, [Validators.required]],
+      estado: [true, []],
       precio_final: [0, [Validators.required, Validators.min(1)]],
       descuento: [0, [Validators.required, Validators.min(1)]]
 
@@ -51,8 +66,10 @@ export class ManageComponent implements OnInit {
   }
 
   getPlan(id: number) {
+    console.log("id: " + id);
     this.service.view(id).subscribe(data => {
-      this.plan = data
+      console.log(data);
+      this.plan = data 
     });
   }
 
@@ -60,6 +77,7 @@ export class ManageComponent implements OnInit {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire('Error', 'Por favor llene todos los campos', 'error');
+      console.log(this.plan);
     } else {
       this.service.create(this.plan).subscribe(data => {
         Swal.fire('Creado', 'El plan ha sido creado', 'success');

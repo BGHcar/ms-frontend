@@ -13,26 +13,26 @@ export class SuscripcionService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Suscripcion[]> {
-    return this.http.get<Suscripcion[]>(`${environment.url_ms_funeraria}/Suscripciones`);
+    return this.http.get<Suscripcion[]>(`${environment.url_ms_funeraria}/suscripciones`);
   }
 
   view(id: number): Observable<Suscripcion> {
-    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/Suscripciones/${id}`);
+    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones/${id}`);
   }
 
   create(Suscripcion: Suscripcion): Observable<Suscripcion> {
-    return this.http.post<Suscripcion>(`${environment.url_ms_funeraria}/Suscripciones`, Suscripcion);
+    return this.http.post<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones`, Suscripcion);
   }
 
   read(id: number): Observable<Suscripcion> {
-    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/Suscripciones/${id}`);
+    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones/${id}`);
   }
 
   update(Suscripcion: Suscripcion): Observable<Suscripcion> {
-    return this.http.put<Suscripcion>(`${environment.url_ms_funeraria}/Suscripciones/${Suscripcion.id}`, Suscripcion);
+    return this.http.put<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones/${Suscripcion.id}`, Suscripcion);
   }
 
   delete(id: number): Observable<Suscripcion> {
-    return this.http.delete<Suscripcion>(`${environment.url_ms_funeraria}/Suscripciones/${id}`);
+    return this.http.delete<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones/${id}`);
   }
 }

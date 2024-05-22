@@ -29,6 +29,21 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.configFormGroup();
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    if (currentUrl.includes('view')) {
+      this.mode = 1;
+    }
+    else if (currentUrl.includes('create')) {
+      this.mode = 2;
+    }
+    else if (currentUrl.includes('update')) {
+      this.mode = 3;
+    }
+    if (this.activateRoute.snapshot.params.id) {
+      this.suscripcion.id = this.activateRoute.snapshot.params.id;
+      this.getSuscripcion(this.suscripcion.id);
+    }
   }
 
   configFormGroup() {

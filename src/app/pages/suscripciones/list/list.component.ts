@@ -21,11 +21,13 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.list();
   }
 
   list() {
     this.service.list().subscribe(data => {
-      this.suscripciones = data["data"];
+      
+      this.suscripciones = data["data"]
       console.log(JSON.stringify(this.suscripciones));
     });
   }

@@ -1,1 +1,67 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 2">Crear</h1>
+                    <h1 *ngIf="mode == 3">actualizar</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row" *ngIf="mode==3 || mode==1">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="suscripcion.id" formControlName="id" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Plan:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="suscripcion.plan_id" [disabled]="mode == 1"
+                                        formControlName="plan_id">
+                                    <div
+                                        *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.maxlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Cliente:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="suscripcion.cliente_id" [disabled]="mode==1"
+                                        formControlName="cliente_id">
+                                    <div
+                                        *ngIf="getTheFormGroup.cliente_id.errors && (getTheFormGroup.cliente_id.dirty || getTheFormGroup.cliente_id.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" type="button" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
