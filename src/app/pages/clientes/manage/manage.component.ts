@@ -30,12 +30,8 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-<<<<<<< HEAD
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: '' }
-=======
     this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
 
->>>>>>> 10e05969f96ab533063a7836d30ecda066bb79cd
   }
 
   ngOnInit(): void {
@@ -103,22 +99,6 @@ export class ManageComponent implements OnInit {
       return;
     } else {
       this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
-<<<<<<< HEAD
-        console.log(data);
-        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.service.create(this.cliente).subscribe(data => {
-          this.service.createTitular(this.cliente).subscribe(data => {
-
-            Swal.fire(
-              'Creado',
-              'El cliente ha sido creado',
-              'success'
-            );
-            this.router.navigate(['clientes/list']);
-          });
-        }
-        );
-=======
         this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
         this.service.create(this.cliente).subscribe(data => {
           this.titular.user_id = data.id;
@@ -144,7 +124,6 @@ export class ManageComponent implements OnInit {
           this.beneficiario.password = this.cliente.password;
           this.beneficiario.titular_id = this.titular.id;
         });
->>>>>>> 10e05969f96ab533063a7836d30ecda066bb79cd
       });
     }
   }
