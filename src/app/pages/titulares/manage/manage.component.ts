@@ -28,8 +28,8 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.titular = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: 0 }
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: '' }
+    this.titular = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', esta_vivo: true, user_id: 0 }
+    this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -80,24 +80,23 @@ export class ManageComponent implements OnInit {
       return;
     } else {
         // cliente va a ser igual a titular
-        this.cliente.apellido = this.titular.apellido;
-        this.cliente.cedula = this.titular.cedula;
-        this.cliente.edad = this.titular.edad;
         this.cliente.email = this.titular.email;
         this.cliente.nombre = this.titular.nombre;
         this.cliente.password = this.titular.password;
-        this.cliente.telefono = this.titular.telefono;
 
-        this.service.createCliente(this.cliente).subscribe(data => {
-          console.log(data);
-          this.titular.user_id = data.id;
-          this.service.create(this.titular).subscribe(data => {
-            Swal.fire(
-              'Creado!',
-              'El titular ha sido creado.',
-              'success'
-            );
-            this.router.navigate(['titulares/list']);
+        this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+          this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+          this.service.createCliente(this.cliente).subscribe(data => {
+            this.titular.user_id = data.id;
+            console.log('titular: ' + JSON.stringify(this.titular));
+            this.service.create(this.titular).subscribe(data => {
+              Swal.fire(
+                'Creado',
+                'El titular ha sido creado',
+                'success'
+              );
+              this.router.navigate(['titulares/list']);
+            });
           });
         });
     }

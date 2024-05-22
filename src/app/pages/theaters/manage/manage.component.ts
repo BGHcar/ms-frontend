@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { get } from 'http';
 import { Theater } from 'src/app/models/theater.model';
 import { TheaterService } from 'src/app/services/theater.service';
 import Swal from 'sweetalert2';

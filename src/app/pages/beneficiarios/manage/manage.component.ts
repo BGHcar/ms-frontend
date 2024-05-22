@@ -16,7 +16,7 @@ export class ManageComponent implements OnInit {
   mode: number;
 
   beneficiario: Beneficiario;
-  cliente : Cliente;
+  cliente: Cliente;
   theFormGroup: FormGroup;
   trySend: boolean;
 
@@ -28,8 +28,8 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.beneficiario = { id: 0, nombre: '', apellido: '', cedula: '',edad:0 , telefono: '', email: '', password: '', user_id: 0, titular_id: 0 }
-    this.cliente = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', user_id: '' }
+    this.beneficiario = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '',esta_vivo:true , user_id: 0, titular_id: 0 }
+    this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
   }
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class ManageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       edad: [0, [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      user_id:[0],
+      user_id: [0],
       titular_id: ['', [Validators.required]]
     });
   }
@@ -81,27 +81,24 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       return;
     } else {
-        this.cliente.nombre = this.beneficiario.nombre;
-        this.cliente.apellido = this.beneficiario.apellido;
-        this.cliente.cedula = this.beneficiario.cedula;
-        this.cliente.telefono = this.beneficiario.telefono;
-        this.cliente.email = this.beneficiario.email;
-        this.cliente.edad = this.beneficiario.edad;
-        this.cliente.password = this.beneficiario.password;
-
+      this.cliente.nombre = this.beneficiario.nombre;
+      this.cliente.email = this.beneficiario.email;
+      this.cliente.password = this.beneficiario.password;
+      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
         this.service.createCliente(this.cliente).subscribe(data => {
-        this.beneficiario.user_id = data.id;
-        this.service.create(this.beneficiario).subscribe(data => {
-          Swal.fire(
-            'Creado!',
-            'El beneficiario ha sido creado.',
-            'success'
-          );
-          this.router.navigate(['/beneficiarios/list']);
+          this.beneficiario.user_id = data.id;
+          this.service.create(this.beneficiario).subscribe(data => {
+            Swal.fire(
+              'Creado',
+              'El beneficiario ha sido creado.',
+              'success'
+            );
+            this.router.navigate(['/beneficiarios/list']);
+          });
         });
       });
     }
-
   }
 
   update() {

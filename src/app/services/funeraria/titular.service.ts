@@ -36,7 +36,11 @@ export class TitularService {
   }
 
   createCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post <Cliente>("http://localhost:4200/#/clientes/create", cliente);
+    return this.http.post<Cliente>(`${environment.url_ms_funeraria}/clientes`, cliente);
+  }
+
+  security(name: string, email: string, password: string): Observable<Cliente> {
+    return this.http.post<Cliente>(`${environment.url_ms_security}/users/public`, { name, email, password });
   }
 
   delete(id: number): Observable<Titular> {
