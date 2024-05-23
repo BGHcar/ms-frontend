@@ -28,7 +28,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.titular = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', esta_vivo: true, user_id: 0 }
+    this.titular = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', esta_vivo: true, cliente_id: 0 }
     this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
   }
 
@@ -60,7 +60,7 @@ export class ManageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       edad: [0, [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      user_id: [0]
+      cliente_id: [0]
     });
   }
 
@@ -87,7 +87,7 @@ export class ManageComponent implements OnInit {
         this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
           this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
           this.service.createCliente(this.cliente).subscribe(data => {
-            this.titular.user_id = data.id;
+            this.titular.cliente_id = data.id;
             console.log('titular: ' + JSON.stringify(this.titular));
             this.service.create(this.titular).subscribe(data => {
               Swal.fire(

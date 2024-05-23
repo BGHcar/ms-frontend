@@ -10,6 +10,6 @@ export class Titular {
     email:string;
     esta_vivo:boolean;
     password?:string;
-    user_id?:number;
+    cliente_id?:number;
     beneficiarios?:Beneficiario[];
 }

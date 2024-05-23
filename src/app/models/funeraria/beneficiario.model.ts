@@ -10,5 +10,5 @@ export class Beneficiario {
     esta_vivo: boolean;
     password?: string;
     titular_id?: number;
-    user_id?: number;
+    cliente_id?: number;
 }

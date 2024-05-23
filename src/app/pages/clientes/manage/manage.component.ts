@@ -101,7 +101,7 @@ export class ManageComponent implements OnInit {
       this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
         this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
         this.service.create(this.cliente).subscribe(data => {
-          this.titular.user_id = data.id;
+          this.titular.cliente_id = data.id;
           this.titular.nombre = this.cliente.nombre;
           this.titular.email = this.cliente.email;
           this.titular.password = this.cliente.password;
@@ -118,7 +118,7 @@ export class ManageComponent implements OnInit {
       this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
         this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
         this.service.create(this.cliente).subscribe(data => {
-          this.beneficiario.user_id = data.id;
+          this.beneficiario.cliente_id = data.id;
           this.beneficiario.nombre = this.cliente.nombre;
           this.beneficiario.email = this.cliente.email;
           this.beneficiario.password = this.cliente.password;
