@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="container">
                         <form [formGroup]="theFormGroup">
-                            <div class="row" *ngIf="mode==3 || mode==1">
+                            <div class="row" *ngIf="mode==2">
                                 <div class="col-4">
                                     Id:
                                 </div>
@@ -26,9 +26,19 @@
                                 <div class="col-4">
                                     Plan:
                                 </div>
-                                <div class="col-8">
+                                <div class="col-8 " *ngIf="mode == 2 || mode == 3">
                                     <input type="number" class="form-control" [(ngModel)]="suscripcion.plan_id" [disabled]="mode == 1"
                                         formControlName="plan_id">
+                                    <div
+                                        *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.maxlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                                <div class="col-8 " *ngIf="mode == 1">
+                                    <input type="text" class="form-control" [(ngModel)]="suscripcion.plan.nombre" [disabled]="mode == 1"
+                                        formControlName="plan">
                                     <div
                                         *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">Requerido</strong>
@@ -41,7 +51,7 @@
                                 <div class="col-4">
                                     Cliente:
                                 </div>
-                                <div class="col-8">
+                                <div class="col-8" *ngIf="mode == 2 || mode == 3">
                                     <input type="number" class="form-control" [(ngModel)]="suscripcion.cliente_id" [disabled]="mode==1"
                                         formControlName="cliente_id">
                                     <div
@@ -49,7 +59,18 @@
                                         <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
                                     </div>
                                 </div>
+                                <div class="col-8 " *ngIf="mode == 1">
+                                    <input type="text" class="form-control" [(ngModel)]="suscripcion.cliente.nombre" [disabled]="mode == 1"
+                                        formControlName="cliente">
+                                    <div
+                                        *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.minlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.plan_id.errors.maxlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-4">
                                 </div>
