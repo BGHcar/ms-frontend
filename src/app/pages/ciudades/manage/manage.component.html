@@ -1,0 +1,81 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode == 1">Visualizar</h1>
+          <h1 *ngIf="mode == 2">Crear</h1>
+          <h1 *ngIf="mode == 3">Actualizar</h1>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <form [formGroup]="theFormGroup">
+              <div class="row">
+                <div class="col-4">
+                  Id:
+                </div>
+                <div class="col-8">
+                  <input type="number" class="form-control" [value]="ciudad.id" disabled>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Nombre:
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="ciudad.nombre" [readonly]="mode === 1"
+                    formControlName="nombre">
+                  <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Invalido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors.maxlength" class="msnError">Invalido</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Departamento ID:
+                </div>
+                <div class="col-8">
+                  <input type="number" class="form-control" [(ngModel)]="ciudad.departamento_id" [readonly]="mode === 1" formControlName="departamento_id">
+                  <div *ngIf="getTheFormGroup.departamento_id.errors && (getTheFormGroup.departamento_id.dirty || getTheFormGroup.departamento_id.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.departamento_id.errors.required" class="msnError">Requerido</strong>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Sección para mostrar las Sedes asociadas ala Ciudad -->
+              <div class="row">
+                <div class="col-4">
+                  Sedes:
+                </div>
+                <div class="col-8">
+                  <select class="form-control">
+                    <option *ngFor="let sede of ciudad.sedes" [value]="sede.id">{{ sede.nombre }} - {{ sede.direccion }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                  <button *ngIf="mode == 2" type="button" (click)="create()" class="btn btn-primary btn-block">
+                    Crear
+                  </button>
+                  <button *ngIf="mode == 3" type="button" (click)="update()" class="btn btn-primary btn-block">
+                    Actualizar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

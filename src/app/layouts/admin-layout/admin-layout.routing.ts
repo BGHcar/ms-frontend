@@ -68,5 +68,17 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'pagos', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/pagos/pagos.module').then(m => m.PagosModule)
+    },
+    {
+        path : 'departamentos', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/departamentos/departamentos.module').then(m => m.DepartamentosModule)
+    },
+    {
+        path : 'ciudades', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/ciudades/ciudades.module').then(m => m.CiudadesModule)
+    },
+    {
+        path : 'sedes', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/sedes/sedes.module').then(m => m.SedesModule)
     }
 ];
