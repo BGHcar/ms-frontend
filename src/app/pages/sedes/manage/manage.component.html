@@ -1,1 +1,124 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode == 1">Visualizar Sede</h1>
+          <h1 *ngIf="mode == 2">Crear Sede</h1>
+          <h1 *ngIf="mode == 3">Actualizar Sede</h1>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <form [formGroup]="theFormGroup">
+              <div class="row">
+                <div class="col-4">
+                  Id:
+                </div>
+                <div class="col-8">
+                  <input type="number" class="form-control" [value]="sede.id" disabled>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Nombre:
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="sede.nombre" [readonly]="mode === 1"
+                    formControlName="nombre">
+                  <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Invalido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors.maxlength" class="msnError">Invalido</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Dirección:
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="sede.direccion" [readonly]="mode === 1"
+                    formControlName="direccion">
+                    <div *ngIf="getTheFormGroup.direccion.errors && (getTheFormGroup.direccion.dirty || getTheFormGroup.direccion.touched || trySend)">
+                        <strong *ngIf="getTheFormGroup.direccion.errors.required" class="msnError">Requerido</strong>
+                        <strong *ngIf="getTheFormGroup.direccion.errors.minlength" class="msnError">Invalido</strong>
+                        <strong *ngIf="getTheFormGroup.direccion.errors.maxlength" class="msnError">Invalido</strong>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Teléfono:
+                </div>
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="sede.telefono" [readonly]="mode === 1"
+                    formControlName="telefono">
+                    <div *ngIf="getTheFormGroup.telefono.errors && (getTheFormGroup.telefono.dirty || getTheFormGroup.telefono.touched || trySend)">
+                        <strong *ngIf="getTheFormGroup.telefono.errors.required" class="msnError">Requerido</strong>
+                        <strong *ngIf="getTheFormGroup.telefono.errors.minlength" class="msnError">Invalido</strong>
+                        <strong *ngIf="getTheFormGroup.telefono.errors.maxlength" class="msnError">Invalido</strong>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Correo Electrónico:
+                </div>
+                <div class="col-8">
+                  <input type="email" class="form-control" [(ngModel)]="sede.correo_electronico" [readonly]="mode === 1"
+                    formControlName="correo_electronico">
+                    <div *ngIf="getTheFormGroup.correo_electronico.errors && (getTheFormGroup.correo_electronico.dirty || getTheFormGroup.correo_electronico.touched || trySend)">
+                        <strong *ngIf="getTheFormGroup.correo_electronico.errors.required" class="msnError">Requerido</strong>
+                        <strong *ngIf="getTheFormGroup.correo_electronico.errors.minlength" class="msnError">Invalido</strong>
+                        <strong *ngIf="getTheFormGroup.correo_electronico.errors.maxlength" class="msnError">Invalido</strong>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Ciudad:
+                </div>
+                <div class="col-8">
+                  <select class="form-control" [(ngModel)]="sede.ciudad_id" [disabled]="mode === 1" formControlName="ciudad_id">
+                    <ng-container *ngIf="ciudades && ciudades.length > 0">
+                      <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                    </ng-container>
+                  </select>                 
+                </div>
+              </div>
+
+              <!-- Sección para mostrar las Salas asociadas a la Sede -->
+            <div class="row" *ngIf="mode === 1 && sede.salas && sede.salas.length > 0">
+                <div class="col-4">
+                    Salas:
+                </div>
+                <div class="col-8">
+                    <select class="form-control">
+                        <option *ngFor="let sala of sede.salas" [value]="sala.id">{{ sala.nombre }} - {{ sala.direccion }}</option>
+                    </select>
+                </div>
+            </div>
+  
+              <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                  <button *ngIf="mode == 2" type="button" (click)="create()" class="btn btn-primary btn-block">
+                    Crear
+                  </button>
+                  <button *ngIf="mode == 3" type="button" (click)="update()" class="btn btn-primary btn-block">
+                    Actualizar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

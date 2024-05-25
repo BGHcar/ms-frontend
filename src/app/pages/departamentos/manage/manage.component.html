@@ -38,7 +38,7 @@
                 </div>
               </div>
               <!-- Sección para mostrar las ciudades asociadas al departamento -->
-              <div class="row">
+              <div class="row" *ngIf="mode === 1 && departamento.ciudades && departamento.ciudades.length > 0">
                 <div class="col-4">
                   Ciudades:
                 </div>
@@ -48,6 +48,7 @@
                   </select>
                 </div>
               </div>
+              
               
               
 
