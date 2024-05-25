@@ -24,7 +24,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/projectors/list', title: 'Projectors', icon: 'ni-camera-compact text-yellow', class: '' , type: 1},
   { path: '/screenings/list', title: 'Screenings', icon: 'ni-tablet-button text-orange', class: '' , type: 1},
   { path: '/seats/list', title: 'Seats', icon: 'ni-bullet-list-67 text-blue', class: '' , type: 1},
-  { path: '/login2/manage', title: 'Login2', icon: 'ni-key-25 text-info', class: '' , type: 1},
+  { path: '/login2/manage', title: 'Login2', icon: 'ni-key-25 text-info', class: '' , type: 0},
   { path: '/administradores/list', title: 'Administradores', icon: 'ni-circle-08 text-pink', class: '' , type: 1},
   { path: '/clientes/list', title: 'Clientes', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/conductores/list', title: 'Conductores', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
