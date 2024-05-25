@@ -30,6 +30,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/conductores/list', title: 'Conductores', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/titulares/list', title: 'Titulares', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/beneficiarios/list', title: 'Beneficiarios', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
+  { path: '/servicios/list', title: 'Servicios', icon: 'ni-bullet-list-67 text-blue', class: '' , type: 1},
+
 ];
 
 // que otros iconos pueden ser usados para un teatro, pelicula, proyector, proyeccion y asiento? 

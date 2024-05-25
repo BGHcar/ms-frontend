@@ -68,5 +68,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'pagos', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/pagos/pagos.module').then(m => m.PagosModule)
+    },
+    {
+        path : 'servicios',canActivate:[AuthGuard], 
+        loadChildren : () => import('src/app/pages/servicios/servicios.module').then(m => m.ServiciosModule)
     }
 ];
