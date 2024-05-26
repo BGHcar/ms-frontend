@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ChatService } from 'src/app/services/funeraria/chat.service';
 import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
-import { tap } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -13,57 +13,61 @@ import { tap } from 'rxjs';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  chats: Chat[];
-  ejecucionservicios: Ejecucionservicio[];
+  chats: Chat[] = [];
+  ejecucionservicios: Ejecucionservicio[] = [];
+  chatsConDetalles: any[] = [];
 
-  constructor(private chatService: ChatService, private ejecucionservicioService: EjecucionservicioService, private router: Router) {
-    this.chats = [];
-    this.ejecucionservicios = [];
+  constructor(
+    private chatService: ChatService,
+    private ejecucionservicioService: EjecucionservicioService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
-    this.listChats();
-    this.listEjecucionSer();
+    this.loadData();
   }
 
-  listChats() {
-    this.chatService.list().subscribe(data => {
-      this.chats = data["data"];
+  loadData() {
+    combineLatest([
+      this.chatService.list(),
+      this.ejecucionservicioService.list()
+    ]).subscribe(([chatsData, ejecucionServiciosData]) => {
+
+  
+      this.chats = chatsData['data'];
+      this.ejecucionservicios = ejecucionServiciosData['data'];
+  
+      this.chatsConDetalles = this.chats.map(chat => {
+        const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === chat.eservicio_id);
+        return {
+          ...chat,
+          nombre_cliente: ejecucionServicio ? ejecucionServicio.cliente.nombre : 'Desconocido',
+          nombre_servicio: ejecucionServicio ? ejecucionServicio.servicio.nombre : 'Desconocido'
+        };
+      });
     });
   }
-
-  listEjecucionSer() {
-    this.ejecucionservicioService.list().pipe(
-      tap(data => {
-        this.ejecucionservicios = data["data"].filter((item: any) =>
-          this.chats.some(chat => chat.eservicio_id === item.id)
-        ).map((item: any) => ({
-          ...item,
-          nombre_cliente: item.cliente ? item.cliente.nombre : 'Desconocido',
-          nombre_servicio: item.servicio ? item.servicio.nombre : 'Desconocido'
-        }));
-      })
-    ).subscribe();
-  }
   
+
   obtenerNombreCliente(id: number): string {
     const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === id);
     return ejecucionservicio ? ejecucionservicio.cliente.nombre : 'Desconocido';
   }
-  
+
   obtenerNombreServicio(id: number): string {
     const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === id);
     return ejecucionservicio ? ejecucionservicio.servicio.nombre : 'Desconocido';
   }
-
+  
   view(id: number) {
     this.router.navigate(['chats/view/' + id]);
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Eliminar Ciudad',
-      text: "Está seguro que quiere eliminar la Ciudad?",
+      title: 'Eliminar Chat',
+      text: "Está seguro que quiere eliminar este Chat?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -75,15 +79,14 @@ export class ListComponent implements OnInit {
         this.chatService.delete(id).subscribe(data => {
           Swal.fire(
             'Eliminado!',
-            'La Ciudad ha sido eliminada correctamente',
+            'El chat ha sido eliminada correctamente',
             'success'
-          )
-          this.ngOnInit();
+          );
+          this.loadData();
         });
       }
-    })
-  };
-
+    });
+  }
 
   update(id: number) {
     this.router.navigate(['chats/update/' + id]);
@@ -93,4 +96,7 @@ export class ListComponent implements OnInit {
     this.router.navigate(['chats/create']);
   }
 
+  mensajes() {
+    this.router.navigate(['mensajes/list']);
+  }
 }
