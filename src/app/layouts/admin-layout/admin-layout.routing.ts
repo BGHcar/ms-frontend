@@ -72,5 +72,21 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'servicios',canActivate:[AuthGuard], 
         loadChildren : () => import('src/app/pages/servicios/servicios.module').then(m => m.ServiciosModule)
+    },
+    {    
+        path : 'departamentos', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/departamentos/departamentos.module').then(m => m.DepartamentosModule)
+    },
+    {
+        path : 'ciudades', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/ciudades/ciudades.module').then(m => m.CiudadesModule)
+    },
+    {
+        path : 'sedes', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/sedes/sedes.module').then(m => m.SedesModule)
+    },
+    {
+        path : 'salas', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/salas/salas.module').then(m => m.SalasModule)
     }
 ];

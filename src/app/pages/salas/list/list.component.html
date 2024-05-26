@@ -1,0 +1,47 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 class="mb-0">Salas
+                        <!-- Boton de crear al lado derecho -->
+                        <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col-1">ID</th>   
+                                <th scope="col-2">Nombre</th>
+                                <th scope="col-3">Capacidad</th>
+                                <th scope="col-4">Disponibilidad</th>
+                                <th scope="col-4">Sede</th>
+                                <th scope="col-4">Opciones</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let actual of salas">
+                              <td>{{ actual.id }}</td>
+                              <td>{{ actual.nombre }}</td>
+                              <td>{{ actual.capacidad }}</td>
+                              <td>{{ actual.disponibilidad }}</td>
+                              <td>{{ obtenerNombreSede(actual.sede_id) }}</td> <!-- Mostrar el nombre de la Sede -->
+                              <td>
+                                <button type="button" class="btn btn-warning btn-sm" (click)="view(actual.id)" title="Ver"><i class="fas fa-eye"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm" (click)="update(actual.id)" title="Editar"><i class="fas fa-edit"></i></button>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="delete(actual.id)" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
