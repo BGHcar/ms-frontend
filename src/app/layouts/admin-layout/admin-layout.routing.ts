@@ -88,5 +88,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'salas', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/salas/salas.module').then(m => m.SalasModule)
+    },
+    {
+        path : 'cremaciones', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/cremacion/cremacion.module').then(m => m.CremacionModule)
     }
 ];
