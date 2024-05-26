@@ -41,7 +41,7 @@
                   Departamento:
                 </div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="ciudad.departamento_id" [disabled]="mode === 1" formControlName="departamento_id">
+                  <select class="form-control" [(ngModel)]="ciudad.departamento_id" [attr.disabled]="mode === 1 ? true : null" formControlName="departamento_id">
                     <ng-container *ngIf="departamentos && departamentos.length > 0">
                       <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{ departamento.nombre }}</option>
                     </ng-container>

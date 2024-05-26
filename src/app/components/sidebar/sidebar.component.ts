@@ -34,6 +34,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/ciudades/list', title: 'Ciudades', icon: 'ni-building text-yellow', class: '' , type: 1},
   { path: '/sedes/list', title: 'Sedes', icon: 'ni-istanbul text-blue', class: '' , type: 1},
   { path: '/salas/list', title: 'Salas', icon: 'ni-shop text-red', class: '' , type: 1},
+  { path: '/chats/list', title: 'Chats', icon: 'ni-email-83 text-red', class: '' , type: 1},
+  { path: '/mensajes/list', title: 'Mensajes', icon: 'ni-send text-red', class: '' , type: 1},
 ];
 
 // que otros iconos pueden ser usados para un teatro, pelicula, proyector, proyeccion y asiento? 

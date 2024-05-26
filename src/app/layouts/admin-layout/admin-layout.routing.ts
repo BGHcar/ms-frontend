@@ -84,5 +84,14 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'salas', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/salas/salas.module').then(m => m.SalasModule)
+    },
+    {
+        path : 'chats', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/chats/chats.module').then(m => m.ChatsModule)
+    },
+    {
+        path : 'mensajes', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/mensajes/mensajes.module').then(m => m.MensajesModule)
     }
+    
 ];
