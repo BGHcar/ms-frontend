@@ -1,0 +1,92 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 2">Crear</h1>
+                    <h1 *ngIf="mode == 3">actualizar</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row" *ngIf="mode==3 || mode==1">
+                                <div class="col-4">
+                                    id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="servicio.id" formControlName="id" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    nombre:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="servicio.nombre" [disabled]="mode==1" formControlName="nombre">
+                                        <div
+                                        *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Valor minimo 2</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Descripcion:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="servicio.descripcion" [disabled]="mode == 1"
+                                        formControlName="descripcion">
+                                        <div
+                                        *ngIf="getTheFormGroup.descripcion.errors && (getTheFormGroup.descripcion.dirty || getTheFormGroup.descripcion.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.descripcion.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.descripcion.errors.minlength" class="msnError">Valor minimo 2</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Duracion:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="servicio.duracion" [disabled]="mode == 1"
+                                        formControlName="duracion">
+                                        <div
+                                        *ngIf="getTheFormGroup.duracion.errors && (getTheFormGroup.duracion.dirty || getTheFormGroup.duracion.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.duracion.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    precio:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="servicio.precio" [disabled]="mode==1"
+                                        formControlName="precio">
+                                    <div
+                                        *ngIf="getTheFormGroup.precio.errors && (getTheFormGroup.precio.dirty || getTheFormGroup.precio.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.precio.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" type="button" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

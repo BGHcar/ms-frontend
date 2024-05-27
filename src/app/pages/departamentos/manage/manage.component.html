@@ -27,7 +27,7 @@
                   Nombre:
                 </div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="departamento.nombre" [disabled]="mode == 1"
+                  <input type="text" class="form-control" [(ngModel)]="departamento.nombre" [readonly]="mode == 1"
                     formControlName="nombre">
                   <div
                     *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
@@ -43,7 +43,7 @@
                   Ciudades:
                 </div>
                 <div class="col-8">
-                  <select class="form-control">
+                  <select class="form-control" [disabled]="modo === 1">
                     <option *ngFor="let ciudad of departamento.ciudades" [value]="ciudad.id">{{ ciudad.nombre }}</option>
                   </select>
                 </div>

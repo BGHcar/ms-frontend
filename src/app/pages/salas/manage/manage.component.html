@@ -1,1 +1,78 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode === 1">Visualizar Sala</h1>
+          <h1 *ngIf="mode === 2">Crear Sala</h1>
+          <h1 *ngIf="mode === 3">Actualizar Sala</h1>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <form [formGroup]="theFormGroup">
+              <div class="row mb-3">
+                <div class="col-4">ID:</div>
+                <div class="col-8">
+                  <input type="number" class="form-control" [value]="sala.id" disabled>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-4">Nombre:</div>
+                <div class="col-8">
+                  <input type="text" class="form-control" formControlName="nombre" [readonly]="mode === 1">
+                  <div *ngIf="getTheFormGroup.nombre?.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.nombre.errors?.required" class="text-danger">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors?.minlength" class="text-danger">Invalido</strong>
+                    <strong *ngIf="getTheFormGroup.nombre.errors?.maxlength" class="text-danger">Invalido</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-4">Capacidad:</div>
+                <div class="col-8">
+                  <input type="number" class="form-control" formControlName="capacidad" [readonly]="mode === 1">
+                  <div *ngIf="getTheFormGroup.capacidad?.errors && (getTheFormGroup.capacidad.dirty || getTheFormGroup.capacidad.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.capacidad.errors?.required" class="text-danger">Requerido</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-4">Disponibilidad:</div>
+                <div class="col-8">
+                  <select class="form-control" id="disponibilidad" formControlName="disponibilidad" [attr.disabled]="mode === 1 ? true : null">
+                    <option [ngValue]="true">Disponible</option>
+                    <option [ngValue]="false">No disponible</option>
+                  </select>
+                  <div *ngIf="getTheFormGroup.disponibilidad?.errors && (getTheFormGroup.disponibilidad.dirty || getTheFormGroup.disponibilidad.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.disponibilidad.errors?.required" class="text-danger">Requerido</strong>
+                  </div>
+                </div>
+              </div>  
+              <div class="row mb-3">
+                <div class="col-4">Sede:</div>
+                <div class="col-8">
+                    <select class="form-control" formControlName="sede_id" [attr.disabled]="mode === 1 ? true : null">
+                      <option *ngFor="let sede of sedes" [value]="sede.id">{{ sede.nombre }}</option>
+                    </select>
+                  <div *ngIf="getTheFormGroup.sede_id?.errors && (getTheFormGroup.sede_id.dirty || getTheFormGroup.sede_id.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.sede_id.errors?.required" class="text-danger">Requerido</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <button *ngIf="mode === 2" type="button" (click)="create()" class="btn btn-primary btn-block">Crear</button>
+                  <button *ngIf="mode === 3" type="button" (click)="update()" class="btn btn-primary btn-block">Actualizar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

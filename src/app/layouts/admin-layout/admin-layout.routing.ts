@@ -92,5 +92,18 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'cremaciones', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/cremacion/cremacion.module').then(m => m.CremacionModule)
+    },
+    {
+        path : 'chats', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/chats/chats.module').then(m => m.ChatsModule)
+    },
+    {
+        path : 'mensajes', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/mensajes/mensajes.module').then(m => m.MensajesModule)
+    },
+    {
+        path : 'sepulturas', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/sepulturas/sepulturas.module').then(m => m.SepulturasModule)
     }
+    
 ];

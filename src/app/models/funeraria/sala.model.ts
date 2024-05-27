@@ -3,5 +3,5 @@ export class Sala {
     nombre:string;
     capacidad:number;
     disponibilidad:boolean;
-    sedes_id?:number;
+    sede_id?:number;
 }

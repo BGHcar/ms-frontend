@@ -7,7 +7,7 @@ export class Servicio {
     nombre:string;
     precio:number;
     descripcion:string;
-    duracion:string;
+    duracion:number;
     traslados?:Traslado[];
     sepultura?:Sepultura;
     cremacion?:Cremacion;

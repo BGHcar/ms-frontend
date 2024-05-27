@@ -30,14 +30,15 @@ export const ROUTES: RouteInfo[] = [
   { path: '/conductores/list', title: 'Conductores', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/titulares/list', title: 'Titulares', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/beneficiarios/list', title: 'Beneficiarios', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
-  { path: '/servicios/list', title: 'Servicios', icon: 'ni-bullet-list-67 text-blue', class: '' , type: 1},
-
+  { path: '/servicios/list', title: 'Servicios', icon: 'ni-folder-17 text-blue', class: '' , type: 1},
+  { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
+  { path: '/sepulturas/list', title: 'Sepultura', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/departamentos/list', title: 'Departamentos', icon: 'ni-square-pin text-green', class: '' , type: 1},
   { path: '/ciudades/list', title: 'Ciudades', icon: 'ni-building text-yellow', class: '' , type: 1},
   { path: '/sedes/list', title: 'Sedes', icon: 'ni-istanbul text-blue', class: '' , type: 1},
   { path: '/salas/list', title: 'Salas', icon: 'ni-shop text-red', class: '' , type: 1},
-  { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-shop text-red', class: '' , type: 1},
-
+  { path: '/chats/list', title: 'Chats', icon: 'ni-email-83 text-red', class: '' , type: 1},
+  { path: '/mensajes/list', title: 'Mensajes', icon: 'ni-send text-red', class: '' , type: 1},
 ];
 
 // que otros iconos pueden ser usados para un teatro, pelicula, proyector, proyeccion y asiento? 

@@ -1,0 +1,46 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 class="mb-0">Servicio de Cremacion
+                        <!-- Boton de crear al lado derecho -->
+                        <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col-1">ID</th>
+                                <th scope="col-2">fecha_hora</th>
+                                <th scope="col-3">servicio_id</th>
+                                <th scope="col-5">ubicacion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let actual of cremacion">
+                                <td>{{actual.id}}</td>
+                                <td>{{actual.fecha_hora}}</td>                          
+                                <td>{{actual.servicio_id}}</td>
+                                <td>{{actual.ubicacion}}</td>
+
+                                <td>
+                                    <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
+                                    <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

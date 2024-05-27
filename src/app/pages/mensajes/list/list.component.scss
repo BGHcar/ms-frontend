@@ -1,0 +1,44 @@
+/* Estilos para el contenedor de la tabla */
+.table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para el cuadro de mensajes */
+.message-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 300px; /* Altura fija del cuadro de mensajes */
+    overflow-y: auto; /* Hace que el contenido desborde verticalmente si es necesario */
+}
+
+/* Estilos para los mensajes */
+.message {
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+/* Estilos para el input de mensaje */
+.message-input {
+    width: calc(100% - 80px); /* Ancho del input, menos el ancho del botón de enviar */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+/* Estilos para el botón de enviar */
+.send-button {
+    width: 80px;
+    padding: 8px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+/* Estilos adicionales según sea necesario */
