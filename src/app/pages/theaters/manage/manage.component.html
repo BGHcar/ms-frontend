@@ -14,14 +14,14 @@
         <div class="card-body">
           <div class="container">
             <form [formGroup]="theFormGroup">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-4">
                   Id:
                 </div>
                 <div class="col-8">
                   <input type="text" class="form-control" [(ngModel)]="theater.id" disabled>
                 </div>
-              </div>
+              </div> -->
               <div class="row">
                 <div class="col-4">
                   Ubicación:
@@ -51,6 +51,19 @@
                     <strong *ngIf="getTheFormGroup.capacity.errors.max" class="msnError">Valor maximo 100</strong>
                   </div>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  Proyector:
+                </div>
+                <div class="col-8">
+                  <select class="form-control" [(ngModel)]="theater.projector.id" formControlName="idProjector">
+                    <option *ngFor="let option of projectors" [value]="option.id">Id: {{option.id}}- Marca: {{option.brand}}- Alto:{{
+                      option.high}}- Ancho: {{option.width}}
+                    </option>
+                  </select>
+                </div>
+
               </div>
               <div class="row">
                 <div class="col-4">

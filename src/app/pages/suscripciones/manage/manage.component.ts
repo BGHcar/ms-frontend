@@ -4,6 +4,10 @@ import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.servi
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Titular } from 'src/app/models/funeraria/titular.model';
+import { Plan } from 'src/app/models/funeraria/plan.model';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
+import { PlanService } from 'src/app/services/funeraria/plan.service';
 
 @Component({
   selector: 'app-manage',
@@ -15,20 +19,52 @@ export class ManageComponent implements OnInit {
   mode: number;
   suscripcion: Suscripcion;
   theFormGroup: FormGroup;
+  titulares: Titular[];
+  planes: Plan[];
   trySend: boolean;
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: SuscripcionService,
     private theFormBuilder: FormBuilder,
-    private router: Router
-  ) { 
+    private router: Router,
+    private titularService: TitularService,
+    private planService: PlanService
+  ) {
     this.trySend = false;
     this.mode = 1;
-    this.suscripcion = { id: 0, plan_id: 0, cliente_id: 0}
+    this.titulares = [];
+    this.planes = [];
+    this.suscripcion = {
+      id: 0,
+      plan_id: 0,
+      cliente_id: 0,
+      plan: {
+        id: null
+      },
+      cliente: {
+        id: null
+      }
+    }
+  };
+
+  titularList() {
+    this.titularService.list().subscribe(data => {
+      this.titulares = data;
+      console.log(JSON.stringify(this.titulares));
+    })
+  }
+
+  planList() {
+    this.planService.list().subscribe(data => {
+      this.planes = data;
+      console.log(JSON.stringify(this.planes));
+    })
   }
 
   ngOnInit(): void {
+    this.titularList();
+    this.planList();
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -50,10 +86,8 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      plan_id: [0, [Validators.required, Validators.min(1)]],
-      cliente_id: [0, [Validators.required, Validators.min(1)]],
-      plan: [null],
-      cliente: [null]
+      idPlan: [null, [Validators.required]],
+      idTitular: [null, [Validators.required]]
     })
   }
 
@@ -64,14 +98,22 @@ export class ManageComponent implements OnInit {
   getSuscripcion(id: number) {
     this.service.view(id).subscribe(data => {
       this.suscripcion = data
+      if (this.suscripcion.plan == null) {
+        this.suscripcion.plan_id = null;
+      }
+      if (this.suscripcion.cliente == null) {
+        this.suscripcion.cliente_id = null;
+      }
     });
   }
 
-  create(){
+
+
+  create() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
+    } else {
       this.service.create(this.suscripcion).subscribe(data => {
         Swal.fire("Creado", "La suscripción ha sido creada correctamente", "success");
         this.router.navigate(['suscripciones/list']);
@@ -79,11 +121,11 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  update(){
+  update() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
+    } else {
       this.activateRoute.snapshot.params.id;
       this.suscripcion.id = this.activateRoute.snapshot.params.id;
       this.getSuscripcion(this.suscripcion.id);

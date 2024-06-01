@@ -3,8 +3,8 @@ import { Titular } from "./titular.model"
 
 export class Cliente {
     id?: number
-    nombre: string
-    email: string
+    nombre?: string
+    email?: string
     password?: string
     user_id?: string
 }
