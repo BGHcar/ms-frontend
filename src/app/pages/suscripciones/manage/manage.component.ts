@@ -8,6 +8,7 @@ import { Titular } from 'src/app/models/funeraria/titular.model';
 import { Plan } from 'src/app/models/funeraria/plan.model';
 import { TitularService } from 'src/app/services/funeraria/titular.service';
 import { PlanService } from 'src/app/services/funeraria/plan.service';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
 
 @Component({
   selector: 'app-manage',
@@ -21,6 +22,7 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   titulares: Titular[];
   planes: Plan[];
+  clientes: Cliente[];
   trySend: boolean;
 
   constructor(
@@ -28,17 +30,16 @@ export class ManageComponent implements OnInit {
     private service: SuscripcionService,
     private theFormBuilder: FormBuilder,
     private router: Router,
-    private titularService: TitularService,
-    private planService: PlanService
+    private titularesService: TitularService,
+    private planesService: PlanService
   ) {
     this.trySend = false;
     this.mode = 1;
     this.titulares = [];
     this.planes = [];
+    this.clientes = [];
     this.suscripcion = {
       id: 0,
-      plan_id: 0,
-      cliente_id: 0,
       plan: {
         id: null
       },
@@ -48,23 +49,28 @@ export class ManageComponent implements OnInit {
     }
   };
 
-  titularList() {
-    this.titularService.list().subscribe(data => {
-      this.titulares = data;
-      console.log(JSON.stringify(this.titulares));
+  titularesList() {
+    this.titularesService.list().subscribe(data => {
+      this.titulares = data["data"];
     })
   }
 
-  planList() {
-    this.planService.list().subscribe(data => {
-      this.planes = data;
-      console.log(JSON.stringify(this.planes));
+  planesList() {
+    this.planesService.list().subscribe(data => {
+      this.planes = data["data"];
+    })
+  }
+
+  clientesList() {
+    this.titularesService.list().subscribe(data => {
+      this.clientes = data["data"];
     })
   }
 
   ngOnInit(): void {
-    this.titularList();
-    this.planList();
+    this.titularesList();
+    this.planesList();
+    this.clientesList();
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -78,16 +84,14 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id) {
       this.suscripcion.id = this.activateRoute.snapshot.params.id;
-      console.log("suscripcion id: " + this.suscripcion.id);
-      console.log("suscripcion :" + this.getSuscripcion(this.suscripcion.id));
       this.getSuscripcion(this.suscripcion.id);
     }
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      idPlan: [null, [Validators.required]],
-      idTitular: [null, [Validators.required]]
+      plan_id: [null, Validators.required],
+      cliente_id: [null, Validators.required]
     })
   }
 
@@ -99,10 +103,10 @@ export class ManageComponent implements OnInit {
     this.service.view(id).subscribe(data => {
       this.suscripcion = data
       if (this.suscripcion.plan == null) {
-        this.suscripcion.plan_id = null;
+        this.suscripcion.plan.id = null;
       }
       if (this.suscripcion.cliente == null) {
-        this.suscripcion.cliente_id = null;
+        this.suscripcion.cliente.id = null;
       }
     });
   }
@@ -110,6 +114,7 @@ export class ManageComponent implements OnInit {
 
 
   create() {
+    console.log("suscripcion: " + JSON.stringify(this.suscripcion));
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");

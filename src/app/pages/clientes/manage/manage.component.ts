@@ -122,7 +122,7 @@ export class ManageComponent implements OnInit {
           this.beneficiario.nombre = this.cliente.nombre;
           this.beneficiario.email = this.cliente.email;
           this.beneficiario.password = this.cliente.password;
-          this.beneficiario.titular_id = this.titular.id;
+          this.beneficiario.titular.id = this.titular.id;
         });
       });
     }

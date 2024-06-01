@@ -14,14 +14,6 @@
                 <div class="card-body">
                     <div class="container">
                         <form [formGroup]="theFormGroup">
-                            <div class="row" *ngIf="mode==3 || mode==1">
-                                <div class="col-4">
-                                    Id:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="pago.id" formControlName="id" disabled>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-4">
                                     Monto:
@@ -54,13 +46,13 @@
                                     Suscripcion:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="pago.suscripcion_id" [disabled]="mode==1"
-                                        formControlName="suscripcion_id">
-                                    <div
-                                        *ngIf="getTheFormGroup.suscripcion_id.errors && (getTheFormGroup.suscripcion_id.dirty || getTheFormGroup.suscripcion_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.suscripcion_id.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.suscripcion_id.errors.min" class="msnError">Invalido</strong>
-                                    </div>
+                                    <select class="form-control" [(ngModel)]="pago.suscripcion.id" formControlName="suscripcion_id">
+                                        <option *ngFor="let option of suscripciones" [value]="option.id">
+                                            Id: {{option.id}} - 
+                                            Plan: {{option.plan.nombre}} - 
+                                            Cliente: {{option.cliente.nombre}} {{option.cliente.apellido}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">

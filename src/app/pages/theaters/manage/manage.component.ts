@@ -46,6 +46,7 @@ export class ManageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.projectorList();
+    console.log("projectors: " + this.projectors);
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {

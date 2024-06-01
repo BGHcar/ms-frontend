@@ -4,6 +4,8 @@ import { PagoService } from 'src/app/services/funeraria/pago.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Suscripcion } from 'src/app/models/funeraria/suscripcion.model';
+import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.service';
 
 @Component({
   selector: 'app-manage',
@@ -16,19 +18,35 @@ export class ManageComponent implements OnInit {
   pago: Pago;
   theFormGroup: FormGroup;
   trySend: boolean;
+  suscripciones: Suscripcion[];
+  suscripcion: Suscripcion;
+
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: PagoService,
     private theFormBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private suscripcionService: SuscripcionService
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.pago = { id: 0, monto: 0, fecha: "", suscripcion_id: 0 }
+    this.suscripciones = [];
+    this.pago = {
+      id: 0, monto: 0, fecha: "",
+      suscripcion: {
+        id: null
+      }
+    }
   }
 
   ngOnInit(): void {
+    if (this.activateRoute.snapshot.params.id) {
+      this.pago.id = this.activateRoute.snapshot.params.id;
+      this.getPago(this.pago.id);
+    }
+    this.suscripcionesList();
+    this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -39,21 +57,20 @@ export class ManageComponent implements OnInit {
     else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
-    if (this.activateRoute.snapshot.params.id) {
-      this.pago.id = this.activateRoute.snapshot.params.id;
-      console.log("pago id: " + this.pago.id);
-      console.log("pago :" + this.getPago(this.pago.id));
-      this.getPago(this.pago.id);
-    }
-    
-    this.configFormGroup();
+  }
+
+  suscripcionesList() {
+    this.suscripcionService.list().subscribe(data => {
+      this.suscripciones = data["data"];
+    })
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      id: [0],
       monto: [0, [Validators.required, Validators.min(1)]],
       fecha: ['', [Validators.required]],
-      suscripcion_id: [0, [Validators.required, Validators.min(1)]]
+      suscripcion_id: [null, [Validators.required]]
     })
   }
 
@@ -62,11 +79,16 @@ export class ManageComponent implements OnInit {
   }
 
   getPago(id: number) {
+    console.log("id: " + id);
     this.service.view(id).subscribe(data => {
-      this.pago = data
+      this.pago = data;
       this.pago.fecha = this.pago.fecha.split('T')[0];
+      if (!this.pago.suscripcion) {
+        this.pago.suscripcion = { id: null };
+      }
     });
   }
+
 
   create() {
     this.trySend = true;

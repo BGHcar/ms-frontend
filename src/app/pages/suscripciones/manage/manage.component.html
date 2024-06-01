@@ -26,9 +26,12 @@
                                 <div class="col-4">
                                     Plan:
                                 </div>
-                                <div class="col-8 " *ngIf="mode == 2 || mode == 3">
-                                    <select class="form-control" [(ngModel)]="suscripcion.plan.id" formControlName="idPlan">
-                                        <option *ngFor="let plan of planes" [ngValue]="plan.id">{{plan.nombre}}</option>
+                                <div class="col-8 ">
+                                    <select class="form-control" [(ngModel)]="suscripcion.plan.id" formControlName="plan_id">
+                                        <option *ngFor="let option of planes" [value]="option.id">
+                                            Id: {{option.id}} - 
+                                            Nombre: {{option.nombre}}
+                                        </option>
                                     </select>
                                 </div>
                                 <!-- <div class="col-8 " *ngIf="mode == 1">
@@ -47,10 +50,22 @@
                                     Cliente:
                                 </div>
                                 <div class="col-8" *ngIf="mode == 2 || mode == 3">
-                                    <select class="form-control" [(ngModel)]="suscripcion.titular" formControlName="idTitular">
-                                        <option *ngFor="let option of titulares" [ngValue]="option.id">{{option}}</option>
+                                    <select class="form-control" [(ngModel)]="suscripcion.cliente.id" formControlName="cliente_id">
+                                        <option *ngFor="let option of titulares" [value]="option.id">
+                                            Id: {{option.id}} -
+                                            Nombre: {{option.nombre}} {{option.apellido}} -
+                                            Cedula: {{option.cedula}}
+                                        </option>
                                     </select>
                                 </div>
+                                <div class="col-8" *ngIf="mode == 1">
+                                    <select class="form-control" [(ngModel)]="suscripcion.cliente.id" formControlName="cliente_id">
+                                        <option *ngIf="suscripcion.cliente" [value]="suscripcion.cliente.id">
+                                            Id: {{suscripcion.cliente.id}} -
+                                            Nombre: {{suscripcion.cliente.nombre}}
+                                        </option>
+                                    </select>
+                                </div>   
                                 <!-- <div class="col-8 " *ngIf="mode == 1">
                                     <input type="text" class="form-control" [(ngModel)]="suscripcion.cliente.nombre" [disabled]="mode == 1"
                                         formControlName="cliente">
