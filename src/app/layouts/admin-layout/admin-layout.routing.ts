@@ -108,6 +108,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'ejecucion', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/ejecucion/ejecucion.module').then(m => m.EjecucionModule)
+    },
+    {
+        path : 'traslados', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/traslados/traslados.module').then(m => m.TrasladosModule)
     }
     
     

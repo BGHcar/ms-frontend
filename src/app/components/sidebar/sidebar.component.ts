@@ -34,6 +34,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/servicios/list', title: 'Servicios', icon: 'ni-folder-17 text-blue', class: '' , type: 1},
   { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/sepulturas/list', title: 'Sepultura', icon: 'ni-folder-17 text-red', class: '' , type: 1},
+  { path: '/traslados/list', title: 'Traslados', icon: 'ni-send text-red', class: '' , type: 1},
+
   { path: '/ejecucion/list', title: 'Ejecucion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/departamentos/list', title: 'Departamentos', icon: 'ni-square-pin text-green', class: '' , type: 1},
   { path: '/ciudades/list', title: 'Ciudades', icon: 'ni-building text-yellow', class: '' , type: 1},

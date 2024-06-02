@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
-import { Ejecucionservicio } from 'src/app/models/funeraria/ejecucionservicio.model';
-import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
+import { Traslado } from 'src/app/models/funeraria/traslado.model';
+import { TrasladoService } from 'src/app/services/funeraria/traslado.service';
 
 
 @Component({
@@ -13,12 +13,12 @@ import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionse
 })
 export class ListComponent implements OnInit {
 
-  ejecucion: Ejecucionservicio[];
-  theEjecution: Ejecucionservicio;
+  traslado: Traslado[];
+  theTraslado: Traslado;
 
 
-  constructor(private service: EjecucionservicioService, private router: Router) {
-    this.ejecucion = [];
+  constructor(private service: TrasladoService, private router: Router) {
+    this.traslado = [];
   }
 
   ngOnInit(): void {
@@ -28,20 +28,20 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       
-      this.ejecucion = data["data"]
-      console.log(JSON.stringify(this.ejecucion));
+      this.traslado = data["data"]
+      console.log(JSON.stringify(this.traslado));
     });
   }
 
   view(id: number) {
     console.log("id: " + id);
-    this.router.navigate(['ejecucion/view/' + id]);
+    this.router.navigate(['sepulturas/view/' + id]);
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Eliminar la ejecucion del servicio',
-      text: "Está seguro que quiere eliminar la ejecucion?",
+      title: 'Eliminar el servicio de traslado',
+      text: "Está seguro que quiere eliminar el servicio de traslado?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -53,7 +53,7 @@ export class ListComponent implements OnInit {
         this.service.delete(id).subscribe(data => {
           Swal.fire(
             'Eliminado!',
-            'la ejecucion ha sido eliminada correctamente',
+            'El servicio ha sido eliminada correctamente',
             'success'
           )
           this.ngOnInit();
@@ -64,12 +64,11 @@ export class ListComponent implements OnInit {
 
 
   update(id: number) {
-    this.router.navigate(['ejecucion/update/' + id]);
+    this.router.navigate(['traslado/update/' + id]);
   }
 
   create() {
-    this.router.navigate(['ejecucion/create']);
+    this.router.navigate(['traslado/create']);
   }
-
 
 }

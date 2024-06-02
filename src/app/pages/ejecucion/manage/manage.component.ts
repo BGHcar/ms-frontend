@@ -76,7 +76,7 @@ export class ManageComponent implements OnInit {
     }else{
       this.service.create(this.ejecucion).subscribe(data => {
         Swal.fire("Creado", "La ejecucion del servicio ha sido creado correctamente", "success");
-        this.router.navigate(['ejecucion/list']);
+        this.router.navigate(['ejecucionservicios/list']);
       });
     }
   }
@@ -90,7 +90,7 @@ export class ManageComponent implements OnInit {
       this.getEjecucion(this.ejecucion.id);
       this.service.update(this.ejecucion).subscribe(data => {
         Swal.fire("Actualizado", "La ejecucion del servicio ha sido actualizada correctamente", "success");
-        this.router.navigate(['ejecucion/list']);
+        this.router.navigate(['ejecucionservicios/list']);
       });
     }
   }
