@@ -1,3 +1,4 @@
+import { Titular } from "./titular.model";
 
 export class Beneficiario {
     id?: number;
@@ -9,6 +10,6 @@ export class Beneficiario {
     email: string;
     esta_vivo: boolean;
     password?: string;
-    titular_id?: number;
+    titular?: Titular;
     cliente_id?: number;
 }

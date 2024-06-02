@@ -151,16 +151,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Titular_id:
+                                    Titular:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.titular_id"
-                                        [disabled]="mode==1
-                                        " formControlName="titular_id">
-                                    <div *ngIf="getTheFormGroup.titular_id.errors && (getTheFormGroup.titular_id.dirty || getTheFormGroup.titular_id.touched || trySend)">
-                                        <strong *ngIf=" getTheFormGroup.titular_id.errors.required" 
-                                        class="msnError">Requerido</strong>
-                                    </div>
+                                    <select class="form-control" [(ngModel)]="beneficiario.titular.id" formControlName="titular_id">
+                                        <option *ngFor="let option of titulares" [value]="option.id">
+                                            Id: {{option.id}} - Nombre: {{option.nombre}} {{option.apellido}} - Cedula: {{option.cedula}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
 

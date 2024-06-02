@@ -20,28 +20,18 @@ export class ManageComponent implements OnInit {
   theater: Theater;
   theFormGroup: FormGroup;
   trySend: boolean;
-  projectors: Projector[];
-
   constructor(private activateRoute: ActivatedRoute,
     private service: TheaterService,
     private router: Router,
-    private theFormBuilder: FormBuilder,
-    private projectorservices: ProjectorService,
-
+    private theFormBuilder: FormBuilder
   ) {
     this.projectors = []
     this.trySend = false;
     this.mode = 1;
-    this.theater = { id: 0, capacity: 0, location: '', projector:{id:0, brand:"", width:0, high:0} }
+    this.theater = { id: 0, capacity: 0, location: '' }
   }
-  loadProjector() {
-    this.projectorservices.list().subscribe(data => {
-      this.projectors = data;
-    });
-  }
-  ngOnInit(): void {
-    this.loadProjector();
 
+  ngOnInit(): void {
     this.configFormGroup();
 
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -66,9 +56,7 @@ export class ManageComponent implements OnInit {
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
       capacity: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      projector: [null] // Añadir el control para sepultura
-
+      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     })
   }
 
@@ -83,6 +71,9 @@ export class ManageComponent implements OnInit {
   getTheater(id: number) {
     this.service.view(id).subscribe(data => {
       this.theater = data
+      if (this.theater.projector == null) {
+        id = null;
+      }
     })
   }
 

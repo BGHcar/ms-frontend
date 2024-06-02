@@ -28,12 +28,10 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.pagos = data["data"];
-      console.log(JSON.stringify(this.pagos));
     });
   }
 
   view(id: number) {
-    console.log("id: " + id);
     this.router.navigate(['pagos/view/' + id]);
   }
 
