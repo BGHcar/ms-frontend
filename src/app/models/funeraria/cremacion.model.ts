@@ -1,7 +1,7 @@
 export class Cremacion {
     id?:number;
-    ubicacion:string;
-    fecha_hora:Date;
+    ubicacion?:string;
+    fecha_hora?:Date;
     servicio_id?:number;
     sala_id?:number;
 }

@@ -17,18 +17,23 @@
                         <thead>
                             <tr>
                                 <th scope="col-1">ID</th>
-                                <th scope="col-2">Ubicacion</th>
-                                <th scope="col-3">Fecha/Hora</th>
-                                <th scope="col-4">Servicio_id</th>
+                                <th scope="col-2">Token</th>
+                                <th scope="col-3">Ubicacion</th>
+                                <th scope="col-4">Id del difunto</th>
+                                <th scope="col-5">Id del servicio</th>
+                                <th scope="col-6">Id del cliente</th>
+
+
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let actual of sepultura">
+                            <tr *ngFor="let actual of servicios">
                                 <td>{{actual.id}}</td>
-                                <td>{{actual.ubicacion}}</td>                          
-                                <td >{{actual.servicio_id}}</td>
-                                <td>{{actual.fecha_hora}}</td>
-                                <td>{{actual.sala_id}}</td>
+                                <td>{{actual.token}}</td>                          
+                                <td>{{actual.ubicacion}}</td>
+                                <td>{{actual.difunto_id}}</td>
+                                <td>{{actual.servicio_id}}</td>
+                                <td>{{actual.cliente_id}}</td>
 
 
                                 <td>

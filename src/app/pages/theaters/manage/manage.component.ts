@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Projector } from 'src/app/models/projector.model';
 import { Theater } from 'src/app/models/theater.model';
+import { ProjectorService } from 'src/app/services/projector.service';
 import { TheaterService } from 'src/app/services/theater.service';
 import Swal from 'sweetalert2';
 
@@ -18,18 +20,30 @@ export class ManageComponent implements OnInit {
   theater: Theater;
   theFormGroup: FormGroup;
   trySend: boolean;
+  projectors: Projector[];
+
   constructor(private activateRoute: ActivatedRoute,
     private service: TheaterService,
     private router: Router,
-    private theFormBuilder: FormBuilder
+    private theFormBuilder: FormBuilder,
+    private projectorservices: ProjectorService,
+
   ) {
+    this.projectors = []
     this.trySend = false;
     this.mode = 1;
-    this.theater = { id: 0, capacity: 0, location: '' }
+    this.theater = { id: 0, capacity: 0, location: '', projector:{id:0, brand:"", width:0, high:0} }
   }
-
+  loadProjector() {
+    this.projectorservices.list().subscribe(data => {
+      this.projectors = data;
+    });
+  }
   ngOnInit(): void {
+    this.loadProjector();
+
     this.configFormGroup();
+
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -52,9 +66,12 @@ export class ManageComponent implements OnInit {
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
       capacity: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      projector: [null] // Añadir el control para sepultura
+
     })
   }
+
   get getTheFormGroup() {
     return this.theFormGroup.controls
   }

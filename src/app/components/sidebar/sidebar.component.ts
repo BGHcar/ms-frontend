@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/funeraria/user.model';
 import { SecurityService } from 'src/app/services/funeraria/security.service';
+import { WebSocketService } from 'src/app/services/funeraria/web-socket.service';
 
 declare interface RouteInfo {
   path: string;
@@ -33,6 +34,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/servicios/list', title: 'Servicios', icon: 'ni-folder-17 text-blue', class: '' , type: 1},
   { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/sepulturas/list', title: 'Sepultura', icon: 'ni-folder-17 text-red', class: '' , type: 1},
+  { path: '/ejecucion/list', title: 'Ejecucion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/departamentos/list', title: 'Departamentos', icon: 'ni-square-pin text-green', class: '' , type: 1},
   { path: '/ciudades/list', title: 'Ciudades', icon: 'ni-building text-yellow', class: '' , type: 1},
   { path: '/sedes/list', title: 'Sedes', icon: 'ni-istanbul text-blue', class: '' , type: 1},
@@ -58,7 +60,7 @@ export class SidebarComponent implements OnInit {
   public isCollapsed = true;
 
 
-  constructor(private router: Router, private theSecurityService:SecurityService) { }
+  constructor(private router: Router, private theSecurityService:SecurityService, private theWebSocketServices:WebSocketService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -68,5 +70,9 @@ export class SidebarComponent implements OnInit {
     this.subscription = this.theSecurityService.getUser().subscribe(data => {
       this.theUser = data;
     });
+    this.theWebSocketServices.setNameEvent("notifications")
+    this.theWebSocketServices.callback.subscribe(data=>{
+      console.log("llegando notificacion desde el backend"+ JSON.stringify(data))
+    })
   }
 }

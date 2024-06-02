@@ -104,6 +104,11 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'sepulturas', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/sepulturas/sepulturas.module').then(m => m.SepulturasModule)
+    },
+    {
+        path : 'ejecucion', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/ejecucion/ejecucion.module').then(m => m.EjecucionModule)
     }
+    
     
 ];

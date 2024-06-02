@@ -3,5 +3,4 @@ export class Projector {
     brand:string;
     high: number;
     width: number;
-    thetare_id?: number;
 }

@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.sepultura={id:0, ubicacion:"", fecha_hora:"", servicio_id:0}
+    this.sepultura={id:0, ubicacion:"", fecha_hora:"", sala_id:0}
   }
   ngOnInit(): void {
     this.configFormGroup();
@@ -35,7 +35,7 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
       this.theFormGroup.get('ubicacion')?.disable();
       this.theFormGroup.get('fecha_hora')?.disable();
-      this.theFormGroup.get('servicio_id')?.disable();
+      this.theFormGroup.get('sala_id')?.disable();
       this.getSepultura(this.activateRoute.snapshot.params.id);
     }
     else if (currentUrl.includes('create')) {
@@ -51,6 +51,8 @@ export class ManageComponent implements OnInit {
       ubicacion: ["", [Validators.required, Validators.min(1)]],
       fecha_hora: ["", [Validators.required]],
       servicio_id: [0, [Validators.required]],
+      sala_id: [0, [Validators.required]],
+
     })
   }
   get getTheFormGroup() {
@@ -69,7 +71,6 @@ export class ManageComponent implements OnInit {
       this.service.create(this.sepultura).subscribe(data => {
         this.sepultura.fecha_hora = this.sepultura.fecha_hora;
         this.sepultura.ubicacion = this.sepultura.ubicacion;
-        this.sepultura.servicio_id = this.sepultura.servicio_id;
         this.sepultura.id = this.sepultura.id;
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['sepulturas/list']);
