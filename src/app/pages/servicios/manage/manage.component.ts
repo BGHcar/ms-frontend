@@ -8,6 +8,8 @@ import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
 import { Sepultura } from 'src/app/models/funeraria/sepultura.model';
 import { Cremacion } from 'src/app/models/funeraria/cremacion.model';
 import { CremacionService } from 'src/app/services/funeraria/cremacion.service';
+import { Traslado } from 'src/app/models/funeraria/traslado.model';
+import { TrasladoService } from 'src/app/services/funeraria/traslado.service';
 
 @Component({
   selector: 'app-manage',
@@ -22,20 +24,23 @@ export class ManageComponent implements OnInit {
   trySend: boolean;
   sepulturas: Sepultura[];
   cremaciones: Cremacion[];
+  traslado:Traslado[];
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: ServicioService,
     private sepulturaService: SepulturaService,
     private cremacionServices: CremacionService,
+    private trasladoServices:TrasladoService,
     private theFormBuilder: FormBuilder,
     private router: Router
   ) {
     this.sepulturas = [];
     this.cremaciones = [];
+    this.traslado=[];
     this.trySend = false;
     this.mode = 1;
-    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0, sepultura: { id: null }, cremacion: { id: null } };
+    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0, sepultura: { id: null }, cremacion: { id: null },  traslados:{id:null} };
   }
 
   loadSepulturas() {
@@ -50,9 +55,16 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  loadTraslado(){
+    this.trasladoServices.list().subscribe(data => {
+      this.traslado = data["data"];
+    }); 
+  }
+
   ngOnInit(): void {
     this.loadSepulturas();
     this.loadCremaciones();
+    this.loadTraslado();
     this.configFormGroup();
     this.configFormChanges();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -64,6 +76,7 @@ export class ManageComponent implements OnInit {
       this.theFormGroup.get('precio')?.disable();
       this.theFormGroup.get('idsepultura')?.disable();
       this.theFormGroup.get('idcremacion')?.disable();
+      this.theFormGroup.get('idtraslado')?.disable();
       this.getServicio(this.activateRoute.snapshot.params.id);
     } else if (currentUrl.includes('create')) {
       this.mode = 2;
@@ -82,6 +95,7 @@ export class ManageComponent implements OnInit {
       duracion: [0, [Validators.required, Validators.min(2)]],
       idsepultura: [null],
       idcremacion: [null],
+      idtraslado:[null],
     });
   }
 

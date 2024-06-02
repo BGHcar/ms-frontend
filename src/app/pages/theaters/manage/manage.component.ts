@@ -20,18 +20,33 @@ export class ManageComponent implements OnInit {
   theater: Theater;
   theFormGroup: FormGroup;
   trySend: boolean;
+  projectors: Projector[];
   constructor(private activateRoute: ActivatedRoute,
     private service: TheaterService,
     private router: Router,
-    private theFormBuilder: FormBuilder
+    private theFormBuilder: FormBuilder,
+    private projectorService: ProjectorService
   ) {
-    this.projectors = []
     this.trySend = false;
     this.mode = 1;
-    this.theater = { id: 0, capacity: 0, location: '' }
+    this.projectors = [];
+    this.theater = { 
+      id: 0, 
+      capacity: 0, 
+      location: '', 
+      projector:{
+        id: null
+    } }
   }
 
+  projectorList(){
+    this.projectorService.list().subscribe(data => {
+      this.projectors = data;
+    })
+  }
   ngOnInit(): void {
+    this.projectorList();
+    console.log("projectors: " + this.projectors);
     this.configFormGroup();
 
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -56,7 +71,8 @@ export class ManageComponent implements OnInit {
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
       capacity: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
-      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
+      location: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      idProjector: [null, [Validators.required]]
     })
   }
 
