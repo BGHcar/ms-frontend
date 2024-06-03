@@ -41,10 +41,6 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.activateRoute.snapshot.params.id) {
-      this.pago.id = this.activateRoute.snapshot.params.id;
-      this.getPago(this.pago.id);
-    }
     this.suscripcionesList();
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
@@ -57,20 +53,25 @@ export class ManageComponent implements OnInit {
     else if (currentUrl.includes('update')) {
       this.mode = 3;
     }
+    if (this.activateRoute.snapshot.params.id) {
+      this.pago.id = this.activateRoute.snapshot.params.id;
+      this.getPago(this.pago.id);
+    }
+
   }
 
   suscripcionesList() {
     this.suscripcionService.list().subscribe(data => {
       this.suscripciones = data["data"];
+      console.log("suscripciones: " + JSON.stringify(this.suscripciones));
     })
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      id: [0],
       monto: [0, [Validators.required, Validators.min(1)]],
       fecha: ['', [Validators.required]],
-      suscripcion_id: [null, [Validators.required]]
+      suscripcion_id: [null, Validators.required]
     })
   }
 
@@ -83,8 +84,8 @@ export class ManageComponent implements OnInit {
     this.service.view(id).subscribe(data => {
       this.pago = data;
       this.pago.fecha = this.pago.fecha.split('T')[0];
-      if (!this.pago.suscripcion) {
-        this.pago.suscripcion = { id: null };
+      if (this.pago.suscripcion == null) {
+        this.pago.suscripcion.id = null;
       }
     });
   }

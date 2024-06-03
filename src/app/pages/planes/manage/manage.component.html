@@ -14,14 +14,6 @@
                 <div class="card-body">
                     <div class="container">
                         <form [formGroup]="theFormGroup">
-                            <div class="row" *ngIf="mode==3 || mode==1" >
-                                <div class="col-4">
-                                    Id:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="plan.id" formControlName="id" disabled>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-4">
                                     Nombre:

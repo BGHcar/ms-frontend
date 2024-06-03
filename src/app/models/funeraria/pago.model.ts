@@ -4,5 +4,5 @@ export class Pago {
     id?: number;
     monto: number;
     fecha: string;
-    suscripcion: Suscripcion;
+    suscripcion?: Suscripcion;
 }
