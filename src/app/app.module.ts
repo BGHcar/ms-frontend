@@ -16,6 +16,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -30,6 +31,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+
   ],
   providers: [
     AuthGuard,{

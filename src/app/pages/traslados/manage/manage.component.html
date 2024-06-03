@@ -27,7 +27,7 @@
                                     Fecha/Hora:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="sepultura.fecha_hora" [disabled]="mode == 1"
+                                    <input type="text" class="form-control" [(ngModel)]="traslado.fecha_hora" [disabled]="mode == 1"
                                         formControlName="fecha_hora">
                                     <div
                                         *ngIf="getTheFormGroup.fecha_hora.errors && (getTheFormGroup.fecha_hora.dirty || getTheFormGroup.fecha_hora.touched || trySend)">
@@ -40,29 +40,43 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    Ubicacion:
+                                    Origen:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="sepultura.ubicacion" [disabled]="mode==1"
-                                        formControlName="ubicacion">
+                                    <input type="text" class="form-control" [(ngModel)]="traslado.origen" [disabled]="mode==1"
+                                        formControlName="origen">
                                     <div
-                                        *ngIf="getTheFormGroup.ubicacion.errors && (getTheFormGroup.ubicacion.dirty || getTheFormGroup.ubicacion.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.ubicacion.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.ubicacion.errors.minlength" class="msnError">Invalido</strong>
+                                        *ngIf="getTheFormGroup.origen.errors && (getTheFormGroup.origen.dirty || getTheFormGroup.origen.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.origen.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.origen.errors.minlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Sala:
+                                    Destino:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="sepultura.sala_id" [disabled]="mode==1"
-                                        formControlName="sala_id">
+                                    <input type="number" class="form-control" [(ngModel)]="traslado.destino" [disabled]="mode==1"
+                                        formControlName="destino">
                                     <div
-                                        *ngIf="getTheFormGroup.sala_id.errors && (getTheFormGroup.sala_id.dirty || getTheFormGroup.sala_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.sala_id.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.sala_id.errors.minlength" class="msnError">Invalido</strong>
+                                        *ngIf="getTheFormGroup.destino.errors && (getTheFormGroup.destino.dirty || getTheFormGroup.destino.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.destino.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.destino.errors.minlength" class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Tipo de Vehiculo:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="traslado.tipo_vehiculo" [disabled]="mode==1"
+                                        formControlName="tipo_vehiculo">
+                                    <div
+                                        *ngIf="getTheFormGroup.tipo_vehiculo.errors && (getTheFormGroup.tipo_vehiculo.dirty || getTheFormGroup.tipo_vehiculo.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.tipo_vehiculo.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.tipo_vehiculo.errors.minlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
