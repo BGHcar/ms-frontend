@@ -49,7 +49,7 @@
                                 <div class="col-4">
                                     Cliente:
                                 </div>
-                                <div class="col-8" *ngIf="mode == 2 || mode == 3">
+                                <div class="col-8" *ngIf="mode == 2">
                                     <select class="form-control" [(ngModel)]="suscripcion.cliente.id" formControlName="cliente_id">
                                         <option *ngFor="let option of titulares" [value]="option.id">
                                             Id: {{option.id}} -
@@ -58,11 +58,16 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-8" *ngIf="mode == 1">
+                                <div class="col-8" *ngIf="mode == 1 || mode == 3">
                                     <select class="form-control" [(ngModel)]="suscripcion.cliente.id" formControlName="cliente_id">
                                         <option *ngIf="suscripcion.cliente" [value]="suscripcion.cliente.id">
                                             Id: {{suscripcion.cliente.id}} -
                                             Nombre: {{suscripcion.cliente.nombre}}
+                                        </option>
+                                        <option *ngFor="let option of titulares" [value]="option.id">
+                                            Id: {{option.id}} -
+                                            Nombre: {{option.nombre}} {{option.apellido}} -
+                                            Cedula: {{option.cedula}}
                                         </option>
                                     </select>
                                 </div>   

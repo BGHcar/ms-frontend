@@ -58,6 +58,7 @@ export class ManageComponent implements OnInit {
   planesList() {
     this.planesService.list().subscribe(data => {
       this.planes = data["data"];
+      console.log("planes: " + JSON.stringify(this.planes));
     })
   }
 
