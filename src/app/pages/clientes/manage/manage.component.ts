@@ -30,7 +30,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
+    this.cliente = { id: 0, nombre: '', email: '', password: ''}
 
   }
 

@@ -4,6 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
 import { Ejecucionservicio } from 'src/app/models/funeraria/ejecucionservicio.model';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
+import { Servicio } from 'src/app/models/funeraria/servicio.model';
+import { ServicioService } from 'src/app/services/funeraria/servicio.service';
+import { ClienteService } from 'src/app/services/funeraria/cliente.service';
 
 @Component({
   selector: 'app-manage',
@@ -14,22 +18,41 @@ export class ManageComponent implements OnInit {
   
   mode: number;
   ejecucion: Ejecucionservicio;
+  clientes:Cliente[];
   theFormGroup: FormGroup;
   trySend: boolean;
+  servicios: Servicio[];
+
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: EjecucionservicioService,
     private theFormBuilder: FormBuilder,
-    private router: Router
-
+    private router: Router,
+    private serviciosServices:ServicioService,
+    private clienteServices: ClienteService
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.ejecucion={id:0, token:"", ubicacion:"", difunto_id:0, servicio_id:0, cliente_id:0}
+    this.servicios = [];
+    this.clientes = [];
+
+    this.ejecucion={id:0, token:"", ubicacion:"", difunto_id:0, servicio:{id:0}, cliente:{id:0}};
+  }
+  loadServicios() {
+    this.serviciosServices.list().subscribe(data => {
+      this.servicios = data["data"];
+    });
+  }
+  loadCliente() {
+    this.clienteServices.list().subscribe(data => {
+      this.clientes = data["data"];
+    });
   }
   ngOnInit(): void {
     this.configFormGroup();
+    this.loadServicios();
+    this.loadCliente();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -55,8 +78,8 @@ export class ManageComponent implements OnInit {
       token: ["", [Validators.required, Validators.minLength(1)]],
       ubicacion: ["", [Validators.required, Validators.min(1)]],
       difunto_id: [0, [Validators.required]],
-      servicio_id: [0, [Validators.required, Validators.min(2)]],
-      cliente_id: [0, [Validators.required, Validators.min(2)]],
+      idservicio: [0],
+      idcliente: [0],
 
     });
   }
@@ -66,30 +89,28 @@ export class ManageComponent implements OnInit {
   getEjecucion(id: number) {
     this.service.view(id).subscribe(data => {
       this.ejecucion = data;
-      this.theFormGroup.patchValue(data); // Actualiza el formulario con los datos del servicio
+      this.theFormGroup.patchValue(data); 
     });
   }
-  create(){
+  create() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
+    } else {
       this.service.create(this.ejecucion).subscribe(data => {
-        Swal.fire("Creado", "La ejecucion del servicio ha sido creado correctamente", "success");
+        Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['ejecucionservicios/list']);
       });
     }
   }
-  update(){
+  update() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
-      this.activateRoute.snapshot.params.id;
+    } else {
       this.ejecucion.id = this.activateRoute.snapshot.params.id;
-      this.getEjecucion(this.ejecucion.id);
       this.service.update(this.ejecucion).subscribe(data => {
-        Swal.fire("Actualizado", "La ejecucion del servicio ha sido actualizada correctamente", "success");
+        Swal.fire("Actualizado", "El servicio ha sido actualizado correctamente", "success");
         this.router.navigate(['ejecucionservicios/list']);
       });
     }

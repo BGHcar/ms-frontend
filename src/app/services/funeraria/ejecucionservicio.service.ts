@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { Ejecucionservicio } from 'src/app/models/funeraria/ejecucionservicio.model';
 import { environment } from 'src/environments/environment';
 

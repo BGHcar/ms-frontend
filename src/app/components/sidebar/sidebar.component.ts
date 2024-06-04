@@ -35,6 +35,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/sepulturas/list', title: 'Sepultura', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/traslados/list', title: 'Traslados', icon: 'ni-send text-red', class: '' , type: 1},
+  { path: '/planes/list', title: 'Planes', icon: 'ni-send text-red', class: '' , type: 1},
+  { path: '/planesxservicios/list', title: 'planes x servicios', icon: 'ni-send text-red', class: '' , type: 1},
 
   { path: '/ejecucion/list', title: 'Ejecucion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/departamentos/list', title: 'Departamentos', icon: 'ni-square-pin text-green', class: '' , type: 1},
@@ -43,6 +45,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/salas/list', title: 'Salas', icon: 'ni-shop text-red', class: '' , type: 1},
   { path: '/chats/list', title: 'Chats', icon: 'ni-email-83 text-red', class: '' , type: 1},
   { path: '/mensajes/list', title: 'Mensajes', icon: 'ni-send text-red', class: '' , type: 1},
+  
 ];
 
 // que otros iconos pueden ser usados para un teatro, pelicula, proyector, proyeccion y asiento? 

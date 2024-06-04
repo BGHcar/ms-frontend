@@ -64,28 +64,24 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    id del servicio:
+                                    Servicio:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="ejecucion.servicio_id" [disabled]="mode==1"
-                                        formControlName="servicio_id">
-                                    <div
-                                        *ngIf="getTheFormGroup.servicio_id.errors && (getTheFormGroup.servicio_id.dirty || getTheFormGroup.servicio_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.servicio_id.errors.required" class="msnError">Requerido</strong>
-                                    </div>
+                                    <select class="form-control" [(ngModel)]="ejecucion.servicio.id" [disabled]="mode == 1" formControlName="idservicio">
+                                        <option value=>No</option>
+                                        <option *ngFor="let option of servicios" [value]="option.id"> Nombre:{{ option.nombre }}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    id del cliente:
+                                    Cliente:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="ejecucion.cliente_id" [disabled]="mode==1"
-                                        formControlName="cliente_id">
-                                    <div
-                                        *ngIf="getTheFormGroup.cliente_id.errors && (getTheFormGroup.cliente_id.dirty || getTheFormGroup.cliente_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.cliente_id.errors.required" class="msnError">Requerido</strong>
-                                    </div>
+                                    <select class="form-control" [(ngModel)]="ejecucion.cliente.id" [disabled]="mode == 1" formControlName="idcliente">
+                                        <option value=>No</option>
+                                        <option *ngFor="let opt of clientes" [value]="opt.id"> Nombre:{{ opt.nombre }}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">

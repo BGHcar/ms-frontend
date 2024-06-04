@@ -4,10 +4,10 @@ import { Traslado } from "./traslado.model";
 
 export class Servicio {
     id?:number;
-    nombre:string;
-    precio:number;
-    descripcion:string;
-    duracion:number;
+    nombre?:string;
+    precio?:number;
+    descripcion?:string;
+    duracion?:number;
     traslados?:Traslado;
     sepultura?:Sepultura;
     cremacion?:Cremacion;
