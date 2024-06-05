@@ -83,16 +83,11 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  getBeneficiario(id: number): void {
+  getBeneficiario(id: number) {
     this.service.view(id).subscribe(
       data => {
         this.beneficiario = data;
-        this.theFormGroup.patchValue(data); // Populate form with received data
-      },
-      error => {
-        console.error('Error fetching beneficiario:', error);
-      }
-    );
+      });
   }
 
   create() {
