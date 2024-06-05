@@ -29,7 +29,7 @@
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="planxservicio.servicio.id" [disabled]="mode == 1" formControlName="servicio_id">
                                         <option value=>SELECCIONE UNA OPCIÓN</option>
-                                        <option *ngFor="let option of servicios" [value]="option.id"> Ubicacion:{{ option.nombre }}</option>
+                                        <option *ngFor="let option of servicios" [value]="option.id"> id:{{ option.id }} - nombre: {{option.nombre}} - Ubicacion: {{option.ubicacion}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="planxservicio.plan.id" [disabled]="mode == 1" formControlName="plan_id">
                                         <option value=>SELECCIONE UNA OPCIÓN</option>
-                                        <option *ngFor="let option of planes" [value]="option.id"> Nombre:{{ option.nombre }}</option>
+                                        <option *ngFor="let option of planes" [value]="option.id"> id: {{ option.id }} - Nombre: {{option.nombre}}</option>
                                     </select>
                                 </div>
                             </div>

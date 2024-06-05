@@ -2,27 +2,28 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
   {
-    path : 'list/:id',
+    path : 'list',
     component : ListComponent
   },
   {
     path : 'create',
-    component : ListComponent
+    component : ManageComponent
   },
   {
     path : 'update/:id',
-    component : ListComponent
+    component : ManageComponent
   },
   {
     path : 'view/:id',
-    component : ListComponent
+    component : ManageComponent
   },
   {
     path : 'delete/:id',
-    component : ListComponent
+    component : ManageComponent
   }
 ];
 
@@ -30,4 +31,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MensajesRoutingModule { }
+
+export class ComentariosRoutingModule { }

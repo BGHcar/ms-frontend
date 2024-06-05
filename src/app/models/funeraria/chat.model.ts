@@ -4,4 +4,5 @@ export class Chat {
     id?:number;
     eservicio_id:number;
     mensajes?:Mensaje[];
+    token?:string;
 }

@@ -19,7 +19,7 @@
                                     id:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="sepultura.id" formControlName="id" disabled>
+                                    <input type="text" class="form-control" [(ngModel)]="traslado.id" formControlName="id" disabled>
                                 </div>
                             </div>
                             <div class="row">
@@ -57,26 +57,12 @@
                                     Destino:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="traslado.destino" [disabled]="mode==1"
+                                    <input type="text" class="form-control" [(ngModel)]="traslado.destino" [disabled]="mode==1"
                                         formControlName="destino">
                                     <div
                                         *ngIf="getTheFormGroup.destino.errors && (getTheFormGroup.destino.dirty || getTheFormGroup.destino.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.destino.errors.required" class="msnError">Requerido</strong>
                                         <strong *ngIf="getTheFormGroup.destino.errors.minlength" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Tipo de Vehiculo:
-                                </div>
-                                <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="traslado.tipo_vehiculo" [disabled]="mode==1"
-                                        formControlName="tipo_vehiculo">
-                                    <div
-                                        *ngIf="getTheFormGroup.tipo_vehiculo.errors && (getTheFormGroup.tipo_vehiculo.dirty || getTheFormGroup.tipo_vehiculo.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.tipo_vehiculo.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.tipo_vehiculo.errors.minlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>

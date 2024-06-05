@@ -44,7 +44,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/sedes/list', title: 'Sedes', icon: 'ni-istanbul text-blue', class: '' , type: 1},
   { path: '/salas/list', title: 'Salas', icon: 'ni-shop text-red', class: '' , type: 1},
   { path: '/chats/list', title: 'Chats', icon: 'ni-email-83 text-red', class: '' , type: 1},
-  { path: '/mensajes/list', title: 'Mensajes', icon: 'ni-send text-red', class: '' , type: 1},
+  { path: '/comentarios/list', title: 'Comentarios', icon: 'ni-email-83 text-red', class: '' , type: 1},
   
 ];
 

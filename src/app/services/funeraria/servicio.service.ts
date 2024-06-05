@@ -23,7 +23,7 @@ export class ServicioService {
     return this.http.delete<Servicio>(`${environment.url_ms_funeraria}/servicios/${id}`);
   }
   update(theServicio: Servicio): Observable<Servicio> {
-    return this.http.put<Servicio>(`${environment.url_ms_funeraria}/servicios/${theServicio.id}`, Servicio);
+    return this.http.put<Servicio>(`${environment.url_ms_funeraria}/servicios/${theServicio.id}`, theServicio);
   }
   
 

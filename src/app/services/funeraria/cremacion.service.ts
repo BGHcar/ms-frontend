@@ -23,7 +23,7 @@ export class CremacionService {
     return this.http.delete<Cremacion>(`${environment.url_ms_funeraria}/cremaciones/${id}`);
   }
   update(theCremacion: Cremacion): Observable<Cremacion> {
-    return this.http.put<Cremacion>(`${environment.url_ms_funeraria}/cremaciones/${theCremacion.id}`, Cremacion);
+    return this.http.put<Cremacion>(`${environment.url_ms_funeraria}/cremaciones/${theCremacion.id}`, theCremacion);
   }
   
 
