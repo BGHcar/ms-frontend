@@ -84,6 +84,7 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      id:[0],
       plan_id: [null, Validators.required],
       servicio_id: [null, Validators.required]
     })
@@ -115,7 +116,8 @@ export class ManageComponent implements OnInit {
     } else {
       this.service.create(this.planxservicio).subscribe(data => {
         Swal.fire("Creado", "La planXservicio ha sido creada correctamente", "success");
-        this.router.navigate(['serviciosxplanes/list']);
+        this.planxservicio.id = this.planxservicio.id;
+        this.router.navigate(['planesxservicios/list']);
       });
     }
   }
@@ -130,7 +132,7 @@ export class ManageComponent implements OnInit {
       this.getplanxservicio(this.planxservicio.id);
       this.service.update(this.planxservicio).subscribe(data => {
         Swal.fire("Actualizado", "La planXservicio ha sido actualizada correctamente", "success");
-        this.router.navigate(['serviciosxplanes/list']);
+        this.router.navigate(['planesxservicios/list']);
       });
     }
   }

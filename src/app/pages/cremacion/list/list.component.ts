@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { Cremacion } from 'src/app/models/funeraria/cremacion.model';
 import { CremacionService } from 'src/app/services/funeraria/cremacion.service';
+import { Sala } from 'src/app/models/funeraria/sala.model';
+import { SalaService } from 'src/app/services/funeraria/sala.service';
 
 @Component({
   selector: 'app-list',
@@ -14,14 +16,23 @@ export class ListComponent implements OnInit {
 
   cremacion: Cremacion[];
   theCremacion: Cremacion;
+  salas:Sala[]
 
-
-  constructor(private service: CremacionService, private router: Router) {
+  constructor(private service: CremacionService, private router: Router, private salaServices: SalaService) {
     this.cremacion = [];
+    this.salas = [];
+
   }
 
   ngOnInit(): void {
     this.list();
+    this.listSalas();
+
+  }
+  listSalas() {
+    this.salaServices.list().subscribe(data => {
+      this.salas = data["data"];
+    });
   }
 
   list() {
@@ -31,7 +42,10 @@ export class ListComponent implements OnInit {
       console.log(JSON.stringify(this.cremacion));
     });
   }
-
+  obtenerSala(id: number): string {
+    const sala = this.salas.find(dep => dep.id === id);
+    return sala ? sala.nombre : 'Desconocido';
+  }
   view(id: number) {
     console.log("id: " + id);
     this.router.navigate(['cremaciones/view/' + id]);

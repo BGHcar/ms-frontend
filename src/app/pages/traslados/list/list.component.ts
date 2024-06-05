@@ -35,7 +35,7 @@ export class ListComponent implements OnInit {
 
   view(id: number) {
     console.log("id: " + id);
-    this.router.navigate(['sepulturas/view/' + id]);
+    this.router.navigate(['traslados/view/' + id]);
   }
 
   delete(id: number) {
@@ -64,11 +64,11 @@ export class ListComponent implements OnInit {
 
 
   update(id: number) {
-    this.router.navigate(['traslado/update/' + id]);
+    this.router.navigate(['traslados/update/' + id]);
   }
 
   create() {
-    this.router.navigate(['traslado/create']);
+    this.router.navigate(['traslados/create']);
   }
 
 }

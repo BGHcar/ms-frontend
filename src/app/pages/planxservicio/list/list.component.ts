@@ -13,12 +13,12 @@ import { PlanxservicioService } from 'src/app/services/funeraria/planxservicio.s
 })
 export class ListComponent implements OnInit {
 
-  suscripciones: Planxservicio[];
-  theSuscripcion: Planxservicio;
+  planesxServicio: Planxservicio[];
+  thePlanesxServicio: Planxservicio;
 
 
   constructor(private service: PlanxservicioService, private router: Router) {
-    this.suscripciones = [];
+    this.planesxServicio = [];
   }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       
-      this.suscripciones = data["data"]
+      this.planesxServicio = data["data"]
     });
   }
 

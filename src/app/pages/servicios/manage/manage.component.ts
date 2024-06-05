@@ -66,7 +66,6 @@ export class ManageComponent implements OnInit {
     this.loadCremaciones();
     this.loadTraslado();
     this.configFormGroup();
-    this.configFormChanges();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -98,36 +97,6 @@ export class ManageComponent implements OnInit {
       idtraslado:[null],
     });
   }
-
-  configFormChanges() {
-    let sepulturaSubscription = false;
-    let cremacionSubscription = false;
-
-    this.theFormGroup.get('idsepultura')?.valueChanges.subscribe(value => {
-      if (!sepulturaSubscription) {
-        sepulturaSubscription = true;
-        if (value) {
-          this.theFormGroup.get('idcremacion')?.disable({ emitEvent: false });
-        } else {
-          this.theFormGroup.get('idcremacion')?.enable({ emitEvent: false });
-        }
-        sepulturaSubscription = false;
-      }
-    });
-
-    this.theFormGroup.get('idcremacion')?.valueChanges.subscribe(value => {
-      if (!cremacionSubscription) {
-        cremacionSubscription = true;
-        if (value) {
-          this.theFormGroup.get('idsepultura')?.disable({ emitEvent: false });
-        } else {
-          this.theFormGroup.get('idsepultura')?.enable({ emitEvent: false });
-        }
-        cremacionSubscription = false;
-      }
-    });
-  }
-
   get getTheFormGroup() {
     return this.theFormGroup.controls;
   }
@@ -144,6 +113,11 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     } else {
+      this.servicio.nombre = this.theFormGroup.get('nombre').value;
+      this.servicio.precio = this.theFormGroup.get('precio').value;
+      this.servicio.duracion = this.theFormGroup.get('duracion').value;
+      this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
+
       this.service.create(this.servicio).subscribe(data => {
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['servicios/list']);

@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
 import { Sepultura } from 'src/app/models/funeraria/sepultura.model';
+import { Sala } from 'src/app/models/funeraria/sala.model';
+import { SalaService } from 'src/app/services/funeraria/sala.service';
 
 @Component({
   selector: 'app-list',
@@ -14,14 +16,22 @@ export class ListComponent implements OnInit {
 
   sepultura: Sepultura[];
   theSepultura: Sepultura;
+  salas:Sala[]
 
-
-  constructor(private service: SepulturaService, private router: Router) {
+  constructor(private service: SepulturaService, private router: Router, private salaServices: SalaService) {
     this.sepultura = [];
+    this.salas = [];
+
   }
 
   ngOnInit(): void {
     this.list();
+    this.listSalas();
+  }
+  listSalas() {
+    this.salaServices.list().subscribe(data => {
+      this.salas = data["data"];
+    });
   }
 
   list() {
@@ -30,6 +40,10 @@ export class ListComponent implements OnInit {
       this.sepultura = data["data"]
       console.log(JSON.stringify(this.sepultura));
     });
+  }
+  obtenerSala(id: number): string {
+    const sala = this.salas.find(dep => dep.id === id);
+    return sala ? sala.nombre : 'Desconocido';
   }
 
   view(id: number) {

@@ -121,6 +121,4 @@ export const AdminLayoutRoutes: Routes = [
         path : 'comentarios', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/comentarios/comentarios.module').then(m => m.ComentariosModule)
     }
-    
-    
 ];
