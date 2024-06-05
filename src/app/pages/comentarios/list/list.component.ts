@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ComentarioService } from 'src/app/services/funeraria/comentario.service';
 import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
+import { Servicio } from 'src/app/models/funeraria/servicio.model';
+import { ServicioService } from 'src/app/services/funeraria/servicio.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -15,41 +18,46 @@ export class ListComponent implements OnInit {
   comentarios: Comentario[] = [];
   ejecucionservicios: Ejecucionservicio[] = [];
   comentariosConDetalles: any[] = [];
+  servicios:Servicio[]=[]
 
 
   constructor(
     private comentarioService: ComentarioService,
     private ejecucionservicioService: EjecucionservicioService,
-    private router: Router
+    private router: Router,
+    private servicioServices:ServicioService
   ) {
   }
 
   ngOnInit(): void {
     this.loadData();
   }
-
   loadData() {
-    // Lógica para cargar los chats y los detalles de ejecución del servicio
-    this.comentarioService.list().subscribe((comentariosData: any) => {
+    combineLatest([
+      this.comentarioService.list(),
+      this.ejecucionservicioService.list(),
+      this.servicioServices.list() // Hacemos una llamada para obtener la lista de servicios
+    ]).subscribe(([comentariosData, ejecucionServiciosData, serviciosData]) => {
       this.comentarios = comentariosData['data'];
-    });
-    
-    this.ejecucionservicioService.list().subscribe((ejecucionServiciosData: any) => {
       this.ejecucionservicios = ejecucionServiciosData['data'];
-  
-      this.comentariosConDetalles = this.comentarios.map(comentario => {
-        const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === comentario.eservicio_id);
+      this.servicios = serviciosData['data']; // Guardamos la lista de servicios
+
+      this.comentariosConDetalles = this.comentarios.map(chat => {
+        const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === chat.eservicio_id);
+        const servicio = ejecucionServicio ? this.servicios.find(serv => serv.id === ejecucionServicio.servicio_id) : null; // Buscamos el servicio relacionado
+
         return {
-          ...comentario,
-          nombre_servicio: ejecucionServicio ? ejecucionServicio.servicio.nombre : 'Desconocido'
+          ...chat,
+          nombre_servicio: servicio ? servicio.nombre : 'Desconocido' // Utilizamos el nombre del servicio si está disponible
         };
       });
     });
   }
   
-  obtenerNombreServicio(id: number): string {
-    const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === id);
-    return ejecucionservicio ? ejecucionservicio.servicio.nombre : 'Desconocido';
+  obtenerNombreServicio(servicio_id: number): string {
+    const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === servicio_id);
+    const servicio = ejecucionservicio ? this.servicios.find(serv => serv.id === ejecucionservicio.servicio_id) : null; // Buscamos el servicio relacionado
+    return servicio ? servicio.nombre : 'Desconocido';
   }
   
   view(id: number) {
