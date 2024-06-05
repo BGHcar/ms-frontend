@@ -86,7 +86,6 @@ export class ManageComponent implements OnInit {
   getBeneficiario(id: number): void {
     this.service.view(id).subscribe(
       data => {
-        console.log(JSON.stringify(data));
         this.beneficiario = data;
         this.theFormGroup.patchValue(data); // Populate form with received data
       },
