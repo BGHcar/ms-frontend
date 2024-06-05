@@ -41,4 +41,53 @@
     cursor: pointer;
 }
 
-/* Estilos adicionales según sea necesario */
+.message-right {
+    text-align: right;
+    background-color: #abeaab;
+    /* Estilos adicionales para los mensajes del usuario actual en el lado derecho */
+}
+
+.message-left {
+    text-align: left;
+    /* Estilos adicionales para los mensajes de otros usuarios en el lado izquierdo */
+}
+
+.user-name {
+    font-size: 12px; /* Tamaño de fuente más pequeño para el nombre de usuario */
+}
+
+.timestamp {
+    font-size: 10px; /* Tamaño de fuente más pequeño para la marca de tiempo */
+    color: gray; /* Color de la marca de tiempo */
+}
+
+
+/* Estilos para el contenedor de los botones */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinear los botones a la derecha */
+    margin-top: 5px; /* Ajustar el margen superior */
+}
+
+/* Estilos para los botones de acción */
+.edit-button,
+.delete-button {
+    padding: 2px 4px; /* Reducir el relleno de los botones */
+    font-size: 10px; /* Tamaño de la fuente aún más pequeño */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilos para el botón de editar */
+.edit-button {
+    background-color: #007bff; /* Color azul para el botón de editar */
+    color: #fff; /* Texto en color blanco */
+}
+
+/* Estilos para el botón de eliminar */
+.delete-button {
+    background-color: #dc3545; /* Color rojo para el botón de eliminar */
+    color: #fff; /* Texto en color blanco */
+}

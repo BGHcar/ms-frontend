@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-
+import { WebSocketService } from './services/funeraria/web-socket.service';
 
 
 
@@ -36,7 +36,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 
   ],
   providers: [
-    AuthGuard,{
+    AuthGuard,
+    WebSocketService,{
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true

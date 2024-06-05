@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ChatService } from 'src/app/services/funeraria/chat.service';
 import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -16,6 +15,7 @@ export class ListComponent implements OnInit {
   chats: Chat[] = [];
   ejecucionservicios: Ejecucionservicio[] = [];
   chatsConDetalles: any[] = [];
+  token: string = '';
 
   constructor(
     private chatService: ChatService,
@@ -29,13 +29,12 @@ export class ListComponent implements OnInit {
   }
 
   loadData() {
-    combineLatest([
-      this.chatService.list(),
-      this.ejecucionservicioService.list()
-    ]).subscribe(([chatsData, ejecucionServiciosData]) => {
-
-  
+    // Lógica para cargar los chats y los detalles de ejecución del servicio
+    this.chatService.list().subscribe((chatsData: any) => {
       this.chats = chatsData['data'];
+    });
+    
+    this.ejecucionservicioService.list().subscribe((ejecucionServiciosData: any) => {
       this.ejecucionservicios = ejecucionServiciosData['data'];
   
       this.chatsConDetalles = this.chats.map(chat => {
@@ -96,7 +95,48 @@ export class ListComponent implements OnInit {
     this.router.navigate(['chats/create']);
   }
 
-  mensajes() {
-    this.router.navigate(['mensajes/list']);
+  mensajes(id: number) {
+    // Obtiene el chat correspondiente al ID proporcionado
+    const chat = this.chats.find(c => c.id === id);
+    console.log('Chat encontrado:', chat);
+  
+    if (!chat) {
+      Swal.fire('Error', 'Chat no encontrado.', 'error');
+      return;
+    }
+  
+    // Obtiene el ejecucionServicio correspondiente al chat
+    const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === chat.eservicio_id);
+    if (!ejecucionServicio) {
+      Swal.fire('Error', 'Ejecución de servicio no encontrada.', 'error');
+      return;
+    }
+  
+    // Solicitar al usuario que ingrese el token
+    Swal.fire({
+      title: 'Ingrese el token',
+      input: 'text',
+      inputPlaceholder: 'Ingrese el token',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      showLoaderOnConfirm: true,
+      preConfirm: (token) => {
+        // Comprobar si el token ingresado coincide con el token del ejecucionServicio
+        if (token === ejecucionServicio.token) {
+          return true; // Si los tokens coinciden, devolver true
+        } else {
+          Swal.showValidationMessage('El token proporcionado no es válido');
+          return false; // Si los tokens no coinciden, devolver false
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Tokens coinciden, redirige al usuario a la página de mensajes
+        this.router.navigate(['mensajes/list', id]);
+      }
+    });
   }
+  
+
 }

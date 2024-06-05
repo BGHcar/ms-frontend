@@ -11,8 +11,6 @@ export class MensajeService {
 
   constructor(private http: HttpClient) { }
 
-  
-
   list(): Observable<Mensaje[]>{
     return this.http.get<Mensaje[]>(`${environment.url_ms_funeraria}/mensajes`);
   }
@@ -26,7 +24,7 @@ export class MensajeService {
   }
 
   read(id: number): Observable<Mensaje>{
-    return this.http.get<Mensaje>(`${environment.url_ms_funeraria}/mensajes/${id}`);
+    return this.http.get<Mensaje>(`${environment.url_ms_funeraria}/mensajes-chat/${id}`);
   }
 
   update(mensaje: Mensaje): Observable<Mensaje>{
