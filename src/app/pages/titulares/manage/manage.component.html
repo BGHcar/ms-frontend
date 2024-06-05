@@ -135,6 +135,35 @@
                                     <button type="button" class="btn btn-primary btn-block" (click)="update()" *ngIf="mode==3">Actualizar</button>
                                 </div>
                             </div>
+                            <div class="row" *ngIf="titular.beneficiarios.length > 0 && mode != 2">
+                                <div class="col-4">
+                                    Beneficiarios :  
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col-1">Benef Id</th>
+                                                <th scope="col-2">Nombre</th>
+                                                <th scope="col-3">Apellido</th>
+                                                <th scope="col-4">Cedula</th>
+                                                <th scope="col-5">Edad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let actual of titular.beneficiarios">
+                                                <td>{{actual.id}}</td>
+                                                <td>{{actual.nombre}}</td>
+                                                <td>{{actual.apellido}}</td>
+                                                <td>{{actual.cedula}}</td>
+                                                <td>{{actual.edad}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
                         </form>
                     </div>
                 </div>

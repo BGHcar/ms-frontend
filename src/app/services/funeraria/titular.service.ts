@@ -5,6 +5,7 @@ import { Titular } from 'src/app/models/funeraria/titular.model';
 import { environment } from 'src/environments/environment';
 import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { ManageComponent } from 'src/app/pages/clientes/manage/manage.component';
+import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
 
 @Injectable({
   providedIn: 'root'
