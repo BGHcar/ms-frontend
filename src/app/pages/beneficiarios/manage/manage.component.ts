@@ -16,7 +16,6 @@ import { TitularService } from 'src/app/services/funeraria/titular.service';
 export class ManageComponent implements OnInit {
 
   mode: number;
-
   beneficiario: Beneficiario;
   cliente: Cliente;
   theFormGroup: FormGroup;
@@ -84,11 +83,16 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  getBeneficiario(id: number) {
+  getBeneficiario(id: number): void {
     this.service.view(id).subscribe(
       data => {
         this.beneficiario = data;
-      });
+        this.theFormGroup.patchValue(data); // Populate form with received data
+      },
+      error => {
+        console.error('Error fetching beneficiario:', error);
+      }
+    );
   }
 
   create() {
