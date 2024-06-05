@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="servicio.cremacion.id" [disabled]="mode == 1" formControlName="idcremacion">
-                                        <option value=>SELECCIONE UNA OPCIÓN</option>
+                                        <option value=>null</option>
                                         <option *ngFor="let option of cremaciones" [value]="option.id"> Ubicacion:{{ option.ubicacion }} - Fecha/Hora:{{option.fecha_hora}} - Sala:{{option.sala_id}}</option>
                                     </select>
                                 </div>
@@ -100,7 +100,7 @@
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="servicio.traslados.id" [disabled]="mode == 1" formControlName="idtraslado">
                                         <option value=>No</option>
-                                        <option *ngFor="let option of traslado" [value]="option.id"> Origen:{{ option.origen }} - Destino:{{option.destino}} - Fecha/Hora:{{option.fecha_hora}} - Vehiculo{{option.tipo_vehiculo}}</option>
+                                        <option *ngFor="let option of traslado" [value]="option.id"> Origen:{{ option.origen }} - Destino:{{option.destino}} - Fecha/Hora:{{option.fecha_hora}}</option>
                                     </select>
                                 </div>
                             </div>

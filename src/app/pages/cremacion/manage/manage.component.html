@@ -39,19 +39,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Id del Servicio:
-                                </div>
-                                <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="cremacion.servicio_id" [disabled]="mode==1"
-                                        formControlName="servicio_id">
-                                    <div
-                                        *ngIf="getTheFormGroup.servicio_id.errors && (getTheFormGroup.servicio_id.dirty || getTheFormGroup.servicio_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.servicio_id.errors.required" class="msnError">Requerido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
                                     Ubicacion:
                                 </div>
                                 <div class="col-8">

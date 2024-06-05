@@ -7,7 +7,7 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Suscripciones
+                    <h3 class="mb-0">planxservicio
                         <!-- Boton de crear al lado derecho -->
                         <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
                     </h3>
@@ -18,15 +18,14 @@
                             <tr>
                                 <th scope="col-1">ID</th>
                                 <th scope="col-2">Plan</th>
-                                <th scope="col-3">Cliente</th>
-                                <th scope="col-5">Opciones</th>
+                                <th scope="col-3">servicio</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let actual of suscripciones">
+                            <tr *ngFor="let actual of planesxServicio">
                                 <td>{{actual.id}}</td>
-                                <td>{{actual.plan.nombre}}</td>                          
-                                <td>{{actual.cliente.nombre}}</td>
+                                <td>{{actual.plan_id}}</td>                          
+                                <td>{{actual.servicio_id}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
                                     <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>

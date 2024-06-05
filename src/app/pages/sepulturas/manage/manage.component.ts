@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Sepultura } from 'src/app/models/funeraria/sepultura.model';
 import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
+import { SalaService } from 'src/app/services/funeraria/sala.service';
+import { Sala } from 'src/app/models/funeraria/sala.model';
 
 @Component({
   selector: 'app-manage',
@@ -16,20 +18,35 @@ export class ManageComponent implements OnInit {
   sepultura: Sepultura;
   theFormGroup: FormGroup;
   trySend: boolean;
+  salas: any[] = [];
+
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: SepulturaService,
     private theFormBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private theSala:SalaService,
+
 
   ) { 
+
     this.trySend = false;
     this.mode = 1;
-    this.sepultura={id:0, ubicacion:"", fecha_hora:"", sala_id:0}
+    this.sepultura={id:0, ubicacion:"", fecha_hora:"", servicio_id:null , sala_id:null}
+  }
+  loadSalas() {
+    this.theSala.list().subscribe((response: any) => {
+      if ('data' in response) {
+        this.salas = response['data'];
+      } else {
+        this.salas = response;
+      }
+    });
   }
   ngOnInit(): void {
     this.configFormGroup();
+    this.loadSalas();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -48,10 +65,11 @@ export class ManageComponent implements OnInit {
   }
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      id:[0],
       ubicacion: ["", [Validators.required, Validators.min(1)]],
       fecha_hora: ["", [Validators.required]],
-      servicio_id: [0, [Validators.required]],
       sala_id: [0, [Validators.required]],
+      servicio_id:[null]
 
     })
   }
@@ -59,19 +77,25 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
   getSepultura(id: number) {
-    this.service.view(id).subscribe(
-      data => {this.sepultura = data;
+    this.service.view(id).subscribe(data => {
+      this.sepultura = data;
+      this.sepultura.id = id;
+      this.theFormGroup.patchValue({
+        nombre: this.sepultura.ubicacion,
+        sala_id: this.sepultura.sala_id
       });
+    });
   }
   create(){
     this.trySend = true;
     if (this.theFormGroup.invalid){
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     }else{
+      this.sepultura.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.sepultura.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.sepultura.sala_id = this.theFormGroup.get('sala_id').value;
+
       this.service.create(this.sepultura).subscribe(data => {
-        this.sepultura.fecha_hora = this.sepultura.fecha_hora;
-        this.sepultura.ubicacion = this.sepultura.ubicacion;
-        this.sepultura.id = this.sepultura.id;
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['sepulturas/list']);
       });
@@ -82,6 +106,9 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid){
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     }else{
+      this.sepultura.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.sepultura.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.sepultura.sala_id = this.theFormGroup.get('sala_id').value;
       this.activateRoute.snapshot.params.id;
       this.sepultura.id = this.activateRoute.snapshot.params.id;
       this.getSepultura(this.sepultura.id);

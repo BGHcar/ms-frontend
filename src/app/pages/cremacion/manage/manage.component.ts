@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.cremacion={id:0, ubicacion:"", fecha_hora:null, servicio_id:0, sala_id:0}
+    this.cremacion={id:0, ubicacion:"", fecha_hora:null, servicio_id:null, sala_id:0}
   }
   ngOnInit(): void {
     this.configFormGroup();
@@ -35,7 +35,6 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
       this.theFormGroup.get('ubicacion')?.disable();
       this.theFormGroup.get('fecha_hora')?.disable();
-      this.theFormGroup.get('servicio_id')?.disable();
       this.theFormGroup.get('sala_id')?.disable();
       this.getCremacion(this.activateRoute.snapshot.params.id);
     }
@@ -49,9 +48,9 @@ export class ManageComponent implements OnInit {
   }
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      id:[0],
       ubicacion: ["", [Validators.required, Validators.min(1)]],
       fecha_hora: ["", [Validators.required]],
-      servicio_id: [0, [Validators.required]],
       sala_id:[0,[Validators.required]]
     })
   }
@@ -68,6 +67,10 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid){
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     }else{
+      this.cremacion.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.cremacion.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.cremacion.sala_id = this.theFormGroup.get('sala_id').value;
+
       this.service.create(this.cremacion).subscribe(data => {
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['cremaciones/list']);
@@ -79,6 +82,9 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid){
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     }else{
+      this.cremacion.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.cremacion.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.cremacion.sala_id = this.theFormGroup.get('sala_id').value;
       this.activateRoute.snapshot.params.id;
       this.cremacion.id = this.activateRoute.snapshot.params.id;
       this.getCremacion(this.cremacion.id);

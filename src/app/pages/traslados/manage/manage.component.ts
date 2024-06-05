@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.traslado={id:0, origen:"", destino:"",fecha_hora:null, tipo_vehiculo:"", servicio_id:null}
+    this.traslado={id:0, origen:"", destino:"",fecha_hora:"", servicio_id:null}
   }
   ngOnInit(): void {
     this.configFormGroup();
@@ -37,8 +37,6 @@ export class ManageComponent implements OnInit {
       this.theFormGroup.get('origen')?.disable();
       this.theFormGroup.get('destino')?.disable();
       this.theFormGroup.get('fecha_hora')?.disable();
-      this.theFormGroup.get('servicio_id')?.disable();
-      this.theFormGroup.get('tipo_vehiculo')?.disable();
       this.getTraslado(this.activateRoute.snapshot.params.id);
     }
     else if (currentUrl.includes('create')) {
@@ -51,10 +49,10 @@ export class ManageComponent implements OnInit {
   }
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
+      id:[0],
       origen: ["", [Validators.required, Validators.min(1)]],
-      destino: ["", [Validators.required], Validators.min(1)],
-      fecha_hora: [null, [Validators.required]],
-      tipo_vehiculo: ["", [Validators.required]],
+      destino: ["", [Validators.required, Validators.min(1)]],
+      fecha_hora: ["", [Validators.required]],
 
     })
   }
@@ -75,11 +73,9 @@ export class ManageComponent implements OnInit {
         this.traslado.fecha_hora = this.traslado.fecha_hora;
         this.traslado.origen = this.traslado.origen;
         this.traslado.destino = this.traslado.destino;
-        this.traslado.fecha_hora = this.traslado.fecha_hora;
-        this.traslado.tipo_vehiculo = this.traslado.tipo_vehiculo;
         this.traslado.id = this.traslado.id;
         Swal.fire("Creado", "El servicio de traslado ha sido creado correctamente", "success");
-        this.router.navigate(['tralados/list']);
+        this.router.navigate(['traslados/list']);
       });
     }
   }
