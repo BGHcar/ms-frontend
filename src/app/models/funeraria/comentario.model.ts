@@ -1,5 +1,5 @@
 export class Comentario {
     id?:number;
-    comentario:string;
-    
+    contenido:string;
+    eservicio_id:number;
 }

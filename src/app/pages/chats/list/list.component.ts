@@ -99,6 +99,7 @@ export class ListComponent implements OnInit {
       }
     });
   }
+
   update(id: number) {
     this.router.navigate(['chats/update/' + id]);
   }
