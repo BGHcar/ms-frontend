@@ -6,7 +6,7 @@ export class Ejecucionservicio {
     token?:string;
     ubicacion?:string;
     difunto_id?:number;
-    cliente?:Cliente;
-    servicio?:Servicio;
+    cliente_id?:number;
+    servicio_id?:number;
 }
     

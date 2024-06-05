@@ -82,6 +82,7 @@ export class ManageComponent implements OnInit {
       this.sepultura.id = id;
       this.theFormGroup.patchValue({
         nombre: this.sepultura.ubicacion,
+        fecha_hora: this.sepultura.fecha_hora,
         sala_id: this.sepultura.sala_id
       });
     });
@@ -101,19 +102,20 @@ export class ManageComponent implements OnInit {
       });
     }
   }
-  update(){
+  update() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
-      Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
+    if (this.theFormGroup.invalid) {
+      Swal.fire("Error", "Por favor llene los campos correctamente", "error");
+    } else {
       this.sepultura.ubicacion = this.theFormGroup.get('ubicacion').value;
       this.sepultura.fecha_hora = this.theFormGroup.get('fecha_hora').value;
       this.sepultura.sala_id = this.theFormGroup.get('sala_id').value;
-      this.activateRoute.snapshot.params.id;
-      this.sepultura.id = this.activateRoute.snapshot.params.id;
-      this.getSepultura(this.sepultura.id);
       this.service.update(this.sepultura).subscribe(data => {
-        Swal.fire("Actualizado", "El servicio de cremacion ha sido actualizada correctamente", "success");
+        Swal.fire(
+          'Actualizado!',
+          'La sepultura ha sido actualizada correctamente',
+          'success'
+        );
         this.router.navigate(['sepulturas/list']);
       });
     }

@@ -24,7 +24,7 @@ export class ManageComponent implements OnInit {
   trySend: boolean;
   sepulturas: Sepultura[];
   cremaciones: Cremacion[];
-  traslado:Traslado[];
+  traslados:Traslado[];
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -37,12 +37,12 @@ export class ManageComponent implements OnInit {
   ) {
     this.sepulturas = [];
     this.cremaciones = [];
-    this.traslado=[];
+    this.traslados=[];
     this.trySend = false;
     this.mode = 1;
-    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0, sepultura: { id: null }, cremacion: { id: null },  traslados:{id:null} };
+    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0, sepultura: { id: null }, cremacion: { id: null },  traslado:{id:null} };
   }
-
+  
   loadSepulturas() {
     this.sepulturaService.list().subscribe(data => {
       this.sepulturas = data["data"];
@@ -57,7 +57,7 @@ export class ManageComponent implements OnInit {
 
   loadTraslado(){
     this.trasladoServices.list().subscribe(data => {
-      this.traslado = data["data"];
+      this.traslados = data["data"];
     }); 
   }
 
@@ -89,12 +89,12 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       nombre: ["", [Validators.required, Validators.minLength(1)]],
-      precio: [0, [Validators.required, Validators.min(1)]],
+      precio: [0, [Validators.required, Validators.min(100000)]],
       descripcion: ["", [Validators.required, Validators.minLength(50)]],
-      duracion: [0, [Validators.required, Validators.min(2)]],
+      duracion: [0, [Validators.required, Validators.min(3)]],
       idsepultura: [null],
       idcremacion: [null],
-      idtraslado:[null],
+      idtraslado:[null]
     });
   }
   get getTheFormGroup() {
@@ -104,7 +104,15 @@ export class ManageComponent implements OnInit {
   getServicio(id: number) {
     this.service.view(id).subscribe(data => {
       this.servicio = data;
-      this.theFormGroup.patchValue(data);
+      this.servicio.id = id;
+      this.theFormGroup.patchValue({
+        nombre: this.servicio.nombre,
+        precio: this.servicio.precio,
+        descripcion: this.servicio.descripcion,
+        duracion: this.servicio.duracion,
+
+
+      });
     });
   }
 
@@ -125,14 +133,22 @@ export class ManageComponent implements OnInit {
     }
   }
 
+
   update() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Por favor llene todos los campos", "error");
+      Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
-      this.servicio.id = this.activateRoute.snapshot.params.id;
+      this.servicio.nombre = this.theFormGroup.get('nombre').value;
+      this.servicio.precio = this.theFormGroup.get('precio').value;
+      this.servicio.duracion = this.theFormGroup.get('duracion').value;
+      this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
       this.service.update(this.servicio).subscribe(data => {
-        Swal.fire("Actualizado", "El servicio ha sido actualizado correctamente", "success");
+        Swal.fire(
+          'Actualizado!',
+          'El servicio ha sido actualizada correctamente',
+          'success'
+        );
         this.router.navigate(['servicios/list']);
       });
     }

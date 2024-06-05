@@ -1,4 +1,3 @@
-import { Sala } from "./sala.model";
 
 export class Sepultura {
     id?:number;

@@ -18,10 +18,10 @@ export class ManageComponent implements OnInit {
   
   mode: number;
   ejecucion: Ejecucionservicio;
-  clientes:Cliente[];
+  clientes: any[] = [];
   theFormGroup: FormGroup;
   trySend: boolean;
-  servicios: Servicio[];
+  servicios: any[] = [];
 
 
   constructor(
@@ -34,19 +34,25 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.servicios = [];
-    this.clientes = [];
 
-    this.ejecucion={id:0, token:"", ubicacion:"", difunto_id:0, servicio:{id:0}, cliente:{id:0}};
+    this.ejecucion={id:0, token:"", ubicacion:"", difunto_id:0, servicio_id:0, cliente_id:0};
   }
   loadServicios() {
-    this.serviciosServices.list().subscribe(data => {
-      this.servicios = data["data"];
+    this.serviciosServices.list().subscribe((response: any) => {
+      if ('data' in response) {
+        this.servicios = response['data'];
+      } else {
+        this.servicios = response;
+      }
     });
   }
   loadCliente() {
-    this.clienteServices.list().subscribe(data => {
-      this.clientes = data["data"];
+    this.clienteServices.list().subscribe((response: any) => {
+      if ('data' in response) {
+        this.clientes = response['data'];
+      } else {
+        this.clientes = response;
+      }
     });
   }
   ngOnInit(): void {
@@ -75,11 +81,10 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
-      token: ["", [Validators.required, Validators.minLength(1)]],
       ubicacion: ["", [Validators.required, Validators.min(1)]],
       difunto_id: [0, [Validators.required]],
-      idservicio: [0],
-      idcliente: [0],
+      servicio_id: [0],
+      cliente_id: [null],
 
     });
   }
@@ -89,20 +94,34 @@ export class ManageComponent implements OnInit {
   getEjecucion(id: number) {
     this.service.view(id).subscribe(data => {
       this.ejecucion = data;
-      this.theFormGroup.patchValue(data); 
+      this.ejecucion.id = id;
+      this.theFormGroup.patchValue({
+        nombre: this.ejecucion.ubicacion,
+        ciudad_id: this.ejecucion.difunto_id,
+
+      });
     });
   }
   create() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Por favor llene todos los campos", "error");
+      Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
+      this.ejecucion.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.ejecucion.difunto_id = this.theFormGroup.get('difunto_id').value;
+      this.ejecucion.servicio_id = this.theFormGroup.get('servicio_id').value;
+      this.ejecucion.cliente_id = this.theFormGroup.get('cliente_id').value;
       this.service.create(this.ejecucion).subscribe(data => {
-        Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
+        Swal.fire(
+          'Creado!',
+          'La Sede ha sido creada correctamente',
+          'success'
+        );
         this.router.navigate(['ejecucionservicios/list']);
       });
     }
   }
+
   update() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {

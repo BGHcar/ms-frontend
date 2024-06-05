@@ -43,19 +43,21 @@
                                         formControlName="descripcion">
                                     <div *ngIf="getTheFormGroup.descripcion.errors && (getTheFormGroup.descripcion.dirty || getTheFormGroup.descripcion.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.descripcion.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.descripcion.errors.minlength" class="msnError">Valor mínimo 2</strong>
+                                        <strong *ngIf="getTheFormGroup.descripcion.errors.minlength" class="msnError">Disculpe, pero por favor ingrese mas datos</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Duración:
+                                    Duración (en horas):
                                 </div>
                                 <div class="col-8">
                                     <input type="text" class="form-control" [(ngModel)]="servicio.duracion" [disabled]="mode == 1"
                                         formControlName="duracion">
                                     <div *ngIf="getTheFormGroup.duracion.errors && (getTheFormGroup.duracion.dirty || getTheFormGroup.duracion.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.duracion.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.duracion.errors.min" class="msnError">invalido horas minimas son 3</strong>
+
                                     </div>
                                 </div>
                             </div>
@@ -64,10 +66,12 @@
                                     Precio:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="servicio.precio" [disabled]="mode==1"
+                                    <input type="number" class="form-control" [(ngModel)]="servicio.precio" [disabled]="mode==1"
                                         formControlName="precio">
                                     <div *ngIf="getTheFormGroup.precio.errors && (getTheFormGroup.precio.dirty || getTheFormGroup.precio.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.precio.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.precio.errors.min" class="msnError">invalido, el precio minimo es 100000</strong>
+
                                     </div>
                                 </div>
                             </div>
@@ -98,9 +102,9 @@
                                     Traslado:
                                 </div>
                                 <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="servicio.traslados.id" [disabled]="mode == 1" formControlName="idtraslado">
+                                    <select class="form-control" [(ngModel)]="servicio.traslado.id" [disabled]="mode == 1" formControlName="idtraslado">
                                         <option value=>No</option>
-                                        <option *ngFor="let option of traslado" [value]="option.id"> Origen:{{ option.origen }} - Destino:{{option.destino}} - Fecha/Hora:{{option.fecha_hora}}</option>
+                                        <option *ngFor="let option of traslados" [value]="option.id"> Origen:{{ option.origen }} - Destino:{{option.destino}} - Fecha/Hora:{{option.fecha_hora}}</option>
                                     </select>
                                 </div>
                             </div>

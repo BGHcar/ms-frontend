@@ -24,19 +24,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    token:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="ejecucion.token" [disabled]="mode==1" formControlName="token">
-                                        <div
-                                        *ngIf="getTheFormGroup.token.errors && (getTheFormGroup.token.dirty || getTheFormGroup.token.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.token.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.token.errors.minlength" class="msnError">Valor minimo 2</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
                                     Ubicacion:
                                 </div>
                                 <div class="col-8">
@@ -54,7 +41,7 @@
                                     Id del difunto:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="ejecucion.difunto_id" [disabled]="mode == 1"
+                                    <input type="number" class="form-control" [(ngModel)]="ejecucion.difunto_id" [disabled]="mode == 1"
                                         formControlName="difunto_id">
                                         <div
                                         *ngIf="getTheFormGroup.difunto_id.errors && (getTheFormGroup.difunto_id.dirty || getTheFormGroup.difunto_id.touched || trySend)">
@@ -67,7 +54,7 @@
                                     Servicio:
                                 </div>
                                 <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="ejecucion.servicio.id" [disabled]="mode == 1" formControlName="idservicio">
+                                    <select class="form-control" [(ngModel)]="ejecucion.servicio_id" [disabled]="mode == 1" formControlName="servicio_id">
                                         <option value=>No</option>
                                         <option *ngFor="let option of servicios" [value]="option.id"> Nombre:{{ option.nombre }}</option>
                                     </select>
@@ -78,7 +65,7 @@
                                     Cliente:
                                 </div>
                                 <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="ejecucion.cliente.id" [disabled]="mode == 1" formControlName="idcliente">
+                                    <select class="form-control" [(ngModel)]="ejecucion.cliente_id" [disabled]="mode == 1" formControlName="cliente_id">
                                         <option value=>No</option>
                                         <option *ngFor="let opt of clientes" [value]="opt.id"> Nombre:{{ opt.nombre }}</option>
                                     </select>

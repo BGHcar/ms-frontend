@@ -18,16 +18,19 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   trySend: boolean;
 
+
   constructor(
     private activateRoute: ActivatedRoute,
     private service: TrasladoService,
     private theFormBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+
 
   ) { 
+
     this.trySend = false;
     this.mode = 1;
-    this.traslado={id:0, origen:"", destino:"",fecha_hora:"", servicio_id:null}
+    this.traslado={id:0, origen:"", fecha_hora:"", servicio_id:null , destino:""}
   }
   ngOnInit(): void {
     this.configFormGroup();
@@ -35,8 +38,8 @@ export class ManageComponent implements OnInit {
     if (currentUrl.includes('view')) {
       this.mode = 1;
       this.theFormGroup.get('origen')?.disable();
-      this.theFormGroup.get('destino')?.disable();
       this.theFormGroup.get('fecha_hora')?.disable();
+      this.theFormGroup.get('destino')?.disable();
       this.getTraslado(this.activateRoute.snapshot.params.id);
     }
     else if (currentUrl.includes('create')) {
@@ -51,8 +54,9 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id:[0],
       origen: ["", [Validators.required, Validators.min(1)]],
-      destino: ["", [Validators.required, Validators.min(1)]],
       fecha_hora: ["", [Validators.required]],
+      destino: ["", [Validators.required]],
+      servicio_id:[null]
 
     })
   }
@@ -60,35 +64,45 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
   getTraslado(id: number) {
-    this.service.view(id).subscribe(
-      data => {this.traslado = data;
+    this.service.view(id).subscribe(data => {
+      this.traslado = data;
+      this.traslado.id = id;
+      this.theFormGroup.patchValue({
+        origen: this.traslado.origen,
+        fecha_hora: this.traslado.fecha_hora,
+        destino: this.traslado.destino
       });
+    });
   }
   create(){
     this.trySend = true;
     if (this.theFormGroup.invalid){
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     }else{
+      this.traslado.origen = this.theFormGroup.get('origen').value;
+      this.traslado.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.traslado.destino = this.theFormGroup.get('destino').value;
+
       this.service.create(this.traslado).subscribe(data => {
-        this.traslado.fecha_hora = this.traslado.fecha_hora;
-        this.traslado.origen = this.traslado.origen;
-        this.traslado.destino = this.traslado.destino;
-        this.traslado.id = this.traslado.id;
-        Swal.fire("Creado", "El servicio de traslado ha sido creado correctamente", "success");
+        Swal.fire("Creado", "El Traslado ha sido creado correctamente", "success");
         this.router.navigate(['traslados/list']);
       });
     }
   }
-  update(){
+  update() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
-      Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
-      this.activateRoute.snapshot.params.id;
-      this.traslado.id = this.activateRoute.snapshot.params.id;
-      this.getTraslado(this.traslado.id);
+    if (this.theFormGroup.invalid) {
+      Swal.fire("Error", "Por favor llene los campos correctamente", "error");
+    } else {
+      this.traslado.destino = this.theFormGroup.get('destino').value;
+      this.traslado.fecha_hora = this.theFormGroup.get('fecha_hora').value;
+      this.traslado.origen = this.theFormGroup.get('origen').value;
       this.service.update(this.traslado).subscribe(data => {
-        Swal.fire("Actualizado", "El servicio de traslado ha sido actualizada correctamente", "success");
+        Swal.fire(
+          'Actualizado!',
+          'El traslado ha sido actualizada correctamente',
+          'success'
+        );
         this.router.navigate(['traslados/list']);
       });
     }
