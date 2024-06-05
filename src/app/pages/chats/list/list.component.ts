@@ -108,7 +108,46 @@ export class ListComponent implements OnInit {
     this.router.navigate(['chats/create']);
   }
 
-  mensajes() {
-    this.router.navigate(['mensajes/list']);
+  mensajes(id: number) {
+    // Obtiene el chat correspondiente al ID proporcionado
+    const chat = this.chats.find(c => c.id === id);
+    console.log('Chat encontrado:', chat);
+
+    if (!chat) {
+      Swal.fire('Error', 'Chat no encontrado.', 'error');
+      return;
+    }
+
+    // Obtiene el ejecucionServicio correspondiente al chat
+    const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === chat.eservicio_id);
+    if (!ejecucionServicio) {
+      Swal.fire('Error', 'Ejecución de servicio no encontrada.', 'error');
+      return;
+    }
+
+    // Solicitar al usuario que ingrese el token
+    Swal.fire({
+      title: 'Ingrese el token',
+      input: 'text',
+      inputPlaceholder: 'Ingrese el token',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      showLoaderOnConfirm: true,
+      preConfirm: (token) => {
+        // Comprobar si el token ingresado coincide con el token del ejecucionServicio
+        if (token === ejecucionServicio.token) {
+          return true; // Si los tokens coinciden, devolver true
+        } else {
+          Swal.showValidationMessage('El token proporcionado no es válido');
+          return false; // Si los tokens no coinciden, devolver false
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Tokens coinciden, redirige al usuario a la página de mensajes
+        this.router.navigate(['mensajes/list', id]);
+      }
+    });
   }
 }
