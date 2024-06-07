@@ -126,6 +126,8 @@ export class ManageComponent implements OnInit {
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
 
+      console.log(JSON.stringify(this.servicio));
+
       this.service.create(this.servicio).subscribe(data => {
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate(['servicios/list']);
