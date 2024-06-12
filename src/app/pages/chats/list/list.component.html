@@ -29,7 +29,7 @@
                                   <td>{{ chat.id }}</td>
                                   <td>{{ chat.eservicio_id }}</td>
                                   <!-- Busca el ejecucionservicio correspondiente al eservicio_id del chat -->
-                                  <td>{{ obtenerNombreCliente(chat.eservicio_id) }}</td>
+                                  <td>{{ obtenerNombreCliente(obtenerClienteIdPorServicioId(chat.eservicio_id)) }}</td>
                                   <td>{{ obtenerNombreServicio(chat.eservicio_id) }}</td>
                                   <td>
                                     <button type="button" class="btn btn-warning" (click)="view(chat.id)" title="Ver"><i class="fas fa-eye"></i></button>

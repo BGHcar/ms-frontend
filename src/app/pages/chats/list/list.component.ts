@@ -40,35 +40,41 @@ export class ListComponent implements OnInit {
       this.chatService.list(),
       this.ejecucionservicioService.list(),
       this.clienteService.list(),
-      this.servicioService.list() // Hacemos una llamada para obtener la lista de servicios
+      this.servicioService.list()
     ]).subscribe(([chatsData, ejecucionServiciosData, clientesData, serviciosData]) => {
       this.chats = chatsData['data'];
       this.ejecucionservicios = ejecucionServiciosData['data'];
       this.clientes = clientesData['data'];
-      this.servicios = serviciosData['data']; // Guardamos la lista de servicios
-
+      this.servicios = serviciosData['data'];
       this.chatsConDetalles = this.chats.map(chat => {
         const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === chat.eservicio_id);
-        const cliente = ejecucionServicio ? this.clientes.find(cli => cli.id === ejecucionServicio.cliente_id) : null;
-        const servicio = ejecucionServicio ? this.servicios.find(serv => serv.id === ejecucionServicio.servicio_id) : null; // Buscamos el servicio relacionado
-
+        const cliente_id = ejecucionServicio ? ejecucionServicio.cliente_id : null;
+        const cliente = cliente_id ? this.clientes.find(cli => cli.id === cliente_id) : null;
+        const servicio = ejecucionServicio ? this.servicios.find(serv => serv.id === ejecucionServicio.servicio_id) : null;
+  
         return {
           ...chat,
           nombre_cliente: cliente ? cliente.nombre : 'Desconocido',
-          nombre_servicio: servicio ? servicio.nombre : 'Desconocido' // Utilizamos el nombre del servicio si está disponible
+          nombre_servicio: servicio ? servicio.nombre : 'Desconocido'
         };
       });
     });
   }
+  
 
   obtenerNombreCliente(cliente_id: number): string {
     const cliente = this.clientes.find(cli => cli.id === cliente_id);
     return cliente ? cliente.nombre : 'Desconocido';
   }
 
+  obtenerClienteIdPorServicioId(servicioId: number): number {
+    const ejecucionServicio = this.ejecucionservicios.find(serv => serv.id === servicioId);
+    return ejecucionServicio ? ejecucionServicio.cliente_id : null;
+  }
+  
   obtenerNombreServicio(servicio_id: number): string {
     const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === servicio_id);
-    const servicio = ejecucionservicio ? this.servicios.find(serv => serv.id === ejecucionservicio.servicio_id) : null; // Buscamos el servicio relacionado
+    const servicio = ejecucionservicio ? this.servicios.find(serv => serv.id === ejecucionservicio.servicio_id) : null;
     return servicio ? servicio.nombre : 'Desconocido';
   }
 

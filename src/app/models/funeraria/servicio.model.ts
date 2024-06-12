@@ -11,5 +11,4 @@ export class Servicio {
     traslado?:Traslado;
     sepultura?:Sepultura;
     cremacion?:Cremacion;
-
 }

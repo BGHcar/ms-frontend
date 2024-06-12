@@ -21,12 +21,12 @@
                   <input type="number" class="form-control" [value]="comentario.id" disabled *ngIf="mode !== 2">
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-4">
-                  Ejecución de Servicio:
-                </div>
+              <div class="row">
+                <div class="col-4">Ejecución de Servicio:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" formControlName="eservicio_id" [attr.disabled]="mode === 1 ? true : null">
+                  <select class="form-control" [(ngModel)]="comentario.eservicio_id" [attr.disabled]="mode === 1 ? true : null" formControlName="eservicio_id">
+                    <option *ngFor="let servicio of serviciosDisponibles" [value]="servicio.id">{{ servicio.id }} - {{ servicio.cliente.nombre }} - {{ servicio.ubicacion }}</option>
+                  </select>                  
                   <div *ngIf="getTheFormGroup.eservicio_id.errors && (getTheFormGroup.eservicio_id.dirty || getTheFormGroup.eservicio_id.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.eservicio_id.errors.required" class="msnError">Requerido</strong>
                   </div>

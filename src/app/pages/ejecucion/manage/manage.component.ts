@@ -117,7 +117,7 @@ export class ManageComponent implements OnInit {
           'La Sede ha sido creada correctamente',
           'success'
         );
-        this.router.navigate(['ejecucionservicios/list']);
+        this.router.navigate(['ejecucion/list']);
       });
     }
   }
@@ -130,7 +130,7 @@ export class ManageComponent implements OnInit {
       this.ejecucion.id = this.activateRoute.snapshot.params.id;
       this.service.update(this.ejecucion).subscribe(data => {
         Swal.fire("Actualizado", "El servicio ha sido actualizado correctamente", "success");
-        this.router.navigate(['ejecucionservicios/list']);
+        this.router.navigate(['ejecucion/list']);
       });
     }
   }
