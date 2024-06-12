@@ -28,12 +28,10 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.titulares = data["data"];
-      console.log(JSON.stringify(this.titulares));
     });
   }
 
   view(id: number) {
-    console.log("id: "+id);
     this.router.navigate(['titulares/view/'+id]);
   }
 
@@ -44,6 +42,7 @@ export class ListComponent implements OnInit {
   create() {
     this.router.navigate(['titulares/create']);
   }
+
 
   delete(id: number) {
     Swal.fire({

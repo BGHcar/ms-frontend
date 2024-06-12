@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
 import { BeneficiarioService } from 'src/app/services/funeraria/beneficiario.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
@@ -13,8 +14,8 @@ export class ListComponent implements OnInit {
 
   beneficiarios: Beneficiario[];
   theBeneficiario: Beneficiario;
-
   constructor(
+    private activateRoute: ActivatedRoute,
     private service: BeneficiarioService,
     private router: Router
   ) {
@@ -22,18 +23,27 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.list();
+    if (this.activateRoute.snapshot.queryParams.titular_id) {
+    this.listByTitular(this.activateRoute.snapshot.queryParams.titular_id);
+    }
+    else {
+      this.list();
+    }
   }
 
   list() {
     this.service.list().subscribe(data => {
       this.beneficiarios = data["data"];
-      console.log(JSON.stringify(this.beneficiarios));
+    });
+  }
+
+  listByTitular(id: number) {
+    this.service.listByTitular(id).subscribe(data => {
+      this.beneficiarios = data["data"];
     });
   }
 
   view(id: number) {
-    console.log("id: " + id);
     this.router.navigate(['beneficiarios/view/' + id]);
   }
 
