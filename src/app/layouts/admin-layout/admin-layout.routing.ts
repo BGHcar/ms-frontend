@@ -118,7 +118,7 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren : () => import('src/app/pages/planxservicio/planxservicio.module').then(m => m.PlanxservicioModule)
     },
     {
-        path : 'comentarios', canActivate:[AuthGuard],
+        path : 'comentarios',
         loadChildren : () => import('src/app/pages/comentarios/comentarios.module').then(m => m.ComentariosModule)
     }
 ];
