@@ -136,7 +136,7 @@
                                     Password:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="beneficiario.password"
+                                    <input type="password" class="form-control" [(ngModel)]="beneficiario.password"
                                         [disabled]="mode==1" formControlName="password">
                                     <div
                                         *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">

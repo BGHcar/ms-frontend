@@ -26,7 +26,6 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.administradores = data["data"];
-      console.log(JSON.stringify(this.administradores));
     });
   }
 
@@ -43,7 +42,7 @@ export class ListComponent implements OnInit {
     this.router.navigate(['administradores/create']);
   }
 
-  delete(id: number) {
+  delete(administrador: Administrador) {
     Swal.fire({
       title: 'Eliminar Administrador',
       text: "Está seguro que quiere eliminar el administrador?",
@@ -55,14 +54,16 @@ export class ListComponent implements OnInit {
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).
+        this.service.deleteUser(administrador.user_id).
           subscribe(data => {
-            Swal.fire(
-              'Eliminado!',
-              'El administrador ha sido eliminada correctamente',
-              'success'
-            )
-            this.ngOnInit();
+            this.service.delete(administrador.id).subscribe(data => {
+              Swal.fire(
+                'Eliminado!',
+                'El administrador ha sido eliminada correctamente',
+                'success'
+              )
+              this.ngOnInit();
+            });
           });
       }
     })

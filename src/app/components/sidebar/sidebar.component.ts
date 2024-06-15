@@ -10,7 +10,7 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
-  type: number;  // 0: No logeado, 1: Logeado 2: Ambos
+  type: number;  // 0: No logeado, 1: Logeado 2: Admin 3: Cliente 4: Conductor 5: Titular
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', type: 0 },

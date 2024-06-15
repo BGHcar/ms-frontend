@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
     this.router.navigate(['conductores/create']);
   }
 
-  delete(id: number) {
+  delete(conductor: Conductor) {
     Swal.fire({
       title: 'Eliminar Conductor',
       text: "Está seguro que quiere eliminar el conductor?",
@@ -55,8 +55,8 @@ export class ListComponent implements OnInit {
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).
-          subscribe(data => {
+        this.service.deleteUser(conductor.user_id).subscribe(data => {
+          this.service.delete(conductor.id).subscribe(data => {
             Swal.fire(
               'Eliminado!',
               'El conductor ha sido eliminado.',
@@ -64,6 +64,7 @@ export class ListComponent implements OnInit {
             );
             this.list();
           });
+        });
       }
     });
   }

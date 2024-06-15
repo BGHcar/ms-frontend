@@ -28,7 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
       console.log("no se pone token")
       return next.handle(request);
     } else {
-      console.log("colocando token " + token)
+       //console.log("colocando token " + token)
       // Adjunta el token a la solicitud
       const authRequest = request.clone({
         setHeaders: {
