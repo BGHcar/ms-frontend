@@ -18,6 +18,8 @@ import { WebSocketService } from './services/funeraria/web-socket.service';
 
 
 
+
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -32,6 +34,8 @@ import { WebSocketService } from './services/funeraria/web-socket.service';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+
+
 
 
   ],

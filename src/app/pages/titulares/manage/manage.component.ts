@@ -60,7 +60,7 @@ export class ManageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       edad: [0, [Validators.required, Validators.min(18), Validators.max(100)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      cliente_id: [0]
+      cliente_id: [0],
     });
   }
 

@@ -126,9 +126,27 @@ export class ManageComponent implements OnInit {
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
 
+      console.log(JSON.stringify(this.servicio));
+
       this.service.create(this.servicio).subscribe(data => {
-        Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
-        this.router.navigate(['servicios/list']);
+        Swal.fire({
+          title: 'Tipo de servicio',
+          text: "Que tipo de servicio Desea?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Sepultura',
+          cancelButtonText: 'Cremacion'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['sepulturas/create']);
+
+          } else{
+            this.router.navigate(['cremaciones/create']);
+
+          }
+        });
       });
     }
   }

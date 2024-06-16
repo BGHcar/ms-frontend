@@ -27,7 +27,7 @@
                                     Fecha/Hora:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="traslado.fecha_hora" [disabled]="mode == 1"
+                                    <input type="date" class="form-control" [(ngModel)]="traslado.fecha_hora" [disabled]="mode == 1"
                                         formControlName="fecha_hora">
                                     <div
                                         *ngIf="getTheFormGroup.fecha_hora.errors && (getTheFormGroup.fecha_hora.dirty || getTheFormGroup.fecha_hora.touched || trySend)">

@@ -6,6 +6,8 @@ import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
 import { Sepultura } from 'src/app/models/funeraria/sepultura.model';
 import { Sala } from 'src/app/models/funeraria/sala.model';
 import { SalaService } from 'src/app/services/funeraria/sala.service';
+import { Ciudad } from 'src/app/models/funeraria/ciudad.model';
+import { CiudadService } from 'src/app/services/funeraria/ciudad.service';
 
 @Component({
   selector: 'app-list',
@@ -16,21 +18,28 @@ export class ListComponent implements OnInit {
 
   sepultura: Sepultura[];
   theSepultura: Sepultura;
-  salas:Sala[]
+  salas:Sala[];
+  ciudades: Ciudad[];
 
-  constructor(private service: SepulturaService, private router: Router, private salaServices: SalaService) {
+  constructor(private service: SepulturaService, private router: Router, private salaServices: SalaService, private ciudadService: CiudadService) {
     this.sepultura = [];
     this.salas = [];
-
+    this.ciudades = [];
   }
 
   ngOnInit(): void {
     this.list();
     this.listSalas();
+    this.listCiudades();
   }
   listSalas() {
     this.salaServices.list().subscribe(data => {
       this.salas = data["data"];
+    });
+  }
+  listCiudades() {
+    this.ciudadService.list().subscribe(data => {
+      this.ciudades = data["data"];
     });
   }
 
@@ -45,7 +54,10 @@ export class ListComponent implements OnInit {
     const sala = this.salas.find(dep => dep.id === id);
     return sala ? sala.nombre : 'Desconocido';
   }
-
+  obtenerNombreCiudad(id: number): string {
+    const ciudad = this.ciudades.find(dep => dep.id === id);
+    return ciudad ? ciudad.nombre : 'Desconocido';
+  }
   view(id: number) {
     console.log("id: " + id);
     this.router.navigate(['sepulturas/view/' + id]);

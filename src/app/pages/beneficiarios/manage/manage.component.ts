@@ -16,7 +16,6 @@ import { TitularService } from 'src/app/services/funeraria/titular.service';
 export class ManageComponent implements OnInit {
 
   mode: number;
-
   beneficiario: Beneficiario;
   cliente: Cliente;
   theFormGroup: FormGroup;

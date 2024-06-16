@@ -19,7 +19,8 @@
                                     Id:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.id" formControlName="id" disabled>
+                                    <input type="text" class="form-control" [(ngModel)]="titular.id"
+                                        formControlName="id" disabled>
                                 </div>
                             </div>
                             <div class="row">
@@ -27,13 +28,16 @@
                                     Nombre:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.nombre" [disabled]="mode == 1"
-                                        formControlName="nombre">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.nombre"
+                                        [disabled]="mode == 1" formControlName="nombre">
                                     <div
                                         *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -42,13 +46,16 @@
                                     Apellido:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.apellido" [disabled]="mode==1"
-                                        formControlName="apellido">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.apellido"
+                                        [disabled]="mode==1" formControlName="apellido">
                                     <div
                                         *ngIf="getTheFormGroup.apellido.errors && (getTheFormGroup.apellido.dirty || getTheFormGroup.apellido.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.apellido.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.apellido.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -57,13 +64,16 @@
                                     Cedula:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.cedula" [disabled]="mode==1"
-                                        formControlName="cedula">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.cedula"
+                                        [disabled]="mode==1" formControlName="cedula">
                                     <div
                                         *ngIf="getTheFormGroup.cedula.errors && (getTheFormGroup.cedula.dirty || getTheFormGroup.cedula.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.cedula.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.cedula.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -72,13 +82,16 @@
                                     Telefono:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.telefono" [disabled]="mode==1"
-                                        formControlName="telefono">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.telefono"
+                                        [disabled]="mode==1" formControlName="telefono">
                                     <div
                                         *ngIf="getTheFormGroup.telefono.errors && (getTheFormGroup.telefono.dirty || getTheFormGroup.telefono.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.telefono.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.telefono.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -87,13 +100,16 @@
                                     Edad:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.edad" [disabled]="mode==1"
-                                        formControlName="edad">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.edad"
+                                        [disabled]="mode==1" formControlName="edad">
                                     <div
                                         *ngIf="getTheFormGroup.edad.errors && (getTheFormGroup.edad.dirty || getTheFormGroup.edad.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.edad.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.edad.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.edad.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -102,13 +118,16 @@
                                     Email:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.email" [disabled]="mode==1"
-                                        formControlName="email">
+                                    <input type="text" class="form-control" [(ngModel)]="titular.email"
+                                        [disabled]="mode==1" formControlName="email">
                                     <div
                                         *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.email.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.email.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -117,13 +136,16 @@
                                     Password:
                                 </div>
                                 <div class="col-8">
-                                    <input type="password" class="form-control" [(ngModel)]="titular.password" [disabled]="mode==1"
-                                        formControlName="password">
+                                    <input type="password" class="form-control" [(ngModel)]="titular.password"
+                                        [disabled]="mode==1" formControlName="password">
                                     <div
                                         *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.password.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.password.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.password.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -131,8 +153,37 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-8">
-                                    <button type="button" class="btn btn-primary btn-block" (click)="create()" *ngIf="mode==2">Crear</button>
-                                    <button type="button" class="btn btn-primary btn-block" (click)="update()" *ngIf="mode==3">Actualizar</button>
+                                    <button type="button" class="btn btn-primary btn-block" (click)="create()"
+                                        *ngIf="mode==2">Crear</button>
+                                    <button type="button" class="btn btn-primary btn-block" (click)="update()"
+                                        *ngIf="mode==3">Actualizar</button>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="titular.beneficiarios.length > 0 && mode != 2">
+                                <div class="col-4">
+                                    Beneficiarios :
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col-1">Benef Id</th>
+                                                <th scope="col-2">Nombre</th>
+                                                <th scope="col-3">Apellido</th>
+                                                <th scope="col-4">Cedula</th>
+                                                <th scope="col-5">Edad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let actual of titular.beneficiarios">
+                                                <td>{{actual.id}}</td>
+                                                <td>{{actual.nombre}}</td>
+                                                <td>{{actual.apellido}}</td>
+                                                <td>{{actual.cedula}}</td>
+                                                <td>{{actual.edad}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </form>
