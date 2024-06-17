@@ -19,7 +19,9 @@
                                 <th scope="col-1">ID</th>
                                 <th scope="col-2">Ubicacion</th>
                                 <th scope="col-3">Fecha/Hora</th>
-                                <th scope="col-3">Sala</th>
+                                <th scope="col-4">Sala</th>
+                                <th scope="col-5">servicio</th>
+                                
 
                             </tr>
                         </thead>
@@ -29,6 +31,7 @@
                                 <td>{{ obtenerNombreCiudad(actual.ciudad_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
                                 <td >{{actual.fecha_hora}}</td>
                                 <td>{{ obtenerSala(actual.sala_id) }}</td> 
+                                <td>{{actual.servicio_id}}</td>
 
 
                                 <td>

@@ -7,7 +7,14 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 1">Vizualizar
+                        <button type="button" class="btn btn-primary float-right" (click)="MostrarDifunto(ejecucion.id)"
+                            *ngIf="mode==1">Ver beneficiarios
+                        </button>
+                        <button type="button" class="btn btn-primary float-right" (click)="MostrarServicio(ejecucion.id)"
+                            *ngIf="mode==1">Ver Servicio
+                        </button>
+                    </h1>
                     <h1 *ngIf="mode == 2">Crear</h1>
                     <h1 *ngIf="mode == 3">actualizar</h1>
                 </div>
@@ -38,15 +45,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Id del difunto:
+                                    Difunto:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="ejecucion.difunto_id" [disabled]="mode == 1"
-                                        formControlName="difunto_id">
-                                        <div
-                                        *ngIf="getTheFormGroup.difunto_id.errors && (getTheFormGroup.difunto_id.dirty || getTheFormGroup.difunto_id.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.difunto_id.errors.required" class="msnError">Requerido</strong>
-                                    </div>
+                                    <select class="form-control" [(ngModel)]="ejecucion.difunto_id" [disabled]="mode == 1" formControlName="difunto_id">
+                                        <option value=>No</option>
+                                        <option *ngFor="let opt of beneficiarios" [value]="opt.id"> Nombre:{{ opt.nombre }}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">

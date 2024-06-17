@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
@@ -21,17 +21,24 @@ export class ListComponent implements OnInit {
   salas:Sala[];
   ciudades: Ciudad[];
 
-  constructor(private service: SepulturaService, private router: Router, private salaServices: SalaService, private ciudadService: CiudadService) {
+  constructor(private activateRoute: ActivatedRoute , private service: SepulturaService, private router: Router, private salaServices: SalaService, private ciudadService: CiudadService) {
     this.sepultura = [];
     this.salas = [];
     this.ciudades = [];
   }
-
   ngOnInit(): void {
-    this.list();
+    if (this.activateRoute.snapshot.queryParams.servicio_id) {
+    this.listbyServicio(this.activateRoute.snapshot.queryParams.servicio_id);
     this.listSalas();
     this.listCiudades();
+    }
+    else {
+      this.list();
+      this.listSalas();
+      this.listCiudades();
+    }
   }
+
   listSalas() {
     this.salaServices.list().subscribe(data => {
       this.salas = data["data"];
@@ -40,6 +47,11 @@ export class ListComponent implements OnInit {
   listCiudades() {
     this.ciudadService.list().subscribe(data => {
       this.ciudades = data["data"];
+    });
+  }
+  listbyServicio(id: number) {
+    this.service.listbyServicio(id).subscribe(data => {
+      this.sepultura = data["data"];
     });
   }
 

@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { RoleauthGuard } from 'src/app/guards/roleauth.guard';
 
 const routes: Routes = [
   {
     path: 'list',
-    component: ListComponent
+    component: ListComponent,
+    canActivate:[RoleauthGuard]
+
   },
   {
     path: 'create',

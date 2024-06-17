@@ -54,6 +54,12 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['beneficiarios/list'], { queryParams: { titular_id: id } });
   }
 
+  listEjecuciones(id: number) {
+    this.router.navigate(['ejecucion/list'], { queryParams: { titular_id: id } });
+  }
+
+  
+
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],

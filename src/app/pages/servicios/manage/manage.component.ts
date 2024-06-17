@@ -40,31 +40,13 @@ export class ManageComponent implements OnInit {
     this.traslados=[];
     this.trySend = false;
     this.mode = 1;
-    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0, sepultura: { id: null }, cremacion: { id: null },  traslado:{id:null} };
+    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0 };
   }
   
-  loadSepulturas() {
-    this.sepulturaService.list().subscribe(data => {
-      this.sepulturas = data["data"];
-    });
-  }
 
-  loadCremaciones() {
-    this.cremacionServices.list().subscribe(data => {
-      this.cremaciones = data["data"];
-    });
-  }
-
-  loadTraslado(){
-    this.trasladoServices.list().subscribe(data => {
-      this.traslados = data["data"];
-    }); 
-  }
 
   ngOnInit(): void {
-    this.loadSepulturas();
-    this.loadCremaciones();
-    this.loadTraslado();
+
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
@@ -73,9 +55,7 @@ export class ManageComponent implements OnInit {
       this.theFormGroup.get('descripcion')?.disable();
       this.theFormGroup.get('duracion')?.disable();
       this.theFormGroup.get('precio')?.disable();
-      this.theFormGroup.get('idsepultura')?.disable();
-      this.theFormGroup.get('idcremacion')?.disable();
-      this.theFormGroup.get('idtraslado')?.disable();
+
       this.getServicio(this.activateRoute.snapshot.params.id);
     } else if (currentUrl.includes('create')) {
       this.mode = 2;
@@ -92,9 +72,7 @@ export class ManageComponent implements OnInit {
       precio: [0, [Validators.required, Validators.min(100000)]],
       descripcion: ["", [Validators.required, Validators.minLength(50)]],
       duracion: [0, [Validators.required, Validators.min(3)]],
-      idsepultura: [null],
-      idcremacion: [null],
-      idtraslado:[null]
+
     });
   }
   get getTheFormGroup() {
@@ -115,7 +93,16 @@ export class ManageComponent implements OnInit {
       });
     });
   }
+  listTypeServices(id: number) {
+    this.router.navigate([this.servicio.nombre+'/list'], { queryParams: { servicio_id: id } });
+  }
 
+  listTraslados(id: number) {
+    this.router.navigate(['traslados/list'], { queryParams: { servicio_id: id } });
+  }
+
+
+  
   create() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
@@ -125,38 +112,23 @@ export class ManageComponent implements OnInit {
       this.servicio.precio = this.theFormGroup.get('precio').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
-
-      console.log(JSON.stringify(this.servicio));
-
+  
       this.service.create(this.servicio).subscribe(data => {
-        Swal.fire({
-          title: 'Tipo de servicio',
-          text: "Que tipo de servicio Desea?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sepultura',
-          cancelButtonText: 'Cremacion'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.router.navigate(['sepulturas/create']);
-
-          } else{
-            this.router.navigate(['cremaciones/create']);
-
-          }
-        });
+        Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
+        this.router.navigate([this.servicio.nombre+'/create'], { queryParams: { servicio_id: this.servicio.id } });
       });
     }
   }
 
+  
+    
 
   update() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
+      this.servicio.id = this.theFormGroup.get('id').value;
       this.servicio.nombre = this.theFormGroup.get('nombre').value;
       this.servicio.precio = this.theFormGroup.get('precio').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;

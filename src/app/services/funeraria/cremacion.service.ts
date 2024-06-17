@@ -25,6 +25,8 @@ export class CremacionService {
   update(theCremacion: Cremacion): Observable<Cremacion> {
     return this.http.put<Cremacion>(`${environment.url_ms_funeraria}/cremaciones/${theCremacion.id}`, theCremacion);
   }
-  
+  listbyServicio(id:number):Observable<Cremacion[]>{
+    return this.http.get<Cremacion[]>(`${environment.url_ms_funeraria}/serviciocremacion/${id}`);
+  }
 
 }

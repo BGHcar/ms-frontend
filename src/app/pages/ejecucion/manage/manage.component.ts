@@ -8,6 +8,7 @@ import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { Servicio } from 'src/app/models/funeraria/servicio.model';
 import { ServicioService } from 'src/app/services/funeraria/servicio.service';
 import { ClienteService } from 'src/app/services/funeraria/cliente.service';
+import { BeneficiarioService } from 'src/app/services/funeraria/beneficiario.service';
 
 @Component({
   selector: 'app-manage',
@@ -22,7 +23,7 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   trySend: boolean;
   servicios: any[] = [];
-
+  beneficiarios:any[]=[];
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -30,7 +31,8 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
     private router: Router,
     private serviciosServices:ServicioService,
-    private clienteServices: ClienteService
+    private clienteServices: ClienteService,
+    private BeneficiariosServices:BeneficiarioService
   ) { 
     this.trySend = false;
     this.mode = 1;
@@ -43,6 +45,15 @@ export class ManageComponent implements OnInit {
         this.servicios = response['data'];
       } else {
         this.servicios = response;
+      }
+    });
+  }
+  loadBeneficiarios() {
+    this.BeneficiariosServices.list().subscribe((response: any) => {
+      if ('data' in response) {
+        this.beneficiarios = response['data'];
+      } else {
+        this.beneficiarios = response;
       }
     });
   }
@@ -59,6 +70,7 @@ export class ManageComponent implements OnInit {
     this.configFormGroup();
     this.loadServicios();
     this.loadCliente();
+    this.loadBeneficiarios();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -78,11 +90,19 @@ export class ManageComponent implements OnInit {
       this.getEjecucion(this.activateRoute.snapshot.params.id);
     }
   }
+
+  MostrarServicio(id: number) {
+    this.router.navigate(['servicios/view/' + this.ejecucion.servicio_id]);
+  }
+  MostrarDifunto(id: number) {
+    this.router.navigate(['beneficiarios/view/' + this.ejecucion.difunto_id]);
+  }
+
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       ubicacion: ["", [Validators.required, Validators.min(1)]],
-      difunto_id: [0, [Validators.required]],
+      difunto_id: [0],
       servicio_id: [0],
       cliente_id: [null],
 
@@ -97,7 +117,6 @@ export class ManageComponent implements OnInit {
       this.ejecucion.id = id;
       this.theFormGroup.patchValue({
         nombre: this.ejecucion.ubicacion,
-        ciudad_id: this.ejecucion.difunto_id,
 
       });
     });

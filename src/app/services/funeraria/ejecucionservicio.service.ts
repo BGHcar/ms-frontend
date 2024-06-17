@@ -38,5 +38,9 @@ export class EjecucionservicioService {
     return this.http.delete<Ejecucionservicio>(`${environment.url_ms_funeraria}/ejecucionservicios/${id}`);
   }
 
+  listByTitular(id:number):Observable<Ejecucionservicio[]>{
+    return this.http.get<Ejecucionservicio[]>(`${environment.url_ms_funeraria}/ejecuciontitular/${id}`);
+  }
+
   
 }

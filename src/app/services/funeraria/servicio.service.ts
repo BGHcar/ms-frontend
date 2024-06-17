@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Servicio } from 'src/app/models/funeraria/servicio.model';
+import { Ejecucionservicio } from 'src/app/models/funeraria/ejecucionservicio.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,8 @@ export class ServicioService {
     return this.http.put<Servicio>(`${environment.url_ms_funeraria}/servicios/${theServicio.id}`, theServicio);
   }
   
+  listByTitular(id:number):Observable<Ejecucionservicio[]>{
+    return this.http.get<Ejecucionservicio[]>(`${environment.url_ms_funeraria}/serviciotitular/${id}`);
+  }
 
 }
