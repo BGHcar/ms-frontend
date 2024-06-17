@@ -1,4 +1,3 @@
-import { Musica } from "../musica.model";
 import { Cremacion } from "./cremacion.model";
 import { Sepultura } from "./sepultura.model";
 import { Traslado } from "./traslado.model";
@@ -12,5 +11,4 @@ export class Servicio {
     traslado?:Traslado;
     sepultura?:Sepultura;
     cremacion?:Cremacion;
-    musica?:Musica;
 }

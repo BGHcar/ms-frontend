@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { Titular } from 'src/app/models/funeraria/titular.model';
 import { TitularService } from 'src/app/services/funeraria/titular.service';
+import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.service';
 
 @Component({
   selector: 'app-manage',
@@ -27,7 +28,8 @@ export class ManageComponent implements OnInit {
     private service: BeneficiarioService,
     private theFormBuilder: FormBuilder,
     private router: Router,
-    private titularesService: TitularService
+    private titularesService: TitularService,
+    private suscripcionService: SuscripcionService
   ) {
     this.trySend = false;
     this.mode = 1;
@@ -99,17 +101,21 @@ export class ManageComponent implements OnInit {
       this.cliente.nombre = this.beneficiario.nombre;
       this.cliente.email = this.beneficiario.email;
       this.cliente.password = this.beneficiario.password;
-      this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
-        this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
-        this.service.createCliente(this.cliente).subscribe(data => {
-          this.beneficiario.cliente_id = data.id;
-          this.service.create(this.beneficiario).subscribe(data => {
-            Swal.fire(
-              'Creado',
-              'El beneficiario ha sido creado.',
-              'success'
-            );
-            this.router.navigate(['/beneficiarios/list']);
+      console.log(JSON.stringify(this.beneficiario));
+      this.suscripcionService.findSuscripcionByClienteId(this.beneficiario.titular.id).subscribe(data => {
+        this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
+          this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
+          this.service.createCliente(this.cliente).subscribe(data => {
+            this.beneficiario.cliente_id = data.id;
+            this.service.create(this.beneficiario).subscribe(data => {
+              Swal.fire(
+                'Creado',
+                'El beneficiario ha sido creado.',
+                'success'
+              );
+              this.router.navigate(['/beneficiarios/list']);
+              return;
+            });
           });
         });
       });

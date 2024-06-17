@@ -35,6 +35,10 @@ export class AdministradorService {
     return this.http.post<Administrador>(`${environment.url_ms_security}/users/public`, {name, email, password});
   }
 
+  deleteUser(id:string): Observable<Administrador>{
+    return this.http.delete<Administrador>(`${environment.url_ms_security}/users/${id}`);
+  }
+
   
 
 }

@@ -6,6 +6,7 @@ import { Sepultura } from 'src/app/models/funeraria/sepultura.model';
 import { SepulturaService } from 'src/app/services/funeraria/sepultura.service';
 import { SalaService } from 'src/app/services/funeraria/sala.service';
 import { Sala } from 'src/app/models/funeraria/sala.model';
+import { CiudadService } from 'src/app/services/funeraria/ciudad.service';
 
 @Component({
   selector: 'app-manage',
@@ -19,6 +20,7 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   trySend: boolean;
   salas: any[] = [];
+  ciudades: any[] = [];
 
 
   constructor(
@@ -27,13 +29,14 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
     private router: Router,
     private theSala:SalaService,
+    private thecity:CiudadService,
 
 
   ) { 
 
     this.trySend = false;
     this.mode = 1;
-    this.sepultura={id:0, ubicacion:"", fecha_hora:"", servicio_id:null , sala_id:null}
+    this.sepultura={id:0, ciudad_id:null, fecha_hora:"", servicio_id:null , sala_id:null}
   }
   loadSalas() {
     this.theSala.list().subscribe((response: any) => {
@@ -44,35 +47,50 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+  loadCiudades() {
+    this.thecity.list().subscribe((response: any) => {
+      if ('data' in response) {
+        this.ciudades = response['data'];
+      } else {
+        this.ciudades = response;
+      }
+    });
+  }
   ngOnInit(): void {
     this.configFormGroup();
     this.loadSalas();
+    this.loadCiudades();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
+    
+    // Capturar el servicio_id de la URL
+    const servicioId = this.activateRoute.snapshot.queryParams['servicio_id'];
+    if (servicioId) {
+      this.theFormGroup.patchValue({ servicio_id: servicioId });
+    }
     if (currentUrl.includes('view')) {
       this.mode = 1;
-      this.theFormGroup.get('ubicacion')?.disable();
+      this.theFormGroup.get('ciudad_id')?.disable();
       this.theFormGroup.get('fecha_hora')?.disable();
       this.theFormGroup.get('sala_id')?.disable();
       this.getSepultura(this.activateRoute.snapshot.params.id);
-    }
-    else if (currentUrl.includes('create')) {
+    } else if (currentUrl.includes('create')) {
       this.mode = 2;
-    }
-    else if (currentUrl.includes('update')) {
+    } else if (currentUrl.includes('update')) {
       this.mode = 3;
       this.getSepultura(this.activateRoute.snapshot.params.id);
     }
   }
+  
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      id:[0],
-      ubicacion: ["", [Validators.required, Validators.min(1)]],
+      id: [0],
+      ciudad_id: [null],
       fecha_hora: ["", [Validators.required]],
       sala_id: [0, [Validators.required]],
-      servicio_id:[null]
-
-    })
+      servicio_id: [null]  // Incluir el servicio_id en el formulario
+    });
   }
+  
   get getTheFormGroup() {
     return this.theFormGroup.controls
   }
@@ -81,43 +99,44 @@ export class ManageComponent implements OnInit {
       this.sepultura = data;
       this.sepultura.id = id;
       this.theFormGroup.patchValue({
-        nombre: this.sepultura.ubicacion,
         fecha_hora: this.sepultura.fecha_hora,
-        sala_id: this.sepultura.sala_id
+        sala_id: this.sepultura.sala_id,
+        servicio_id:this.sepultura.servicio_id
       });
     });
   }
-  create(){
+  create() {
     this.trySend = true;
-    if (this.theFormGroup.invalid){
+    if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
-    }else{
-      this.sepultura.ubicacion = this.theFormGroup.get('ubicacion').value;
+    } else {
+      this.sepultura.ciudad_id = this.theFormGroup.get('ciudad_id').value;
       this.sepultura.fecha_hora = this.theFormGroup.get('fecha_hora').value;
       this.sepultura.sala_id = this.theFormGroup.get('sala_id').value;
-
+      this.sepultura.servicio_id = this.theFormGroup.get('servicio_id').value;  // Asignar el servicio_id
+  
       this.service.create(this.sepultura).subscribe(data => {
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
-        this.router.navigate(['sepulturas/list']);
+        this.router.navigate(['traslados/create'], { queryParams: { servicio_id: this.sepultura.servicio_id } });
       });
     }
   }
+  
   update() {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
-      this.sepultura.ubicacion = this.theFormGroup.get('ubicacion').value;
+      this.sepultura.ciudad_id = this.theFormGroup.get('ciudad_id').value;
       this.sepultura.fecha_hora = this.theFormGroup.get('fecha_hora').value;
       this.sepultura.sala_id = this.theFormGroup.get('sala_id').value;
+      this.sepultura.servicio_id = this.theFormGroup.get('servicio_id').value;  // Asignar el servicio_id
+      
       this.service.update(this.sepultura).subscribe(data => {
-        Swal.fire(
-          'Actualizado!',
-          'La sepultura ha sido actualizada correctamente',
-          'success'
-        );
+        Swal.fire('Actualizado!', 'La sepultura ha sido actualizada correctamente', 'success');
         this.router.navigate(['sepulturas/list']);
       });
     }
   }
+  
 }

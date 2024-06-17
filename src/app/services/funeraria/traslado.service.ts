@@ -35,4 +35,7 @@ export class TrasladoService {
   delete(id: number): Observable<Traslado> {
     return this.http.delete<Traslado>(`${environment.url_ms_funeraria}/traslados/${id}`);
   }
+  listbyServicio(id:number):Observable<Traslado[]>{
+    return this.http.get<Traslado[]>(`${environment.url_ms_funeraria}/serviciotraslados/${id}`);
+  }
 }

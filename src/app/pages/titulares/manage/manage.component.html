@@ -11,6 +11,9 @@
                         <button type="button" class="btn btn-primary float-right" (click)="listBeneficiarios(titular.id)"
                             *ngIf="mode==1">Beneficiarios
                         </button>
+                        <button type="button" class="btn btn-primary float-right" (click)="listEjecuciones(titular.id)"
+                            *ngIf="mode==1">Ejecuciones
+                        </button>
                     </h1>
                     <h1 *ngIf="mode == 2">Crear</h1>
                     <h1 *ngIf="mode == 3">actualizar</h1>

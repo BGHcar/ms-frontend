@@ -6,6 +6,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { RoleauthGuard } from 'src/app/guards/roleauth.guard';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -118,7 +119,7 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren : () => import('src/app/pages/planxservicio/planxservicio.module').then(m => m.PlanxservicioModule)
     },
     {
-        path : 'comentarios', canActivate:[AuthGuard],
+        path : 'comentarios',
         loadChildren : () => import('src/app/pages/comentarios/comentarios.module').then(m => m.ComentariosModule)
     },
     {
@@ -128,5 +129,7 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'tipos', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/tipos/tipos.module').then(m => m.TiposModule)
+        path : 'pay-button',
+        loadChildren : () => import('src/app/pages/pay-button/pay-button.module').then(m => m.PayButtonModule)
     }
 ];

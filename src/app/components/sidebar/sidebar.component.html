@@ -91,7 +91,7 @@
       <!-- Navigation -->
       <ul class="navbar-nav">
         <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-          <a *ngIf="(theSecurityService.existSession()?1:0) === menuItem.type || menuItem==2" routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+          <a *ngIf="rolename == menuItem.type || menuItem.type == 'Ambos'" routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
             <i class="ni {{menuItem.icon}}"></i>
             {{menuItem.title}}
           </a>

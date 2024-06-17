@@ -7,7 +7,15 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h1 *ngIf="mode == 1">Vizualizar</h1>
+                    <h1 *ngIf="mode == 1">Vizualizar
+                        <button type="button" class="btn btn-primary float-right" (click)="listTypeServices(servicio.id)"
+                            *ngIf="mode==1">Tipo de servicio
+                        </button>
+
+                        <button type="button" class="btn btn-primary float-right" (click)="listTraslados(servicio.id)"
+                            *ngIf="mode==1">Servicio de Traslado
+                        </button>
+                    </h1>
                     <h1 *ngIf="mode == 2">Crear</h1>
                     <h1 *ngIf="mode == 3">Actualizar</h1>
                 </div>
@@ -27,8 +35,12 @@
                                     Nombre:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="servicio.nombre" [disabled]="mode==1" formControlName="nombre">
-                                    <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                                    <select class="form-control" [(ngModel)]="servicio.nombre" [attr.disabled]="mode === 1 ? true : null" formControlName="nombre">
+                                        <option value="sepulturas">Sepulturas</option>
+                                        <option value="cremaciones">Cremaciones</option>
+                                        
+                                    </select>
+                                        <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
                                         <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Valor mínimo 2</strong>
                                     </div>
@@ -75,39 +87,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Sepultura:
-                                </div>
-                                <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="servicio.sepultura.id" [disabled]="mode == 1" formControlName="idsepultura">
-                                        <option value=>SELECCIONE UNA OPCIÓN</option>
-                                        <option *ngFor="let option of sepulturas" [value]="option.id"> Ubicacion:{{ option.ubicacion }} - Fecha/Hora:{{option.fecha_hora}} - Sala:{{option.sala_id}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Cremacion:
-                                </div>
-                                <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="servicio.cremacion.id" [disabled]="mode == 1" formControlName="idcremacion">
-                                        <option value=>null</option>
-                                        <option *ngFor="let option of cremaciones" [value]="option.id"> Ubicacion:{{ option.ubicacion }} - Fecha/Hora:{{option.fecha_hora}} - Sala:{{option.sala_id}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Traslado:
-                                </div>
-                                <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="servicio.traslado.id" [disabled]="mode == 1" formControlName="idtraslado">
-                                        <option value=>No</option>
-                                        <option *ngFor="let option of traslados" [value]="option.id"> Origen:{{ option.origen }} - Destino:{{option.destino}} - Fecha/Hora:{{option.fecha_hora}}</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-4"></div>
                                 <div class="col-8">

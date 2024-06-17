@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table th, .table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .table-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
 </div>
 <!-- Page content -->
@@ -7,46 +27,50 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Ejecucion
+                    <h3 class="mb-0">Ejecucion de sus Servicios
                         <!-- Boton de crear al lado derecho -->
                         <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
                     </h3>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col-1">ID</th>
-                                <th scope="col-2">Token</th>
-                                <th scope="col-3">Ubicacion</th>
-                                <th scope="col-4">Id del difunto</th>
-                                <th scope="col-5">Id del servicio</th>
-                                <th scope="col-6">Id del cliente</th>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col-1">ID</th>
+                                    <th scope="col-2">Token</th>
+                                    <th scope="col-3">Ubicacion</th>
+                                    <th scope="col-4">Id del servicio</th>
+                                    <th scope="col-5">Difunto</th>
+                                    <th scope="col-6">Nombre del cliente</th>
+                                    <th scope="col">Acciones</th>
 
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let actual of ejecucion">
-                                <td>{{actual.id}}</td>
-                                <td>{{actual.token}}</td>                          
-                                <td>{{actual.ubicacion}}</td>
-                                <td>{{actual.difunto_id}}</td>
-                                <td>{{actual.servicio_id}}</td>
-                                <td>{{actual.cliente_id}}</td>
-
-
-                                <td>
-                                    <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
-                                    <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
-                                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let actual of ejecucion">
+                                    <td>{{actual.id}}</td>
+                                    <td>{{actual.token}}</td>                          
+                                    <td>{{actual.ubicacion}}</td>
+                                    <td>{{actual.servicio_id}}</td>
+                                    <td>{{ obtenerNombreBeneficiario(actual.difunto_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
+                                    <td>{{ obtenerNombreCliente(actual.cliente_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
+    
+    
+                                    <td>
+                                        <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
+                                        <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                                        <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+</body>
+</html>

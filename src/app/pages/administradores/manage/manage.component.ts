@@ -33,15 +33,12 @@ export class ManageComponent implements OnInit {
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
-      console.log("cambiando a modo 1");
       this.mode = 1;
     }
     else if (currentUrl.includes('create')) {
-      console.log("cambiando a modo 2");
       this.mode = 2;
     }
     else if (currentUrl.includes('update')) {
-      console.log("cambiando a modo 3");
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id) {

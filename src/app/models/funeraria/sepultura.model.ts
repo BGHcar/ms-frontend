@@ -1,7 +1,7 @@
 
 export class Sepultura {
     id?:number;
-    ubicacion?:string;
+    ciudad_id?:string;
     fecha_hora?:string;
     sala_id?:number;
     servicio_id?:number

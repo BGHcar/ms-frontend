@@ -18,7 +18,7 @@
                             <tr>
                                 <th scope="col-1">ID</th>
                                 <th scope="col-2">fecha_hora</th>
-                                <th scope="col-3">ubicacion</th>
+                                <th scope="col-3">Ciudad</th>
                                 <th scope="col-4">Servicio_id</th>
 
                             </tr>
@@ -27,7 +27,7 @@
                             <tr *ngFor="let actual of cremacion">
                                 <td>{{actual.id}}</td>
                                 <td>{{actual.fecha_hora}}</td>                          
-                                <td>{{actual.ubicacion}}</td>
+                                <td>{{ obtenerNombreCiudad(actual.ciudad_id) }}</td> <!-- Mostrar el nombre de la Ciudad -->
                                 <td>{{ obtenerSala(actual.sala_id) }}</td> <!-- Mostrar el nombre de la Ciudad -->
 
 

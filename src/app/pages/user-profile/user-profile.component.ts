@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
+  session = JSON.parse(localStorage.getItem('sesion'));
+  rolename = this.session.role.name;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit( ) {
+    console.log(this.rolename)
   }
 
 }

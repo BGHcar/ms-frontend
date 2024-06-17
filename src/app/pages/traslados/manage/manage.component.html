@@ -22,47 +22,31 @@
                                     <input type="text" class="form-control" [(ngModel)]="traslado.id" formControlName="id" disabled>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Fecha/Hora:
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="traslado.fecha_hora" [disabled]="mode == 1"
-                                        formControlName="fecha_hora">
-                                    <div
-                                        *ngIf="getTheFormGroup.fecha_hora.errors && (getTheFormGroup.fecha_hora.dirty || getTheFormGroup.fecha_hora.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.fecha_hora.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.fecha_hora.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.fecha_hora.errors.maxlength" class="msnError">Invalido</strong>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <div class="col-4">
-                                    Origen:
+                                  Ciudades:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="traslado.origen" [disabled]="mode==1"
-                                        formControlName="origen">
-                                    <div
-                                        *ngIf="getTheFormGroup.origen.errors && (getTheFormGroup.origen.dirty || getTheFormGroup.origen.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.origen.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.origen.errors.minlength" class="msnError">Invalido</strong>
-                                    </div>
+                                  <select class="form-control" [(ngModel)]="traslado.ciudad_id" [attr.disabled]="mode === 1 ? true : null" formControlName="ciudad_id">
+                                    <ng-container *ngIf="ciudades && ciudades.length > 0">
+                                      <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                                    </ng-container>
+                                  </select>                 
                                 </div>
-                            </div>
+                              </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Destino:
+                                    direccion:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="traslado.destino" [disabled]="mode==1"
-                                        formControlName="destino">
+                                    <input type="text" class="form-control" [(ngModel)]="traslado.direccion" [disabled]="mode==1"
+                                        formControlName="direccion">
                                     <div
-                                        *ngIf="getTheFormGroup.destino.errors && (getTheFormGroup.destino.dirty || getTheFormGroup.destino.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.destino.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.destino.errors.minlength" class="msnError">Invalido</strong>
+                                        *ngIf="getTheFormGroup.direccion.errors && (getTheFormGroup.direccion.dirty || getTheFormGroup.direccion.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.direccion.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.direccion.errors.minlength" class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>

@@ -25,6 +25,9 @@ export class SepulturaService {
   update(theSepultura: Sepultura): Observable<Sepultura> {
     return this.http.put<Sepultura>(`${environment.url_ms_funeraria}/sepulturas/${theSepultura.id}`, theSepultura);
   }
-  
+  listbyServicio(id:number):Observable<Sepultura[]>{
+    return this.http.get<Sepultura[]>(`${environment.url_ms_funeraria}/servicioSepultura/${id}`);
+  }
+
 
 }

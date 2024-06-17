@@ -1,7 +1,6 @@
 export class Traslado {
     id?:number;
-    origen?:string;
-    destino?:string;
-    fecha_hora?:string;
+    ciudad_id?:number;
+    direccion?:string;
     servicio_id?:number;
 }

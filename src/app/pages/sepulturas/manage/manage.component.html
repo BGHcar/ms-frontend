@@ -27,7 +27,7 @@
                                     Fecha/Hora:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="sepultura.fecha_hora" [disabled]="mode == 1"
+                                    <input type="date" class="form-control" [(ngModel)]="sepultura.fecha_hora" [disabled]="mode == 1"
                                         formControlName="fecha_hora">
                                     <div
                                         *ngIf="getTheFormGroup.fecha_hora.errors && (getTheFormGroup.fecha_hora.dirty || getTheFormGroup.fecha_hora.touched || trySend)">
@@ -40,21 +40,19 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    Ubicacion:
+                                  Ciudades:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="sepultura.ubicacion" [disabled]="mode==1"
-                                        formControlName="ubicacion">
-                                    <div
-                                        *ngIf="getTheFormGroup.ubicacion.errors && (getTheFormGroup.ubicacion.dirty || getTheFormGroup.ubicacion.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.ubicacion.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.ubicacion.errors.minlength" class="msnError">Invalido</strong>
-                                    </div>
+                                  <select class="form-control" [(ngModel)]="sepultura.ciudad_id" [attr.disabled]="mode === 1 ? true : null" formControlName="ciudad_id">
+                                    <ng-container *ngIf="ciudades && ciudades.length > 0">
+                                      <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                                    </ng-container>
+                                  </select>                 
                                 </div>
-                            </div>
+                              </div>
                             <div class="row">
                                 <div class="col-4">
-                                  Ciudad:
+                                  Sala:
                                 </div>
                                 <div class="col-8">
                                   <select class="form-control" [(ngModel)]="sepultura.sala_id" [attr.disabled]="mode === 1 ? true : null" formControlName="sala_id">

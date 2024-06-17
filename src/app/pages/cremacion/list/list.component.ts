@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { Cremacion } from 'src/app/models/funeraria/cremacion.model';
 import { CremacionService } from 'src/app/services/funeraria/cremacion.service';
 import { Sala } from 'src/app/models/funeraria/sala.model';
 import { SalaService } from 'src/app/services/funeraria/sala.service';
+import { CiudadService } from 'src/app/services/funeraria/ciudad.service';
+import { Ciudad } from 'src/app/models/funeraria/ciudad.model';
 
 @Component({
   selector: 'app-list',
@@ -17,17 +19,26 @@ export class ListComponent implements OnInit {
   cremacion: Cremacion[];
   theCremacion: Cremacion;
   salas:Sala[]
+  ciudades: Ciudad[];
 
-  constructor(private service: CremacionService, private router: Router, private salaServices: SalaService) {
+  constructor(private activateRoute: ActivatedRoute, private service: CremacionService, private router: Router, private salaServices: SalaService, private ciudadService: CiudadService) {
     this.cremacion = [];
     this.salas = [];
+    this.ciudades = [];
 
   }
 
   ngOnInit(): void {
-    this.list();
+    if (this.activateRoute.snapshot.queryParams.servicio_id) {
+    this.listbyServicio(this.activateRoute.snapshot.queryParams.servicio_id);
     this.listSalas();
-
+    this.listCiudades();
+    }
+    else {
+      this.list();
+      this.listSalas();
+      this.listCiudades();
+    }
   }
   listSalas() {
     this.salaServices.list().subscribe(data => {
@@ -42,9 +53,23 @@ export class ListComponent implements OnInit {
       console.log(JSON.stringify(this.cremacion));
     });
   }
+  listCiudades() {
+    this.ciudadService.list().subscribe(data => {
+      this.ciudades = data["data"];
+    });
+  }
+  listbyServicio(id: number) {
+    this.service.listbyServicio(id).subscribe(data => {
+      this.cremacion = data["data"];
+    });
+  }
   obtenerSala(id: number): string {
     const sala = this.salas.find(dep => dep.id === id);
     return sala ? sala.nombre : 'Desconocido';
+  }
+  obtenerNombreCiudad(id: number): string {
+    const ciudad = this.ciudades.find(dep => dep.id === id);
+    return ciudad ? ciudad.nombre : 'Desconocido';
   }
   view(id: number) {
     console.log("id: " + id);
