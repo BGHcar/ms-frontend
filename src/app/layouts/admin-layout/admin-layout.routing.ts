@@ -121,5 +121,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'comentarios',
         loadChildren : () => import('src/app/pages/comentarios/comentarios.module').then(m => m.ComentariosModule)
+    },
+    {
+        path : 'pay-button',
+        loadChildren : () => import('src/app/pages/pay-button/pay-button.module').then(m => m.PayButtonModule)
     }
 ];
