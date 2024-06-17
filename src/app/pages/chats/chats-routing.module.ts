@@ -3,27 +3,31 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
+import { RoleauthGuard } from 'src/app/guards/roleauth.guard';
 
 const routes: Routes = [
   {
     path : 'list',
-    component : ListComponent
+    component : ListComponent,
   },
   {
     path : 'create',
-    component : ManageComponent
+    component : ManageComponent,
+    canActivate: [RoleauthGuard] 
   },
   {
     path : 'update/:id',
-    component : ManageComponent
+    component : ManageComponent,
+    canActivate: [RoleauthGuard] 
   },
   {
     path : 'view/:id',
-    component : ManageComponent
+    component : ManageComponent,
   },
   {
     path : 'delete/:id',
-    component : ManageComponent
+    component : ManageComponent,
+    canActivate: [RoleauthGuard]
   }
 ];
 
