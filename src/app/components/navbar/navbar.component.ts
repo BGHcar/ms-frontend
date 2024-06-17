@@ -47,8 +47,12 @@ export class NavbarComponent implements OnInit {
 
   public logout() {
     this.theSecurityService.logout();
-    this.router.navigate(["dashboard"]);
+    this.router.navigate(["dashboard"]).then(() => {
+      // Recargar la página después de navegar
+      location.reload();
+    });
   }
+  
 
   public getTheSecurityService() {
     return this.theSecurityService.existSession();
