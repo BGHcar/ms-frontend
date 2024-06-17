@@ -1,0 +1,100 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h1>Crear</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="musica.id" formControlName="id"
+                                        disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Nombre:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="musica.nombre"
+                                        formControlName="nombre">
+                                    <div
+                                        *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Nombre Grupo:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="musica.nombre_grupo"
+                                        formControlName="nombre_grupo">
+                                    <div
+                                        *ngIf="getTheFormGroup.nombre_grupo.errors && (getTheFormGroup.nombre_grupo.dirty || getTheFormGroup.nombre_grupo.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.nombre_grupo.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre_grupo.errors.nombre_grupo"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Valor hora:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="musica.valor_hora"
+                                        formControlName="valor_hora">
+                                    <div
+                                        *ngIf="getTheFormGroup.valor_hora.errors && (getTheFormGroup.valor_hora.dirty || getTheFormGroup.valor_hora.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.valor_hora.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.valor_hora.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Tipo:
+                                </div>
+                                <div class="col-8">
+                                    <select class="form-control" [(ngModel)]="musica.tipo.id" formControlName="tipo_id">
+                                        <option *ngFor="let actual of tipos" [value]="actual.id">Id : {{actual.id}} -
+                                            Nombre : {{actual.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8">
+                                    <button type="button" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

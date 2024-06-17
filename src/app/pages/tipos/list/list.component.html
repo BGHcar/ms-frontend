@@ -1,0 +1,31 @@
+
+<div>
+    <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    </div>
+    <div class="container-fluid mt--7">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header bg-transparent">
+                        <h3 class="mb-0">Tipos de Servicios</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col-1">ID</th>
+                                    <th scope="col-2">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let actual of tipos">
+                                    <td>{{actual.id}}</td>
+                                    <td>{{actual.nombre}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

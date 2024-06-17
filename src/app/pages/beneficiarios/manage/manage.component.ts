@@ -31,11 +31,12 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.beneficiario = { id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '',esta_vivo:true , cliente_id: 0, 
-      titular: { 
+    this.beneficiario = {
+      id: 0, nombre: '', apellido: '', cedula: '', edad: 0, telefono: '', email: '', password: '', esta_vivo: true, cliente_id: 0,
+      titular: {
         id: null,
       }
-     }
+    }
     this.cliente = { id: 0, nombre: '', email: '', password: '', user_id: '' }
   }
 

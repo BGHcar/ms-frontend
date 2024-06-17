@@ -120,5 +120,13 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'comentarios', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/comentarios/comentarios.module').then(m => m.ComentariosModule)
+    },
+    {
+        path : 'musica', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/musica/musica.module').then(m => m.MusicaModule)
+    },
+    {
+        path : 'tipos', canActivate:[AuthGuard],
+        loadChildren : () => import('src/app/pages/tipos/tipos.module').then(m => m.TiposModule)
     }
 ];
