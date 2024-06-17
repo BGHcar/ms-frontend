@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Pago } from 'src/app/models/funeraria/pago.model';
 import { PagoService } from 'src/app/services/funeraria/pago.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { PlanService } from 'src/app/services/funeraria/plan.service';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
+import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.service';
 import Swal from 'sweetalert2';
+import { Plan } from 'src/app/models/funeraria/plan.model';
+import { Titular } from 'src/app/models/funeraria/titular.model';
+import { Suscripcion } from 'src/app/models/funeraria/suscripcion.model';
 
 @Component({
   selector: 'app-list',
@@ -13,16 +20,33 @@ export class ListComponent implements OnInit {
 
   pagos: Pago[];
   thePago: Pago;
+  handler: any;
+  data: any;
+  titular: Titular;
+  plan: Plan;
+  suscripcion: Suscripcion;
 
   constructor(
     private service: PagoService,
-    private router: Router
+    private router: Router,
+    private planService: PlanService,
+    private titularService: TitularService,
+    private suscripcionService: SuscripcionService,
+    private activateRoute: ActivatedRoute,
+
   ) {
     this.pagos = [];
   }
 
   ngOnInit(): void {
-    this.list();
+    if (this.activateRoute.snapshot.queryParams.titular_id) {
+      this.listByTitular(this.activateRoute.snapshot.queryParams.titular_id)
+
+    }
+    else {
+      this.list();
+    }
+
   }
 
   list() {
@@ -67,5 +91,65 @@ export class ListComponent implements OnInit {
       }
     });
   }
+
+  pay(): void {
+    this.chargeData();
+    if (this.handler) {
+      this.handler.open(this.data);
+    } else {
+      console.error('ePayco handler is not configured');
+    }
+  }
+
+  chargeData(): void {
+    this.handler = (window as any).ePayco.checkout.configure({
+      key: environment.epayco_public_key,
+      test: true  // Cambiar a false en producción
+    });
+
+    this.data = {
+      name: this.plan.nombre,
+      description: this.plan.nombre,
+      invoice: `FAC-${this.plan.id}`,
+      currency: "COP",
+      amount: this.plan.precio_final,
+      tax_base: "",
+      tax: "",
+      tax_ico: "",
+      country: "CO",
+      lang: "es",
+      external: "false",
+      confirmation: "http://secure2.payco.co/prueba_curl.php",
+      response: "http://secure2.payco.co/prueba_curl.php",
+      name_billing: this.titular.nombre + " " + this.titular.apellido,
+      type_doc_billing: "cc",
+      mobilephone_billing: this.titular.telefono,
+      number_doc_billing: this.titular.cedula,
+      email_billing: this.titular.email,
+      methodconfirmation: "get"
+    };
+    console.log('handler : ' + JSON.stringify(this.handler));
+  }
+
+  listByTitular(id: number) {
+    this.titularService.view(id).subscribe(data => {
+      this.titular = data;
+      console.log('titular: ' + JSON.stringify(this.titular));
+      this.suscripcionService.findSuscripcionByClienteId(this.titular.cliente_id).subscribe(data => {
+        this.suscripcion = data;
+        console.log('suscripcion: ' + JSON.stringify(this.suscripcion));
+        this.planService.view(this.suscripcion.plan.id).subscribe(data => {
+          this.plan = data;
+          console.log('plan: ' + JSON.stringify(this.plan));
+          this.service.findBySubscription(this.suscripcion.id).subscribe(data => {
+            this.pagos = data["data"];
+          });
+        });
+      });
+    });
+
+  }
+
+
 
 }

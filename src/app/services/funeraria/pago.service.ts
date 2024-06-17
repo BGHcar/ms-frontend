@@ -34,4 +34,8 @@ export class PagoService {
   delete(id: number): Observable<Pago> {
     return this.http.delete<Pago>(`${environment.url_ms_funeraria}/pagos/${id}`);
   }
+
+  findBySubscription(id: number): Observable<Pago[]> {
+    return this.http.get<Pago[]>(`${environment.url_ms_funeraria}/pagossuscripcion/${id}`);
+  }
 }

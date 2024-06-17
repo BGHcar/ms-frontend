@@ -129,6 +129,8 @@ export const AdminLayoutRoutes: Routes = [
     {
         path : 'tipos', canActivate:[AuthGuard],
         loadChildren : () => import('src/app/pages/tipos/tipos.module').then(m => m.TiposModule)
+    },
+    {
         path : 'pay-button',
         loadChildren : () => import('src/app/pages/pay-button/pay-button.module').then(m => m.PayButtonModule)
     }
