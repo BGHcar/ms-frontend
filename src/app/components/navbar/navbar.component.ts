@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
       location.reload();
     });
   }
-  
+
 
   public getTheSecurityService() {
     return this.theSecurityService.existSession();
