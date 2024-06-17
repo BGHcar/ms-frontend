@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comentario } from 'src/app/models/funeraria/comentario.model';
 import { ComentarioService } from 'src/app/services/funeraria/comentario.service';
+import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service'; // Servicio para obtener los servicios disponibles
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,10 +16,12 @@ export class ManageComponent implements OnInit {
   comentario: Comentario; 
   theFormGroup: FormGroup;
   trySend: boolean;
+  serviciosDisponibles: any[] = []; // Array para almacenar los servicios disponibles
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: ComentarioService,
+    private ejecucionservicioService: EjecucionservicioService, // Servicio para obtener los servicios disponibles
     private router: Router,
     private theFormBuilder: FormBuilder
   ) {
@@ -29,6 +32,7 @@ export class ManageComponent implements OnInit {
 
   ngOnInit(): void {
     this.configFormGroup();
+    this.loadServicios(); // Cargar servicios disponibles
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -53,6 +57,17 @@ export class ManageComponent implements OnInit {
 
   get getTheFormGroup() {
     return this.theFormGroup.controls;
+  }
+
+  loadServicios() {
+    this.ejecucionservicioService.list().subscribe((response: any) => {
+      console.log('Datos recibidos del servicio de ejecuciones:', response);
+      if ('data' in response) {
+        this.serviciosDisponibles = response['data'];
+      } else {
+        this.serviciosDisponibles = response;
+      }
+    });
   }
 
   getComentario(id: number) {

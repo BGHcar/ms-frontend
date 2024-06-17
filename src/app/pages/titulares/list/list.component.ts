@@ -3,6 +3,8 @@ import { Titular } from 'src/app/models/funeraria/titular.model';
 import { TitularService } from 'src/app/services/funeraria/titular.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ClienteService } from 'src/app/services/funeraria/cliente.service';
+import { Cliente } from 'src/app/models/funeraria/cliente.model';
 
 @Component({
   selector: 'app-list',
@@ -13,9 +15,12 @@ export class ListComponent implements OnInit {
 
   titulares: Titular[];
   theTitular: Titular;
+  theCliente: Cliente;
 
   constructor(
+
     private service: TitularService,
+    private clienteService: ClienteService,
     private router: Router
   ) {
     this.titulares = [];
@@ -28,24 +33,23 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.titulares = data["data"];
-      console.log(JSON.stringify(this.titulares));
     });
   }
 
   view(id: number) {
-    console.log("id: "+id);
-    this.router.navigate(['titulares/view/'+id]);
+    this.router.navigate(['titulares/view/' + id]);
   }
 
   update(id: number) {
-    this.router.navigate(['titulares/update/'+id]);
+    this.router.navigate(['titulares/update/' + id]);
   }
 
   create() {
     this.router.navigate(['titulares/create']);
   }
 
-  delete(id: number) {
+
+  delete(titular: Titular) {
     Swal.fire({
       title: 'Eliminar Titular',
       text: "Está seguro que quiere eliminar el titular?",
@@ -57,17 +61,31 @@ export class ListComponent implements OnInit {
       cancelButtonText: 'No, Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).
-          subscribe(data => {
-            Swal.fire(
-              'Eliminado!',
-              'El titular ha sido eliminado.',
-              'success'
-            );
-            this.list();
+        this.clienteService.view(titular.cliente_id).subscribe(data => {
+          this.theCliente = data;
+          if (titular.beneficiarios.length > 0) {
+            titular.beneficiarios.forEach(beneficiario => {
+              this.clienteService.view(beneficiario.cliente_id).subscribe(data => {
+                this.theCliente = data;
+                this.clienteService.deleteUser(this.theCliente.user_id).subscribe(data => {
+                  this.clienteService.delete(beneficiario.cliente_id).subscribe(data => {
+                  });
+                });
+              });
+            });
+          };
+          this.clienteService.deleteUser(this.theCliente.user_id).subscribe(data => {
+            this.clienteService.delete(titular.cliente_id).subscribe(data => {
+              Swal.fire(
+                'Eliminado!',
+                'El titular ha sido eliminado.',
+                'success'
+              );
+              this.list();
+            });
           });
+        })
       }
     });
   }
-
 }

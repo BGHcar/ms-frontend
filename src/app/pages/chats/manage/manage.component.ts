@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chat } from 'src/app/models/funeraria/chat.model';
 import { ChatService } from 'src/app/services/funeraria/chat.service';
+import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service'; // Servicio para obtener los servicios disponibles
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,21 +16,23 @@ export class ManageComponent implements OnInit {
   chat: Chat; 
   theFormGroup: FormGroup;
   trySend: boolean;
-
+  serviciosDisponibles: any[] = []; // Array para almacenar los servicios disponibles
 
   constructor(
     private activateRoute: ActivatedRoute,
     private service: ChatService,
+    private ejecucionservicioService: EjecucionservicioService, // Servicio para obtener los servicios disponibles
     private router: Router,
     private theFormBuilder: FormBuilder
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.chat = { id: 0, eservicio_id:0,};
+    this.chat = { id: 0, eservicio_id: 0 };
   }
 
   ngOnInit(): void {
     this.configFormGroup();
+    this.loadServicios(); // Cargar servicios disponibles
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -54,6 +57,17 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
+  loadServicios() {
+    this.ejecucionservicioService.list().subscribe((response: any) => {
+      console.log('Datos recibidos del servicio de ejecuciones:', response);
+      if ('data' in response) {
+        this.serviciosDisponibles = response['data'];
+      } else {
+        this.serviciosDisponibles = response;
+      }
+    });
+  }
+  
   getChat(id: number) {
     this.service.view(id).subscribe(data => {
       this.chat = data;
@@ -90,7 +104,7 @@ export class ManageComponent implements OnInit {
       this.service.update(this.chat).subscribe(data => {
         Swal.fire(
           'Actualizado!',
-          'El Chat ha sido actualizada correctamente',
+          'El Chat ha sido actualizado correctamente',
           'success'
         );
         this.router.navigate(['chats/list']);

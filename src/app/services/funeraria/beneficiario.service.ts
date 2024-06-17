@@ -44,6 +44,10 @@ export class BeneficiarioService {
     return this.http.delete<Beneficiario>(`${environment.url_ms_funeraria}/beneficiarios/${id}`);
   }
 
+  listByTitular(id:number):Observable<Beneficiario[]>{
+    return this.http.get<Beneficiario[]>(`${environment.url_ms_funeraria}/beneficiariostitular/${id}`);
+  }
+
   
 
 }

@@ -10,7 +10,7 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
-  type: number;  // 0: No logeado, 1: Logeado 2: Ambos
+  type: number;  // 0: No logeado, 1: Logeado 2: Admin 3: Cliente 4: Conductor 5: Titular
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', type: 0 },
@@ -27,10 +27,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/seats/list', title: 'Seats', icon: 'ni-bullet-list-67 text-blue', class: '' , type: 1},
   { path: '/login2/manage', title: 'Login2', icon: 'ni-key-25 text-info', class: '' , type: 0},
   { path: '/administradores/list', title: 'Administradores', icon: 'ni-circle-08 text-pink', class: '' , type: 1},
-  { path: '/clientes/list', title: 'Clientes', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/conductores/list', title: 'Conductores', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/titulares/list', title: 'Titulares', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
-  { path: '/beneficiarios/list', title: 'Beneficiarios', icon: 'ni-single-02 text-yellow', class: '' , type: 1},
   { path: '/servicios/list', title: 'Servicios', icon: 'ni-folder-17 text-blue', class: '' , type: 1},
   { path: '/cremaciones/list', title: 'Cremacion', icon: 'ni-folder-17 text-red', class: '' , type: 1},
   { path: '/sepulturas/list', title: 'Sepultura', icon: 'ni-folder-17 text-red', class: '' , type: 1},

@@ -35,4 +35,8 @@ export class SuscripcionService {
   delete(id: number): Observable<Suscripcion> {
     return this.http.delete<Suscripcion>(`${environment.url_ms_funeraria}/suscripciones/${id}`);
   }
+
+  findSuscripcionByClienteId(cliente_id: number): Observable<Suscripcion> {
+    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/suscripcionescliente/${cliente_id}`);
+  }
 }
