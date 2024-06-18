@@ -29,9 +29,6 @@ export class ManageComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private service: ServicioService,
-    private sepulturaService: SepulturaService,
-    private cremacionServices: CremacionService,
-    private trasladoServices:TrasladoService,
     private theFormBuilder: FormBuilder,
     private router: Router
   ) {
@@ -108,12 +105,14 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
     } else {
+      this.servicio.id = this.theFormGroup.get('id').value;
       this.servicio.nombre = this.theFormGroup.get('nombre').value;
       this.servicio.precio = this.theFormGroup.get('precio').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
   
       this.service.create(this.servicio).subscribe(data => {
+        this.servicio.id = data.id;
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate([this.servicio.nombre+'/create'], { queryParams: { servicio_id: this.servicio.id } });
       });
@@ -125,6 +124,7 @@ export class ManageComponent implements OnInit {
 
   update() {
     this.trySend = true;
+
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
@@ -135,11 +135,12 @@ export class ManageComponent implements OnInit {
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
       this.service.update(this.servicio).subscribe(data => {
         Swal.fire(
+          
           'Actualizado!',
           'El servicio ha sido actualizada correctamente',
           'success'
         );
-        this.router.navigate(['servicios/list']);
+        this.router.navigate([this.servicio.nombre+'/create'], { queryParams: { servicio_id: this.servicio.id } });
       });
     }
   }
