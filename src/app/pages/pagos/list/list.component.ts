@@ -119,8 +119,8 @@ export class ListComponent implements OnInit {
       country: "CO",
       lang: "es",
       external: "false",
-      confirmation: "http://secure2.payco.co/prueba_curl.php",
-      response: "http://secure2.payco.co/prueba_curl.php",
+      confirmation: environment.epayco_response,
+      response: environment.epayco_response,
       name_billing: this.titular.nombre + " " + this.titular.apellido,
       type_doc_billing: "cc",
       mobilephone_billing: this.titular.telefono,
@@ -135,7 +135,7 @@ export class ListComponent implements OnInit {
     this.titularService.view(id).subscribe(data => {
       this.titular = data;
       console.log('titular: ' + JSON.stringify(this.titular));
-      this.suscripcionService.findSuscripcionByClienteId(this.titular.cliente_id).subscribe(data => {
+      this.suscripcionService.findSuscripcionByClienteId(this.titular.id).subscribe(data => {
         this.suscripcion = data;
         console.log('suscripcion: ' + JSON.stringify(this.suscripcion));
         this.planService.view(this.suscripcion.plan.id).subscribe(data => {

@@ -33,7 +33,11 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.titulares = data["data"];
+      this.titulares.forEach(titular => {
+        titular.password = '';
+      });
     });
+    
   }
 
   view(id: number) {

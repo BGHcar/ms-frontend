@@ -84,6 +84,7 @@ export class ManageComponent implements OnInit {
   getTitular(id: number) {
     this.service.view(id).subscribe(data => {
       this.titular = data;
+      this.titular.password = '';
     });
   }
 
