@@ -1,5 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
+interface Role {
+  _id: string;
+  name: string;
+  description: string;
+}
+
+interface Session {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: Role;
+  token: string;
+}
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -7,13 +22,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  session = JSON.parse(localStorage.getItem('sesion'));
-  rolename = this.session.role.name;
+  session: Session | null = null;
+  rolename: string | null = null;
 
   constructor() { }
 
-  ngOnInit( ) {
-    console.log(this.rolename)
+  ngOnInit() {
+    const sessionData = localStorage.getItem('sesion');
+    if (sessionData) {
+      this.session = JSON.parse(sessionData);
+      this.rolename = this.session.role.name;
+    } else {
+      console.error('No hay datos');
+    }
   }
-
 }

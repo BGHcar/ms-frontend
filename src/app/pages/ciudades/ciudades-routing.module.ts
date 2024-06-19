@@ -23,7 +23,6 @@ const routes: Routes = [
   {
     path : 'view/:id',
     component : ManageComponent,
-    canActivate: [RoleauthGuard]
   },
   {
     path : 'delete/:id',
