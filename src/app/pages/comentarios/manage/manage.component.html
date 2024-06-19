@@ -45,6 +45,19 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-3">
+                <div class="col-4">
+                  Calificacion:
+                </div>
+                <div class="col-8">
+                  <textarea class="form-control" formControlName="calificacion" [attr.disabled]="mode === 1 ? true : null"></textarea>
+                  <div *ngIf="getTheFormGroup.calificacion.errors && (getTheFormGroup.calificacion.dirty || getTheFormGroup.calificacion.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.calificacion.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.calificacion.errors.min" class="msnError">Mínimo 1</strong>
+                    <strong *ngIf="getTheFormGroup.calificacion.errors.max" class="msnError">Máximo 5</strong>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-4">
                 </div>
