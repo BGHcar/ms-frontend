@@ -6,15 +6,20 @@ import { environment } from 'src/environments/environment';
 import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { ManageComponent } from 'src/app/pages/clientes/manage/manage.component';
 import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
+import { Session } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TitularService {
 
+  
+  private session = JSON.parse(localStorage.getItem('sesion'))
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+  }
 
   list(): Observable<Titular[]> {
     return this.http.get<Titular[]>(`${environment.url_ms_funeraria}/titulares`);
@@ -46,5 +51,9 @@ export class TitularService {
 
   delete(id: number): Observable<Titular> {
     return this.http.delete<Titular>(`${environment.url_ms_funeraria}/titulares/${id}`);
+  }
+
+  viewByEmail(): Observable<Beneficiario[]> { 
+    return this.http.get<Beneficiario[]>(`${environment.url_ms_funeraria}/titularesemail/${this.session.email}`);
   }
 }

@@ -35,7 +35,7 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
-    if (currentUrl.includes('view')) {
+    if (currentUrl.includes('view') || currentUrl.includes('viewByEmail')) {
       this.mode = 1;
     }
     else if (currentUrl.includes('create')) {

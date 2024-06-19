@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'delete/:id',
     component: ManageComponent
-  }
+  },
 ];
 
 @NgModule({
