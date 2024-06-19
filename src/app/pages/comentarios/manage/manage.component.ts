@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.comentario = { id: 0, contenido:"" ,eservicio_id:0 };
+    this.comentario = { id: 0, contenido:"", calificacion:1 ,eservicio_id:0 };
   }
 
   ngOnInit(): void {
@@ -50,6 +50,7 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       contenido: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      calificacion: [1, Validators.required, Validators.min(1), Validators.max(5)],
       eservicio_id: [0, Validators.required]
     });
     console.log('Formulario configurado:', this.theFormGroup);
