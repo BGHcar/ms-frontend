@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { Titular } from 'src/app/models/funeraria/titular.model';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
+import { Router } from '@angular/router';
 
 // core components
 import {
@@ -16,45 +19,84 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
-  public datasets: any;
-  public data: any;
-  public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  titulares: Titular[];
+  theTitular: Titular;
+
+  constructor(
+    private router: Router,
+    private service: TitularService,
+  ) {
+    this.titulares = [];
+  }
 
   ngOnInit() {
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
+    this.guardarid();
 
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
   }
 
+  guardarid() {
+    // Obtener la sesión almacenada en localStorage
+    const sesionString = localStorage.getItem('sesion');
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+    if (sesionString) {
+      // Convertir la sesión de JSON a objeto JavaScript
+      const sesion = JSON.parse(sesionString);
+
+      // Obtener el email del objeto de sesión
+      const emailLocalStorage = sesion.email;
+
+      if (emailLocalStorage) {
+        // Buscar el cliente con el email correspondiente
+        this.service.list().subscribe(data => {
+          const titular = data["data"];
+          titular.password = "";
+          const TitularEncontrado = titular.find(titular => titular.email === emailLocalStorage);
+
+          if (TitularEncontrado) {
+            // Si se encuentra el cliente, guardar su información en localStorage
+            localStorage.setItem('TitularActivo', JSON.stringify(TitularEncontrado));
+          } else {
+            // Si no se encuentra el cliente, eliminar la información previamente guardada
+            localStorage.removeItem('Titular');
+          }
+        });
+      } else {
+        // No hay email almacenado en la sesión
+        console.error('No hay email almacenado en la sesión');
+      }
+    } else {
+      // No hay sesión almacenada en localStorage
+      console.error('No hay sesión almacenada en localStorage');
+    }
+  }
+
+  listchats(){
+    this.router.navigate(['chats/list'])
+  }
+
+  listPagos() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const id = titular.id
+    this.router.navigate(['pagos/list'], { queryParams: { titular_id: id } });
+  }
+
+  listEjecuciones() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const id = titular.id
+    this.router.navigate(['ejecucion/list'], { queryParams: { titular_id: id } });
+  }
+
+  listBeneficiarios() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const id = titular.id
+    this.router.navigate(['beneficiarios/list'], { queryParams: { titular_id: id } });
+  }
+
+  listSuscripciones() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const id = titular.id
+    this.router.navigate(['suscripciones/list'], { queryParams: { titular_id: id } });
   }
 
 }
