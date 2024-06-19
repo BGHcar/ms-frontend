@@ -131,4 +131,7 @@ export class ManageComponent implements OnInit {
       this.router.navigate(['titulares/list']);
     });
   }
+  listchats(){
+    this.router.navigate(['chats/list'])
+  }
 }

@@ -8,15 +8,14 @@
             <div class="card shadow">
                 <div class="card-header bg-transparent">
                     <h1 *ngIf="mode == 1">Vizualizar
-                        <button type="button" class="btn btn-primary float-right" (click)="listBeneficiarios(titular.id)"
-                            *ngIf="mode==1">Beneficiarios
-                        </button>
-                        <button type="button" class="btn btn-primary float-right" (click)="listEjecuciones(titular.id)"
-                            *ngIf="mode==1">Ejecuciones
-                        </button>
-                        <button type="button" class="btn btn-primary float-right" (click)="listPagos(titular.id)"
-                            *ngIf="mode==1">Pagos
-                        </button>
+                        <button type="button" class="btn btn-danger float-right" (click)="listBeneficiarios(titular.id)" title="ver Beneficiarios"*ngIf="mode==1">
+                        <i class="fas fa-users"></i></button>
+                        <button type="button" class="btn btn-custom-color float-right" (click)="listEjecuciones(titular.id)" title="Crear Ejecucion" *ngIf="mode==1">
+                        <i class="fas fa-cogs"></i></button>
+                        <button type="button" class="btn btn-success float-right" (click)="listPagos(titular.id)" title="Ir a pagos" *ngIf="mode==1">
+                        <i class="fas fa-dollar-sign"></i></button>
+                        <button type="button" class="btn btn-info float-right" (click)="listchats()" title="Ir a Chats" *ngIf="mode==1">
+                        <i class="fas fa-comments"></i></button>
                     </h1>
                     <h1 *ngIf="mode == 2">Crear</h1>
                     <h1 *ngIf="mode == 3">actualizar</h1>
