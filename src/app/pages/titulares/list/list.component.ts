@@ -18,7 +18,6 @@ export class ListComponent implements OnInit {
   theCliente: Cliente;
 
   constructor(
-
     private service: TitularService,
     private clienteService: ClienteService,
     private router: Router
@@ -35,9 +34,9 @@ export class ListComponent implements OnInit {
       this.titulares = data["data"];
       this.titulares.forEach(titular => {
         titular.password = '';
+        console.log("titular", this.titulares)
       });
     });
-    
   }
 
   view(id: number) {
@@ -51,7 +50,6 @@ export class ListComponent implements OnInit {
   create() {
     this.router.navigate(['titulares/create']);
   }
-
 
   delete(titular: Titular) {
     Swal.fire({

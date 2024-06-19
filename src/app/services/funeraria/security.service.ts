@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap} from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from 'src/app/models/funeraria/user.model';
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class SecurityService {
   theUser = new BehaviorSubject<User>(new User);
   constructor(private http: HttpClient) { 
     this.verifyActualSession();
+    
   }
 
   /**
@@ -27,6 +29,7 @@ export class SecurityService {
   secondAuth(id:string,token: string): Observable<any> {
     return this.http.put<any>(`${environment.url_ms_security}/public/security/secondauth`, { id, token });
   }
+
   /*
   Guardar la información de usuario en el local storage
   */
@@ -103,4 +106,5 @@ export class SecurityService {
     let sesionActual = localStorage.getItem('sesion');
     return sesionActual;
   }
+  
 }
