@@ -97,7 +97,7 @@ export class ManageComponent implements OnInit {
         this.cliente.email = this.titular.email;
         this.cliente.nombre = this.titular.nombre;
         this.cliente.password = this.titular.password;
-        this.cliente.id=this.titular.id
+
         this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
           this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
           this.service.createCliente(this.cliente).subscribe(data => {

@@ -73,20 +73,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Precio:
-                                </div>
-                                <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="servicio.precio" [disabled]="mode==1"
-                                        formControlName="precio">
-                                    <div *ngIf="getTheFormGroup.precio.errors && (getTheFormGroup.precio.dirty || getTheFormGroup.precio.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.precio.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.precio.errors.min" class="msnError">invalido, el precio minimo es 100000</strong>
-
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-4"></div>

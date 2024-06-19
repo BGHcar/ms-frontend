@@ -21,7 +21,9 @@
                                 <th scope="col-4">Cedula</th>
                                 <th scope="col-5">Telefono</th>
                                 <th scope="col-6">Email</th>
-                                <th scope="col-7">Opciones</th>
+                                <th scope="col-7">Edad</th>
+
+                                <th scope="col-8">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +34,8 @@
                                 <td>{{actual.cedula}}</td>
                                 <td>{{actual.telefono}}</td>
                                 <td>{{actual.email}}</td>
+                                <td>{{actual.edad}}</td>
+
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" (click)="view(actual.id)" title="Ver"><i class="fas fa-eye"></i></button>
                                     <button type="button" class="btn btn-primary btn-sm" (click)="update(actual.id)" title="Editar"><i class="fas fa-edit"></i></button>

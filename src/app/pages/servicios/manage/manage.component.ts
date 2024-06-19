@@ -37,7 +37,7 @@ export class ManageComponent implements OnInit {
     this.traslados=[];
     this.trySend = false;
     this.mode = 1;
-    this.servicio = { id: 0, nombre: "", precio: 0, descripcion: "", duracion: 0 };
+    this.servicio = { id: 0, nombre: "",  descripcion: "", duracion: 0 };
   }
   
 
@@ -66,7 +66,6 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       nombre: ["", [Validators.required, Validators.minLength(1)]],
-      precio: [0, [Validators.required, Validators.min(100000)]],
       descripcion: ["", [Validators.required, Validators.minLength(50)]],
       duracion: [0, [Validators.required, Validators.min(3)]],
 
@@ -82,7 +81,6 @@ export class ManageComponent implements OnInit {
       this.servicio.id = id;
       this.theFormGroup.patchValue({
         nombre: this.servicio.nombre,
-        precio: this.servicio.precio,
         descripcion: this.servicio.descripcion,
         duracion: this.servicio.duracion,
 
@@ -107,7 +105,6 @@ export class ManageComponent implements OnInit {
     } else {
       this.servicio.id = this.theFormGroup.get('id').value;
       this.servicio.nombre = this.theFormGroup.get('nombre').value;
-      this.servicio.precio = this.theFormGroup.get('precio').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
   
@@ -130,7 +127,6 @@ export class ManageComponent implements OnInit {
     } else {
       this.servicio.id = this.theFormGroup.get('id').value;
       this.servicio.nombre = this.theFormGroup.get('nombre').value;
-      this.servicio.precio = this.theFormGroup.get('precio').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
       this.service.update(this.servicio).subscribe(data => {

@@ -30,5 +30,8 @@ export class ServicioService {
   listByTitular(id:number):Observable<Ejecucionservicio[]>{
     return this.http.get<Ejecucionservicio[]>(`${environment.url_ms_funeraria}/serviciotitular/${id}`);
   }
+  checkSubscription(titularId: number): Observable<any> {
+    return this.http.get(`${environment.url_ms_funeraria}/titular/${titularId}/subscription`);
+  }
 
 }

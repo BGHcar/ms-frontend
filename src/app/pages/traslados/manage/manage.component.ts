@@ -104,7 +104,7 @@ export class ManageComponent implements OnInit {
 
       this.service.create(this.traslado).subscribe(data => {
         Swal.fire("Creado", "El Traslado ha sido creado correctamente", "success");
-        this.router.navigate(['traslados/list']);
+        this.router.navigate(['ejecucion/create'], { queryParams: { servicio_id: this.traslado.servicio_id } });
       });
     }
   }

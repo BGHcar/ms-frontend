@@ -9,6 +9,7 @@ import { Servicio } from 'src/app/models/funeraria/servicio.model';
 import { ServicioService } from 'src/app/services/funeraria/servicio.service';
 import { ClienteService } from 'src/app/services/funeraria/cliente.service';
 import { BeneficiarioService } from 'src/app/services/funeraria/beneficiario.service';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
 
 @Component({
   selector: 'app-manage',
@@ -19,7 +20,7 @@ export class ManageComponent implements OnInit {
   
   mode: number;
   ejecucion: Ejecucionservicio;
-  clientes: any[] = [];
+  titulares: any[] = [];
   theFormGroup: FormGroup;
   trySend: boolean;
   servicios: any[] = [];
@@ -31,13 +32,13 @@ export class ManageComponent implements OnInit {
     private theFormBuilder: FormBuilder,
     private router: Router,
     private serviciosServices:ServicioService,
-    private clienteServices: ClienteService,
+    private titularServices: TitularService,
     private BeneficiariosServices:BeneficiarioService
   ) { 
     this.trySend = false;
     this.mode = 1;
 
-    this.ejecucion={id:0, token:"", ubicacion:"", difunto_id:0, servicio_id:0, cliente_id:0};
+    this.ejecucion={id:0, token:"", difunto_id:0, servicio_id:0, cliente_id:0};
   }
   loadServicios() {
     this.serviciosServices.list().subscribe((response: any) => {
@@ -57,21 +58,25 @@ export class ManageComponent implements OnInit {
       }
     });
   }
-  loadCliente() {
-    this.clienteServices.list().subscribe((response: any) => {
+  loadTitular() {
+    this.titularServices.list().subscribe((response: any) => {
       if ('data' in response) {
-        this.clientes = response['data'];
+        this.titulares = response['data'];
       } else {
-        this.clientes = response;
+        this.titulares = response;
       }
     });
   }
   ngOnInit(): void {
     this.configFormGroup();
     this.loadServicios();
-    this.loadCliente();
+    this.loadTitular();
     this.loadBeneficiarios();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
+    const servicioId = this.activateRoute.snapshot.queryParams['servicio_id'];
+    if (servicioId) {
+      this.theFormGroup.patchValue({ servicio_id: servicioId });
+    }
     if (currentUrl.includes('view')) {
       this.mode = 1;
       this.theFormGroup.get('token')?.disable();
@@ -101,7 +106,6 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
-      ubicacion: ["", [Validators.required, Validators.min(1)]],
       difunto_id: [0],
       servicio_id: [0],
       cliente_id: [null],
@@ -116,7 +120,6 @@ export class ManageComponent implements OnInit {
       this.ejecucion = data;
       this.ejecucion.id = id;
       this.theFormGroup.patchValue({
-        nombre: this.ejecucion.ubicacion,
 
       });
     });
@@ -126,7 +129,6 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
-      this.ejecucion.ubicacion = this.theFormGroup.get('ubicacion').value;
       this.ejecucion.difunto_id = this.theFormGroup.get('difunto_id').value;
       this.ejecucion.servicio_id = this.theFormGroup.get('servicio_id').value;
       this.ejecucion.cliente_id = this.theFormGroup.get('cliente_id').value;

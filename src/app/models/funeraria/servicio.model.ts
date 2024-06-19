@@ -5,7 +5,6 @@ import { Traslado } from "./traslado.model";
 export class Servicio {
     id?:number;
     nombre?:string;
-    precio?:number;
     descripcion?:string;
     duracion?:number;
     traslado?:Traslado;
