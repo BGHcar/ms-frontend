@@ -42,17 +42,6 @@
                             </div>  
                             <div class="row">
                                 <div class="col-4">
-                                    Cliente:
-                                </div>
-                                <div class="col-8">
-                                    <select class="form-control" [(ngModel)]="ejecucion.cliente_id" [disabled]="mode == 1" formControlName="cliente_id">
-                                        <option value=>No</option>
-                                        <option *ngFor="let opt of titulares" [value]="opt.id"> Nombre:{{ opt.nombre }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
                                 </div>
                                 <div class="col-8">
                                     <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block" (click)="create()">Crear</button>

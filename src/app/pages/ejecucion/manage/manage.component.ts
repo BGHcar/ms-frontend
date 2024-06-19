@@ -74,6 +74,11 @@ export class ManageComponent implements OnInit {
     this.loadBeneficiarios();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     const servicioId = this.activateRoute.snapshot.queryParams['servicio_id'];
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const titularId = titular.id
+    if (titularId) {
+      this.theFormGroup.patchValue({ cliente_id: titularId });
+    }
     if (servicioId) {
       this.theFormGroup.patchValue({ servicio_id: servicioId });
     }
@@ -95,7 +100,41 @@ export class ManageComponent implements OnInit {
       this.getEjecucion(this.activateRoute.snapshot.params.id);
     }
   }
+  guardarid() {
+    // Obtener la sesión almacenada en localStorage
+    const sesionString = localStorage.getItem('sesion');
 
+    if (sesionString) {
+      // Convertir la sesión de JSON a objeto JavaScript
+      const sesion = JSON.parse(sesionString);
+
+      // Obtener el email del objeto de sesión
+      const emailLocalStorage = sesion.email;
+
+      if (emailLocalStorage) {
+        // Buscar el cliente con el email correspondiente
+        this.service.list().subscribe(data => {
+          const titular = data["data"];
+          titular.password = "";
+          const TitularEncontrado = titular.find(titular => titular.email === emailLocalStorage);
+
+          if (TitularEncontrado) {
+            // Si se encuentra el cliente, guardar su información en localStorage
+            localStorage.setItem('TitularActivo', JSON.stringify(TitularEncontrado));
+          } else {
+            // Si no se encuentra el cliente, eliminar la información previamente guardada
+            localStorage.removeItem('Titular');
+          }
+        });
+      } else {
+        // No hay email almacenado en la sesión
+        console.error('No hay email almacenado en la sesión');
+      }
+    } else {
+      // No hay sesión almacenada en localStorage
+      console.error('No hay sesión almacenada en localStorage');
+    }
+  }
   MostrarServicio(id: number) {
     this.router.navigate(['servicios/view/' + this.ejecucion.servicio_id]);
   }

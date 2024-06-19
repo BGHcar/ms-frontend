@@ -66,7 +66,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       nombre: ["", [Validators.required, Validators.minLength(1)]],
-      descripcion: ["", [Validators.required, Validators.minLength(50)]],
+      descripcion: ["", [Validators.required, Validators.minLength(3)]],
       duracion: [0, [Validators.required, Validators.min(3)]],
 
     });
