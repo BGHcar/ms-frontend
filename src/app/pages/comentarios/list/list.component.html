@@ -1,38 +1,41 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-</div>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Chats y Ejecuciones de Servicios -->
-    <div class="row">
-        <div class="col">
-            <div class="card shadow">
-                <div class="card-header bg-transparent">
-                    <h3 class="mb-0">Comentarios
-                        <!-- Boton de crear al lado derecho -->
-                        <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Comentario</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Calificacion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container *ngFor="let comentario of comentarios">
-                                <tr>
-                                  <td style="white-space: pre-line;">{{ comentario.contenido }}</td>
-                                  <!-- Busca el ejecucionservicio correspondiente al eservicio_id del chat -->
-                                  <td>{{ obtenerNombreServicio(comentario.eservicio_id) }}</td>
-                                </tr>
-                              </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+  <!-- Chats y Ejecuciones de Servicios -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Comentarios
+            <!-- Boton de crear al lado derecho -->
+            <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
+          </h3>
         </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Comentario</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Calificacion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let comentario of comentarios">
+                <tr>
+                  <td style="white-space: pre-line;">{{ comentario.contenido }}</td>
+                  <!-- Busca el ejecucionservicio correspondiente al eservicio_id del chat -->
+                  <td>{{ obtenerNombreServicio(comentario.eservicio_id) }}</td>
+                  <td class="star"
+                  >
+                    {{ getStars(comentario.calificacion) }}
+                </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

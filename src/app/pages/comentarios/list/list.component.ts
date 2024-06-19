@@ -96,5 +96,9 @@ export class ListComponent implements OnInit {
     this.router.navigate(['comentarios/create']);
   }
 
+  getStars(rating: number): string {
+    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  }
+
 
 }
