@@ -1,64 +1,76 @@
-<div  class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
       <!-- Button stats -->
-      <div class="row" *ngIf="session.role.name != 'Administrador' && session.role.name != 'Conductor'">
-        <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-          <button class="btn btn-lg btn-block btn-primary shadow" (click)="listchats()">
+      <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-info shadow btn-custom-shadow" (click)="listchats()">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="text-uppercase text-muted mb-0">Chat</h5>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Chat</h5>
               </div>
-              <div class="icon icon-shape bg-white text-primary rounded-circle shadow">
-                <i class="fas fa-chart-bar"></i>
+              <div class="icon icon-shape bg-white text-info rounded-circle shadow">
+                <i class="fas fa-comments"></i>
               </div>
             </div>
           </button>
         </div>
-        <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-          <button class="btn btn-lg btn-block btn-success shadow" (click)="listPagos()">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-warning shadow btn-custom-shadow" (click)="listEjecuciones()">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="text-uppercase text-muted mb-0">Pagos</h5>
-              </div>
-              <div class="icon icon-shape bg-white text-success rounded-circle shadow">
-                <i class="fas fa-chart-pie"></i>
-              </div>
-            </div>
-          </button>
-        </div>
-        <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-          <button class="btn btn-lg btn-block btn-warning shadow" (click)="listEjecuciones()">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="text-uppercase text-muted mb-0">Ejecucion</h5>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Ejecuciones</h5>
               </div>
               <div class="icon icon-shape bg-white text-warning rounded-circle shadow">
+                <i class="fas fa-tasks"></i>
+              </div>
+            </div>
+          </button>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-danger shadow btn-custom-shadow" (click)="listBeneficiarios()">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Beneficiarios</h5>
+              </div>
+              <div class="icon icon-shape bg-white text-danger rounded-circle shadow">
                 <i class="fas fa-users"></i>
               </div>
             </div>
           </button>
         </div>
-        <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-          <button class="btn btn-lg btn-block btn-danger shadow" (click)="listBeneficiarios()">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-dark shadow btn-custom-shadow" (click)="listServicio()">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="text-uppercase text-muted mb-0">Beneficiarios</h5>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Servicios</h5>
               </div>
-              <div class="icon icon-shape bg-white text-danger rounded-circle shadow">
-                <i class="fas fa-percent"></i>
+              <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
+                <i class="fas fa-concierge-bell"></i>
               </div>
             </div>
           </button>
         </div>
-        <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
-          <button class="btn btn-lg btn-block btn-danger shadow" (click)="listSuscripciones()">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-primary shadow btn-custom-shadow" (click)="listSuscripciones()">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="text-uppercase text-muted mb-0">Suscripciones</h5>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Suscripciones</h5>
               </div>
-              <div class="icon icon-shape bg-white text-danger rounded-circle shadow">
-                <i class="fas fa-percent"></i>
+              <div class="icon icon-shape bg-white text-primary rounded-circle shadow">
+                <i class="fas fa-bell"></i>
+              </div>
+            </div>
+          </button>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+          <button class="btn btn-lg btn-block btn-success shadow btn-custom-shadow" (click)="listPagos()">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="text-uppercase text-white mb-0" style="font-size: 1.25rem;">Pagos</h5>
+              </div>
+              <div class="icon icon-shape bg-white text-success rounded-circle shadow">
+                <i class="fas fa-money-bill-wave"></i>
               </div>
             </div>
           </button>

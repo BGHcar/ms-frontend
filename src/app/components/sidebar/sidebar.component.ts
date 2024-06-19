@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/user-profile', title: 'User profile', icon: 'ni-single-02 text-yellow', class: '', type: "logeado" },
   { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-red', class: '', type: "Administrador" },
   { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '', type: "No logeado" },
-  { path: '/register', title: 'Register', icon: 'ni-circle-08 text-pink', class: '', type: "No logeado" },
+  { path: '/titulares/create', title: 'Register', icon: 'ni-circle-08 text-pink', class: '', type: "No logeado" },
   { path: '/administradores/list', title: 'Administradores', icon: 'ni-circle-08 text-pink', class: '', type: "Administrador" },
   { path: '/conductores/list', title: 'Conductores', icon: 'ni-single-02 text-yellow', class: '', type: "Administrador" },
   { path: '/titulares/list', title: 'Titulares', icon: 'ni-single-02 text-yellow', class: '', type: "Administrador" },

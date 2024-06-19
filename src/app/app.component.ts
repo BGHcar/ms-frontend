@@ -8,7 +8,7 @@ import { Component, HostListener, OnDestroy } from '@angular/core';
 export class AppComponent implements OnDestroy {
   title = 'argon-dashboard-angular';
 
-  private sessionTimeout: number = 5 * 60 * 1000; // 5 minutos en milisegundos
+  private sessionTimeout: number = 10 * 60 * 1000; // 5 minutos en milisegundos
   private timeoutId: ReturnType<typeof setTimeout> | undefined;
   private lastInteraction: number = Date.now();
 

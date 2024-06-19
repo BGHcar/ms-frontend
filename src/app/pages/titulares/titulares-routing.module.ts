@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { RoleauthGuard } from 'src/app/guards/roleauth.guard';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
     path : 'list',
     component : ListComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path : 'create',
@@ -21,6 +23,7 @@ const routes: Routes = [
   {
     path : 'view/:id',
     component : ManageComponent,
+
   },
   {
     path: 'delete/:id',

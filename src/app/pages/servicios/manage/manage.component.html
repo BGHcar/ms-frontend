@@ -36,8 +36,9 @@
                                 </div>
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="servicio.nombre" [attr.disabled]="mode === 1 ? true : null" formControlName="nombre">
-                                        <option value="sepulturas">Sepulturas</option>
-                                        <option value="cremaciones">Cremaciones</option>
+                                        <option value="sepulturas">Sepultura</option>
+                                        <option value="cremaciones">Cremacion</option>
+                                        <option value="sepulturas">Servicio Completo</option>
                                         
                                     </select>
                                         <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">

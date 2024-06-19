@@ -87,6 +87,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['ejecucion/list'], { queryParams: { titular_id: id } });
   }
 
+  listServicio() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const id = titular.id
+    this.router.navigate(['servicios/list'], { queryParams: { titular_id: id } });
+  }
+
   listBeneficiarios() {
     let titular = JSON.parse(localStorage.getItem("TitularActivo"))
     const id = titular.id
