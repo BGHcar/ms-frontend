@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { Plan } from 'src/app/models/funeraria/plan.model';
 import { Titular } from 'src/app/models/funeraria/titular.model';
 import { Suscripcion } from 'src/app/models/funeraria/suscripcion.model';
+import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-list',
@@ -25,6 +26,7 @@ export class ListComponent implements OnInit {
   titular: Titular;
   plan: Plan;
   suscripcion: Suscripcion;
+  suscripciones: Suscripcion[];
 
   constructor(
     private service: PagoService,
@@ -134,10 +136,9 @@ export class ListComponent implements OnInit {
   listByTitular(id: number) {
     this.titularService.view(id).subscribe(data => {
       this.titular = data;
-      console.log('titular: ' + JSON.stringify(this.titular));
       this.suscripcionService.findSuscripcionByClienteId(this.titular.id).subscribe(data => {
-        this.suscripcion = data;
-        console.log('suscripcion: ' + JSON.stringify(this.suscripcion));
+        this.suscripciones = data["data"];
+        this.suscripcion = this.suscripciones[0];
         this.planService.view(this.suscripcion.plan.id).subscribe(data => {
           this.plan = data;
           console.log('plan: ' + JSON.stringify(this.plan));

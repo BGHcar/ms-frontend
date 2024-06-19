@@ -8,8 +8,8 @@ import { Component, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'argon-dashboard-angular';
 
-  @HostListener('window:beforeunload', ['$event'])
-  beforeunloadHandler(event : Event) {
-    localStorage.clear();
-  }
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeunloadHandler(event : Event) {
+  //   localStorage.clear();
+  // }
 }

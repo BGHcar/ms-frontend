@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Suscripcion } from 'src/app/models/funeraria/suscripcion.model';
 import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { Titular } from 'src/app/models/funeraria/titular.model';
+import { TitularService } from 'src/app/services/funeraria/titular.service';
 
 @Component({
   selector: 'app-list',
@@ -14,19 +16,30 @@ export class ListComponent implements OnInit {
 
   suscripciones: Suscripcion[];
   theSuscripcion: Suscripcion;
+  theTitular: Titular;
 
 
-  constructor(private service: SuscripcionService, private router: Router) {
+
+  constructor(
+    private service: SuscripcionService,
+     private router: Router,
+     private activateRoute: ActivatedRoute,
+     private titularService: TitularService
+    ) {
     this.suscripciones = [];
   }
 
   ngOnInit(): void {
+    if (this.activateRoute.snapshot.queryParams.titular_id) {
+      this.findTitular(this.activateRoute.snapshot.queryParams.titular_id);
+    }
+    else {
     this.list();
+    }
   }
 
   list() {
-    this.service.list().subscribe(data => {
-      
+    this.service.list().subscribe(data => {  
       this.suscripciones = data["data"]
     });
   }
@@ -67,6 +80,16 @@ export class ListComponent implements OnInit {
 
   create() {
     this.router.navigate(['suscripciones/create']);
+  }
+
+  findTitular(id: number) {
+    this.titularService.view(id).subscribe(data => {
+      this.theTitular = data;
+      this.theTitular.password = '';
+      this.service.findSuscripcionByClienteId(this.theTitular.id).subscribe(data => {
+        this.suscripciones = data["data"];
+      });
+    });
   }
 
 }
