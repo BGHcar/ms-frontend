@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: 'list',
     component: ListComponent,
-    canActivate:[RoleauthGuard]
 
   },
   {
@@ -26,7 +25,6 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: ManageComponent,
-    canActivate:[RoleauthGuard]
 
   },
   {

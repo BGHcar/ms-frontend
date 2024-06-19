@@ -8,12 +8,12 @@ const routes: Routes = [
   {
     path : 'list',
     component : ListComponent,
-    canActivate:[RoleauthGuard]
+
   },
   {
     path : 'create',
     component : ManageComponent,
-    canActivate: [RoleauthGuard] 
+
   },
   {
     path : 'update/:id',

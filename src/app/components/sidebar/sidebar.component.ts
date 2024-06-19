@@ -16,7 +16,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', type: "No logeado" },
   { path: '/icons', title: 'Icons', icon: 'ni-planet text-blue', class: '', type: "No logeado" },
   { path: '/maps', title: 'Maps', icon: 'ni-pin-3 text-orange', class: '', type: "No logeado" },
-  { path: '/user-profile', title: 'User profile', icon: 'ni-single-02 text-yellow', class: '', type: "Cliente" },
+  { path: '/user-profile', title: 'User profile', icon: 'ni-single-02 text-yellow', class: '', type: "logeado" },
   { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-red', class: '', type: "Administrador" },
   { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '', type: "No logeado" },
   { path: '/register', title: 'Register', icon: 'ni-circle-08 text-pink', class: '', type: "No logeado" },
@@ -36,8 +36,6 @@ export const ROUTES: RouteInfo[] = [
   { path: '/salas/list', title: 'Salas', icon: 'ni-shop text-red', class: '', type: "Administrador" },
   { path: '/chats/list', title: 'Chats', icon: 'ni-email-83 text-red', class: '', type: "Administrador" },
   { path: '/comentarios/list', title: 'Comentarios', icon: 'ni-email-83 text-red', class: '', type: "Ambos" },
-  { path: '/pay-button/list', title: 'Pay Button', icon: 'ni-email-83 text-red', class: '', type: "Ambos" },
-
 ];
 
 // que otros iconos pueden ser usados para un teatro, pelicula, proyector, proyeccion y asiento? 

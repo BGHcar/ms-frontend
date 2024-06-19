@@ -62,6 +62,10 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['pagos/list'], { queryParams: { titular_id: id } });
   }
 
+  listSuscripciones(id: number) {
+    this.router.navigate(['suscripciones/list'], { queryParams: { titular_id: id } });
+  }
+
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
@@ -130,5 +134,8 @@ export class ManageComponent implements OnInit {
       );
       this.router.navigate(['titulares/list']);
     });
+  }
+  listchats(){
+    this.router.navigate(['chats/list'])
   }
 }

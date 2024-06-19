@@ -6,28 +6,30 @@ import { RoleauthGuard } from 'src/app/guards/roleauth.guard';
 
 const routes: Routes = [
   {
-    path: 'list',
-    component: ListComponent,
-    canActivate:[RoleauthGuard]
-
+    path : 'list',
+    component : ListComponent,
   },
   {
-    path: 'create',
-    component: ManageComponent
+    path : 'create',
+    component : ManageComponent,
+    canActivate: [RoleauthGuard] 
   },
   {
-    path: 'update/:id',
-    component: ManageComponent
+    path : 'update/:id',
+    component : ManageComponent,
+    canActivate: [RoleauthGuard] 
   },
   {
-    path: 'view/:id',
-    component: ManageComponent
+    path : 'view/:id',
+    component : ManageComponent,
   },
   {
-    path: 'delete/:id',
-    component: ManageComponent
+    path : 'delete/:id',
+    component : ManageComponent,
+    canActivate: [RoleauthGuard]
   }
 ];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
