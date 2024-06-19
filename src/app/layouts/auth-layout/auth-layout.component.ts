@@ -10,7 +10,10 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   test: Date = new Date();
   public isCollapsed = true;
 
-  constructor(private router: Router) { }
+
+
+  constructor(private router: Router) { 
+  }
 
   ngOnInit() {
     var html = document.getElementsByTagName("html")[0];
