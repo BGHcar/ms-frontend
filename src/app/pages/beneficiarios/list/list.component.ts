@@ -34,12 +34,18 @@ export class ListComponent implements OnInit {
   list() {
     this.service.list().subscribe(data => {
       this.beneficiarios = data["data"];
+      this.beneficiarios.forEach(beneficiario => {
+        beneficiario.password = '';
+      });
     });
   }
 
   listByTitular(id: number) {
     this.service.listByTitular(id).subscribe(data => {
       this.beneficiarios = data["data"];
+      this.beneficiarios.forEach(beneficiario => {
+        beneficiario.password = '';
+      });
     });
   }
 

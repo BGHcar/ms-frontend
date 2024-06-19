@@ -19,7 +19,7 @@ export class RoleauthGuard implements CanActivate {
     console.log(roleName); // Mostrar el nombre del rol en la consola (puedes remover esto después de verificar)
 
     // Verificar si el usuario está autenticado y tiene el rol adecuado
-    if (user && user.isAuthenticated && roleName && roleName !== 'Cliente') {
+    if (roleName !== 'Cliente') {
       return true; // El usuario tiene el rol adecuado
     } else {
       // Mostrar un mensaje de error y redirigir al usuario si no está autenticado o no tiene el rol adecuado

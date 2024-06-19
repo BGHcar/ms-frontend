@@ -58,7 +58,10 @@ export class ManageComponent implements OnInit {
     this.router.navigate(['ejecucion/list'], { queryParams: { titular_id: id } });
   }
 
-  
+  listPagos(id: number) {
+    this.router.navigate(['pagos/list'], { queryParams: { titular_id: id } });
+  }
+
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
@@ -81,6 +84,7 @@ export class ManageComponent implements OnInit {
   getTitular(id: number) {
     this.service.view(id).subscribe(data => {
       this.titular = data;
+      this.titular.password = '';
     });
   }
 
@@ -93,7 +97,7 @@ export class ManageComponent implements OnInit {
         this.cliente.email = this.titular.email;
         this.cliente.nombre = this.titular.nombre;
         this.cliente.password = this.titular.password;
-
+        this.cliente.id=this.titular.id
         this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
           this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
           this.service.createCliente(this.cliente).subscribe(data => {
