@@ -141,7 +141,6 @@ export class ListComponent implements OnInit {
         this.suscripcion = this.suscripciones[0];
         this.planService.view(this.suscripcion.plan.id).subscribe(data => {
           this.plan = data;
-          console.log('plan: ' + JSON.stringify(this.plan));
           this.service.findBySubscription(this.suscripcion.id).subscribe(data => {
             this.pagos = data["data"];
           });
