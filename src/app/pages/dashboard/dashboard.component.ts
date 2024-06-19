@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   titulares: Titular[];
   theTitular: Titular;
-
+  session = JSON.parse(localStorage.getItem('sesion'));
   constructor(
     private router: Router,
     private service: TitularService,

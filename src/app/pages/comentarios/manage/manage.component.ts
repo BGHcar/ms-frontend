@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comentario } from 'src/app/models/funeraria/comentario.model';
 import { ComentarioService } from 'src/app/services/funeraria/comentario.service';
-import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service'; // Servicio para obtener los servicios disponibles
+import { EjecucionservicioService } from 'src/app/services/funeraria/ejecucionservicio.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
   ) {
     this.trySend = false;
     this.mode = 1;
-    this.comentario = { id: 0, contenido:"", calificacion:1 ,eservicio_id:0 };
+    this.comentario = { id: 0, contenido: "", calificacion: 1, eservicio_id: 0 };
   }
 
   ngOnInit(): void {
@@ -36,6 +36,7 @@ export class ManageComponent implements OnInit {
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
+      console.log(this.serviciosDisponibles);
     } else if (currentUrl.includes('create')) {
       this.mode = 2;
     } else if (currentUrl.includes('update')) {
@@ -50,10 +51,9 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       contenido: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-      calificacion: [1, Validators.required, Validators.min(1), Validators.max(5)],
+      calificacion: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       eservicio_id: [0, Validators.required]
     });
-    console.log('Formulario configurado:', this.theFormGroup);
   }
 
   get getTheFormGroup() {
@@ -82,7 +82,8 @@ export class ManageComponent implements OnInit {
           if (this.theFormGroup) {
             this.theFormGroup.patchValue({
               eservicio_id: this.comentario.eservicio_id,
-              contenido: this.comentario.contenido
+              contenido: this.comentario.contenido,
+              calificacion: this.comentario.calificacion
             });
           } else {
             console.error('El formulario no está inicializado.');
@@ -103,6 +104,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
       this.comentario.contenido = this.theFormGroup.get('contenido').value;
+      this.comentario.calificacion = this.theFormGroup.get('calificacion').value;
       this.comentario.eservicio_id = this.theFormGroup.get('eservicio_id').value;
       this.service.create(this.comentario).subscribe(data => {
         Swal.fire(
@@ -121,6 +123,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor llene los campos correctamente", "error");
     } else {
       this.comentario.contenido = this.theFormGroup.get('contenido').value;
+      this.comentario.calificacion = this.theFormGroup.get('calificacion').value;
       this.comentario.eservicio_id = this.theFormGroup.get('eservicio_id').value;
       this.service.update(this.comentario).subscribe(data => {
         Swal.fire(
