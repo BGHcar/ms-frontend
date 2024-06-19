@@ -23,10 +23,9 @@ const routes: Routes = [
     component : ManageComponent,
   },
   {
-    path : 'delete/:id',
-    component : ManageComponent,
-    canActivate: [RoleauthGuard]
-  }
+    path: 'delete/:id',
+    component: ManageComponent
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
