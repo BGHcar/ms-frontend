@@ -135,7 +135,7 @@
                                     Email:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="titular.email" disabled
+                                    <input type="text" class="form-control" [(ngModel)]="titular.email" [disabled]="mode==1" 
                                         formControlName="email">
                                     <div
                                         *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
