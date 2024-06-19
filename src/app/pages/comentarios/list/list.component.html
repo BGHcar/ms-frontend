@@ -8,7 +8,7 @@
         <div class="card-header bg-transparent">
           <h3 class="mb-0">Comentarios
             <!-- Boton de crear al lado derecho -->
-            <button type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
+            <button  *ngIf="session != null && session.role.name != 'Administrador' "  type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
           </h3>
         </div>
         <div class="card-body">

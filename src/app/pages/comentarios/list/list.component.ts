@@ -19,6 +19,7 @@ export class ListComponent implements OnInit {
   ejecucionservicios: Ejecucionservicio[] = [];
   comentariosConDetalles: any[] = [];
   servicios:Servicio[]=[]
+  session = JSON.parse(localStorage.getItem('sesion'));
 
 
   constructor(
@@ -30,6 +31,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.loadData();
   }
   loadData() {
