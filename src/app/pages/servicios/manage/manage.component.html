@@ -32,12 +32,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Nombre:
+                                    Tipo de Servicio:
                                 </div>
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="servicio.nombre" [attr.disabled]="mode === 1 ? true : null" formControlName="nombre">
-                                        <option value="sepulturas">Sepulturas</option>
-                                        <option value="cremaciones">Cremaciones</option>
+                                        <option value="sepulturas">Sepultura</option>
+                                        <option value="cremaciones">Cremacion</option>
                                         
                                     </select>
                                         <div *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    Descripción:
+                                    Nombre Del Servicio:
                                 </div>
                                 <div class="col-8">
                                     <input type="text" class="form-control" [(ngModel)]="servicio.descripcion" [disabled]="mode == 1"

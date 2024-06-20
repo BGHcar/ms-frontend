@@ -10,6 +10,8 @@ import { Cremacion } from 'src/app/models/funeraria/cremacion.model';
 import { CremacionService } from 'src/app/services/funeraria/cremacion.service';
 import { Traslado } from 'src/app/models/funeraria/traslado.model';
 import { TrasladoService } from 'src/app/services/funeraria/traslado.service';
+import { SuscripcionService } from 'src/app/services/funeraria/suscripcion.service';
+import { Suscripcion } from 'src/app/models/funeraria/suscripcion.model';
 
 @Component({
   selector: 'app-manage',
@@ -25,26 +27,44 @@ export class ManageComponent implements OnInit {
   sepulturas: Sepultura[];
   cremaciones: Cremacion[];
   traslados:Traslado[];
-
+  suscripciones: any[] = [];
   constructor(
     private activateRoute: ActivatedRoute,
     private service: ServicioService,
     private theFormBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private suscripcionService: SuscripcionService
+
   ) {
+
     this.sepulturas = [];
     this.cremaciones = [];
     this.traslados=[];
+    this.suscripciones=[]
     this.trySend = false;
     this.mode = 1;
     this.servicio = { id: 0, nombre: "",  descripcion: "", duracion: 0 };
   }
   
 
-
+  loadSuscripciones() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const titularId = titular.id
+    if (titularId) {
+      this.theFormGroup.patchValue({ cliente_id: titularId });
+    }
+    this.suscripcionService.listbytitular(titularId).subscribe((response: any) => {
+      if ('data' in response) {
+        this.suscripciones = response['data'];
+      } else {
+        this.suscripciones = response;
+      }
+    });
+  }
   ngOnInit(): void {
 
     this.configFormGroup();
+    this.loadSuscripciones();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')) {
       this.mode = 1;
@@ -66,7 +86,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       id: [0],
       nombre: ["", [Validators.required, Validators.minLength(1)]],
-      descripcion: ["", [Validators.required, Validators.minLength(3)]],
+      descripcion: ["", [Validators.required, Validators.minLength(10)]],
       duracion: [0, [Validators.required, Validators.min(3)]],
 
     });
@@ -99,6 +119,11 @@ export class ManageComponent implements OnInit {
 
   
   create() {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const titularId = titular.id
+    if (titularId) {
+      this.theFormGroup.patchValue({ cliente_id: titularId });
+    }
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor llene todos los campos", "error");
@@ -107,12 +132,20 @@ export class ManageComponent implements OnInit {
       this.servicio.nombre = this.theFormGroup.get('nombre').value;
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
-  
+      this.suscripcionService.findSuscripcionByClienteId(titularId).subscribe(data => {
+        if(this.suscripciones.length==0){
+          Swal.fire("Error", "Usted no tiene una suscripcion", "error");
+          this.router.navigate(['suscripciones/create']);
+
+
+        }
+        else{
       this.service.create(this.servicio).subscribe(data => {
         this.servicio.id = data.id;
         Swal.fire("Creado", "El servicio ha sido creado correctamente", "success");
         this.router.navigate([this.servicio.nombre+'/create'], { queryParams: { servicio_id: this.servicio.id } });
-      });
+                })
+     } });
     }
   }
 

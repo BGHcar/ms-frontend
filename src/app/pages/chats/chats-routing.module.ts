@@ -13,7 +13,6 @@ const routes: Routes = [
   {
     path : 'create',
     component : ManageComponent,
-    canActivate: [RoleauthGuard] 
   },
   {
     path : 'update/:id',

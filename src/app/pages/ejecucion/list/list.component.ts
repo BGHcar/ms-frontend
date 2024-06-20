@@ -8,6 +8,8 @@ import { Cliente } from 'src/app/models/funeraria/cliente.model';
 import { ClienteService } from 'src/app/services/funeraria/cliente.service';
 import { Beneficiario } from 'src/app/models/funeraria/beneficiario.model';
 import { BeneficiarioService } from 'src/app/services/funeraria/beneficiario.service';
+import { Servicio } from 'src/app/models/funeraria/servicio.model';
+import { ServicioService } from 'src/app/services/funeraria/servicio.service';
 
 
 @Component({
@@ -21,12 +23,15 @@ export class ListComponent implements OnInit {
   theEjecution: Ejecucionservicio;
   clientes: Cliente[];
   beneficiarios:Beneficiario[];
+  servicios: Servicio[];
 
-  constructor(private service: EjecucionservicioService, private clienteServices: ClienteService, private BeneficiarioServices:BeneficiarioService,private router: Router, private activateRoute: ActivatedRoute,
+  constructor(private service: EjecucionservicioService, private clienteServices: ClienteService, private BeneficiarioServices:BeneficiarioService, private servicioServices: ServicioService, private router: Router, private activateRoute: ActivatedRoute,
   ) {
     this.ejecucion = [];
     this.clientes=[];
     this.beneficiarios=[]
+    this.servicios=[]
+
   }
 
   ngOnInit(): void {
@@ -34,6 +39,7 @@ export class ListComponent implements OnInit {
       this.listByTitular(this.activateRoute.snapshot.queryParams.titular_id);
       this.listCliente();
       this.listBeneficiario();
+      this.listServicios();
 
 
       }
@@ -41,6 +47,7 @@ export class ListComponent implements OnInit {
         this.list();
         this.listCliente();
         this.listBeneficiario();
+        this.listServicios();
 
       }
     }
@@ -54,6 +61,11 @@ export class ListComponent implements OnInit {
         this.beneficiarios = data["data"];
       });
     }
+    listServicios() {
+      this.servicioServices.list().subscribe(data => {
+        this.servicios = data["data"];
+      });
+    }
   list() {
     this.service.list().subscribe(data => {
       
@@ -64,6 +76,10 @@ export class ListComponent implements OnInit {
   obtenerNombreCliente(id: number): string {
     const cliente = this.clientes.find(dep => dep.id === id);
     return cliente ? cliente.nombre : 'Desconocido';
+  }
+  obtenerNombreServicio(servicio_id: number): string {
+    const servicio = this.servicios.find(serv => serv.id === servicio_id);
+    return servicio ? servicio.descripcion : 'Desconocido';
   }
   obtenerNombreBeneficiario(id: number): string {
     const beneficiario = this.beneficiarios.find(dep => dep.id === id);

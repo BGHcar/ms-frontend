@@ -39,4 +39,7 @@ export class SuscripcionService {
   findSuscripcionByClienteId(cliente_id: number): Observable<Suscripcion> {
     return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/suscripcionescliente/${cliente_id}`);
   }
+  listbytitular(cliente_id: number): Observable<Suscripcion> {
+    return this.http.get<Suscripcion>(`${environment.url_ms_funeraria}/suscripciontitular/${cliente_id}`);
+  }
 }

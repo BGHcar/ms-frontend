@@ -38,7 +38,6 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col-1">ID</th>
-                                    <th scope="col-2">Token</th>
                                     <th scope="col-4">Id del servicio</th>
                                     <th scope="col-5">Difunto</th>
                                     <th scope="col-6">Nombre del cliente</th>
@@ -49,8 +48,7 @@
                             <tbody>
                                 <tr *ngFor="let actual of ejecucion">
                                     <td>{{actual.id}}</td>
-                                    <td>{{actual.token}}</td>                          
-                                    <td>{{actual.servicio_id}}</td>
+                                    <td>{{ obtenerNombreServicio(actual.servicio_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
                                     <td>{{ obtenerNombreBeneficiario(actual.difunto_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
                                     <td>{{ obtenerNombreCliente(actual.cliente_id)}}</td> <!-- Mostrar el nombre de la Ciudad -->
     

@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path : 'create',
     component : ManageComponent,
-    canActivate: [RoleauthGuard] 
   },
   {
     path : 'update/:id',
@@ -22,7 +21,6 @@ const routes: Routes = [
   {
     path : 'view/:id',
     component : ManageComponent,
-    canActivate: [RoleauthGuard]
   },
   {
     path : 'delete/:id',

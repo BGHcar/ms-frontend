@@ -75,7 +75,7 @@ export class ListComponent implements OnInit {
   obtenerNombreServicio(servicio_id: number): string {
     const ejecucionservicio = this.ejecucionservicios.find(serv => serv.id === servicio_id);
     const servicio = ejecucionservicio ? this.servicios.find(serv => serv.id === ejecucionservicio.servicio_id) : null;
-    return servicio ? servicio.nombre : 'Desconocido';
+    return servicio ? servicio.descripcion : 'Desconocido';
   }
 
   view(id: number) {

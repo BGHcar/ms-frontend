@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
   trySend: boolean;
   servicios: any[] = [];
   beneficiarios:any[]=[];
-
+  
   constructor(
     private activateRoute: ActivatedRoute,
     private service: EjecucionservicioService,
@@ -50,7 +50,12 @@ export class ManageComponent implements OnInit {
     });
   }
   loadBeneficiarios() {
-    this.BeneficiariosServices.list().subscribe((response: any) => {
+    let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    const titularId = titular.id
+    if (titularId) {
+      this.theFormGroup.patchValue({ cliente_id: titularId });
+    }
+    this.BeneficiariosServices.listByTitular(titularId).subscribe((response: any) => {
       if ('data' in response) {
         this.beneficiarios = response['data'];
       } else {
