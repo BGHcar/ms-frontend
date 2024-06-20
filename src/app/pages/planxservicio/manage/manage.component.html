@@ -29,7 +29,7 @@
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="planxservicio.servicio.id" [disabled]="mode == 1" formControlName="servicio_id">
                                         <option value=>SELECCIONE UNA OPCIÓN</option>
-                                        <option *ngFor="let option of servicios" [value]="option.id"> id:{{ option.id }} - nombre: {{option.nombre}} - Ubicacion: {{option.ubicacion}}</option>
+                                        <option *ngFor="let option of servicios" [value]="option.id"> id:{{ option.id }} - Tipo: {{option.nombre}} - Nombre: {{option.descripcion}}</option>
                                     </select>
                                 </div>
                             </div>

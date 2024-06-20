@@ -1,41 +1,70 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table th, .table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .table-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  <!-- Chats y Ejecuciones de Servicios -->
-  <div class="row">
-    <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0">Comentarios
-            <!-- Boton de crear al lado derecho -->
-            <button  *ngIf="session != null && session.role.name != 'Administrador' "  type="button" class="btn btn-primary float-right" (click)="create()">Crear</button>
-          </h3>
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 class="mb-0">Comentarios
+                        <!-- Boton de crear al lado derecho -->
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                  <th scope="col">Comentario</th>
+                                  <th scope="col">Servicio</th>
+                                  <th scope="col">Calificacion</th>
+                                    <th scope="col">Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let actual of comentarios">
+                                    <td>{{actual.id}}</td>
+                                    <th scope="col">Comentario</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Calificacion</th>
+    
+    
+                                    <td>
+                                        <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
+                                        <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
+                                        <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Comentario</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Calificacion</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let comentario of comentarios">
-                <tr>
-                  <td style="white-space: pre-line;">{{ comentario.contenido }}</td>
-                  <!-- Busca el ejecucionservicio correspondiente al eservicio_id del chat -->
-                  <td>{{ obtenerNombreServicio(comentario.eservicio_id) }}</td>
-                  <td class="star"
-                  >
-                    {{ getStars(comentario.calificacion) }}
-                </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
+
+</body>
+</html>

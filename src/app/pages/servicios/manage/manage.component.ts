@@ -49,16 +49,21 @@ export class ManageComponent implements OnInit {
 
   loadSuscripciones() {
     let titular = JSON.parse(localStorage.getItem("TitularActivo"))
+    console.log("TitularActivo:", titular); // Debugging log
     const titularId = titular.id
     if (titularId) {
       this.theFormGroup.patchValue({ cliente_id: titularId });
     }
     this.suscripcionService.listbytitular(titularId).subscribe((response: any) => {
+      console.log("Suscripciones response:", response); // Debugging log
+
       if ('data' in response) {
         this.suscripciones = response['data'];
       } else {
         this.suscripciones = response;
       }
+      console.log("Suscripciones loaded:", this.suscripciones); // Debugging log
+
     });
   }
   ngOnInit(): void {
@@ -133,7 +138,9 @@ export class ManageComponent implements OnInit {
       this.servicio.duracion = this.theFormGroup.get('duracion').value;
       this.servicio.descripcion = this.theFormGroup.get('descripcion').value;
       this.suscripcionService.findSuscripcionByClienteId(titularId).subscribe(data => {
+        console.log(titularId)
         if(this.suscripciones.length==0){
+          console.log(this.suscripciones.length)
           Swal.fire("Error", "Usted no tiene una suscripcion", "error");
           this.router.navigate(['suscripciones/create']);
 
