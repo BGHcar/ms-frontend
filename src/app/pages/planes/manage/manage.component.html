@@ -7,9 +7,9 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                    <h1 *ngIf="mode == 1">Vizualizar</h1>
-                    <h1 *ngIf="mode == 2">Crear</h1>
-                    <h1 *ngIf="mode == 3">actualizar</h1>
+                    <h1 *ngIf="mode == 1">Vizualizar Plan</h1>
+                    <h1 *ngIf="mode == 2">Crear Plan</h1>
+                    <h1 *ngIf="mode == 3">Actualizar Plan</h1>
                 </div>
                 <div class="card-body">
                     <div class="container">
@@ -19,13 +19,16 @@
                                     Nombre:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="plan.nombre" [disabled]="mode == 1"
-                                        formControlName="nombre">
+                                    <input type="text" class="form-control" [(ngModel)]="plan.nombre"
+                                        [disabled]="mode == 1" formControlName="nombre">
                                     <div
                                         *ngIf="getTheFormGroup.nombre.errors && (getTheFormGroup.nombre.dirty || getTheFormGroup.nombre.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength" class="msnError">Invalido</strong>
-                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength" class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.minlength"
+                                            class="msnError">Invalido</strong>
+                                        <strong *ngIf="getTheFormGroup.nombre.errors.maxlength"
+                                            class="msnError">Invalido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -34,11 +37,12 @@
                                     Precio:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="plan.precio" [disabled]="mode==1"
-                                        formControlName="precio">
+                                    <input type="number" class="form-control" [(ngModel)]="plan.precio"
+                                        [disabled]="mode==1" formControlName="precio">
                                     <div
                                         *ngIf="getTheFormGroup.precio.errors && (getTheFormGroup.precio.dirty || getTheFormGroup.precio.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.precio.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.precio.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -47,11 +51,12 @@
                                     Maximo de beneficiarios:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="plan.max_beneficiarios" [disabled]="mode==1"
-                                        formControlName="max_beneficiarios">
+                                    <input type="number" class="form-control" [(ngModel)]="plan.max_beneficiarios"
+                                        [disabled]="mode==1" formControlName="max_beneficiarios">
                                     <div
                                         *ngIf="getTheFormGroup.max_beneficiarios.errors && (getTheFormGroup.max_beneficiarios.dirty || getTheFormGroup.max_beneficiarios.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.max_beneficiarios.errors.required" class="msnError">Requerido</strong>    
+                                        <strong *ngIf="getTheFormGroup.max_beneficiarios.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -60,11 +65,12 @@
                                     Duracion:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="plan.duracion" [disabled]="mode==1"
-                                        formControlName="duracion">
+                                    <input type="number" class="form-control" [(ngModel)]="plan.duracion"
+                                        [disabled]="mode==1" formControlName="duracion">
                                     <div
                                         *ngIf="getTheFormGroup.duracion.errors && (getTheFormGroup.duracion.dirty || getTheFormGroup.duracion.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.duracion.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.duracion.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -73,24 +79,16 @@
                                     Descuento:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="plan.descuento" [disabled]="mode==1"
+                                    <select class="form-control" [(ngModel)]="plan.descuento"
                                         formControlName="descuento">
+                                        <option value=0>0%</option>
+                                        <option value=5>5%</option>
+                                        <option value=10>10%</option>   
+                                    </select>
                                     <div
                                         *ngIf="getTheFormGroup.descuento.errors && (getTheFormGroup.descuento.dirty || getTheFormGroup.descuento.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.descuento.errors.required" class="msnError">Requerido</strong>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    Precio final:
-                                </div>
-                                <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="plan.precio_final" [disabled]="mode==1"
-                                        formControlName="precio_final">
-                                    <div
-                                        *ngIf="getTheFormGroup.precio_final.errors && (getTheFormGroup.precio_final.dirty || getTheFormGroup.precio_final.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.precio_final.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.descuento.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -98,8 +96,10 @@
                                 <div class="col-4">
                                 </div>
                                 <div class="col-8">
-                                    <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                                    <button *ngIf="mode==3" type="button" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                                    <button *ngIf="mode==2" type="button" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" type="button" class="btn btn-primary btn-block"
+                                        (click)="update()">Actualizar</button>
                                 </div>
                             </div>
                         </form>
