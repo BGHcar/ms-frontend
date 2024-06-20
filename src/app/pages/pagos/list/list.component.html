@@ -50,11 +50,12 @@
                                 <td>{{actual.id}}</td>
                                 <td>{{actual.monto}}</td>
                                 <td>{{actual.fecha}}</td>
-                                <td>{{actual.suscripcion_id}}</td>
+                                <td>{{plan.nombre}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" (click)="view(actual.id)">Ver</button>
                                         <button type="button" class="btn btn-primary" (click)="update(actual.id)">Editar</button>
                                         <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Eliminar</button>
+                                        <button type="button" class="btn btn-info" (click)="pay()">Pagar con ePayco</button>
                                     </td>
                                 </tr>
                             </tbody>

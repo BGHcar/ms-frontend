@@ -23,7 +23,7 @@
                 <div class="col-4">Ejecución de Servicio:</div>
                 <div class="col-8">
                   <select class="form-control" [(ngModel)]="chat.eservicio_id" [attr.disabled]="mode === 1 ? true : null" formControlName="eservicio_id">
-                    <option *ngFor="let servicio of serviciosDisponibles" [value]="servicio.id">{{ servicio.id }} - {{ servicio.cliente.nombre }} - {{ servicio.descripcion }}</option>
+                    <option *ngFor="let servicio of serviciosDisponibles" [value]="servicio.id">Id: {{ servicio.id }} - Cliente: {{ servicio.cliente.nombre }} - Servicio: {{ servicio.servicio.nombre }}</option>
                   </select>                  
                   <div *ngIf="getTheFormGroup.eservicio_id.errors && (getTheFormGroup.eservicio_id.dirty || getTheFormGroup.eservicio_id.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.eservicio_id.errors.required" class="msnError">Requerido</strong>
