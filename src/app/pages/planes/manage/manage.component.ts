@@ -58,8 +58,7 @@ export class ManageComponent implements OnInit {
       max_beneficiarios: [0, [Validators.required, Validators.min(1)]],
       duracion: [0, [Validators.required, Validators.min(1)]],
       estado: [true, []],
-      precio_final: [0, [Validators.required, Validators.min(1)]],
-      descuento: [0, [Validators.required, Validators.min(1)]],
+      descuento: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
       servicios: [[], []],
       clientes: [[], []]
 
@@ -73,7 +72,6 @@ export class ManageComponent implements OnInit {
   getPlan(id: number) {
     console.log(id);
     this.service.view(id).subscribe(data => {
-      console.log(data);
       this.plan = data 
     });
   }
@@ -82,8 +80,8 @@ export class ManageComponent implements OnInit {
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire('Error', 'Por favor llene todos los campos', 'error');
-      console.log(this.plan);
     } else {
+      this.plan.precio_final = this.plan.precio - (this.plan.precio * this.plan.descuento / 100);
       this.service.create(this.plan).subscribe(data => {
         Swal.fire('Creado', 'El plan ha sido creado', 'success');
         this.router.navigate(['planes/list']);

@@ -100,9 +100,12 @@ export class ManageComponent implements OnInit {
     } else {
       this.cliente.nombre = this.beneficiario.nombre;
       this.cliente.email = this.beneficiario.email;
-      this.cliente.password = this.beneficiario.password;
-      console.log(JSON.stringify(this.beneficiario));
+      this.cliente.password = this.beneficiario.password;;
       this.suscripcionService.findSuscripcionByClienteId(this.beneficiario.titular.id).subscribe(data => {
+        const suscripcion = JSON.parse(JSON.stringify(data["data"][0]))
+        const titular = this.titulares.find(titular => titular.id == this.beneficiario.titular.id);
+        if (titular.beneficiarios.length < suscripcion.plan.max_beneficiarios) {
+
         this.service.security(this.cliente.nombre, this.cliente.email, this.cliente.password).subscribe(data => {
           this.cliente.user_id = JSON.parse(JSON.stringify(data))._id;
           this.service.createCliente(this.cliente).subscribe(data => {
@@ -118,6 +121,9 @@ export class ManageComponent implements OnInit {
             });
           });
         });
+      } else {
+        Swal.fire('Error', 'El titular ha alcanzado el limite de beneficiarios', 'error');
+      }
       });
     }
   }
